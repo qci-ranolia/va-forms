@@ -19,16 +19,21 @@
   padding: 15px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
-.call {
+.online, .offline{
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #73ec7e;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
   display: inline-block;
   line-height: 40px;
   text-align: center;
   color: #fff;
+}
+.online{
+  background: #73ec7e;
+}
+.offline{
+  background: #bfbfbf;
 }
 .phone-no {
   line-height: 40px;
