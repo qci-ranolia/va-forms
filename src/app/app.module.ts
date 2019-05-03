@@ -14,6 +14,8 @@ import { ChatComponent } from "./home/chat/chat.component";
 import { ResponseComponent } from "./home/response/response.component";
 import { GraphicComponent } from "./home/graphic/graphic.component";
 import { MatTabsModule } from "@angular/material/tabs";
+import { PopUpComponent } from "./pop-up/pop-up.component";
+import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 
 @NgModule({
   declarations: [
@@ -24,10 +26,13 @@ import { MatTabsModule } from "@angular/material/tabs";
     FormComponent,
     ChatComponent,
     ResponseComponent,
-    GraphicComponent
+    GraphicComponent,
+    PopUpComponent
   ],
+  entryComponents: [PopUpComponent],
   imports: [
     MatTabsModule,
+    MatBottomSheetModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,

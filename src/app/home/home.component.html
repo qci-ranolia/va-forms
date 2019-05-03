@@ -1,4 +1,4 @@
-<mat-tab-group>
+<!-- <mat-tab-group>
   <mat-tab label="forms">
     <app-form></app-form>
   </mat-tab>
@@ -16,32 +16,41 @@
   </mat-tab>
 </mat-tab-group>
 <form>
-  <div class="form-group">
-    <label for="name">Servey Name:</label>
-    <input type="text" class="form-control" id="name" />
-  </div>
-  <div class="form-group">
-    <label for="name">Click Doc :</label>
-    <input type="text" class="form-control" id="name" />
-  </div>
-  <div class="form-group">
-    <label for="name">Select Gender :</label>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio" />male
-      </label>
+  <div class="card">
+    <div class="form-group">
+      <label for="name">Servey Name:</label>
+      <input type="text" class="form-control" id="name" />
     </div>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio" />female
-      </label>
+    <div class="form-group">
+      <label for="name">Click Doc :</label>
+      <input type="text" class="form-control" id="name" />
+    </div>
+    <div class="form-group">
+      <label for="name">Select Gender :</label>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optradio" />male
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optradio" />female
+        </label>
+      </div>
     </div>
   </div>
-</form>
-
-<a [routerLink]="['/form']"> Form </a>
-<a [routerLink]="['/chat']"> Chat </a>
-<a [routerLink]="['/response']"> Response </a>
-<a [routerLink]="['/graphic']"> Graphic </a>
+</form> -->
+<div class="container-fluid navBar text-center">
+  <div class="row">
+    <a [routerLink]="['/form']" class="col" routerLinkActive="active"> Form </a>
+    <a [routerLink]="['/chat']" class="col" routerLinkActive="active"> Chat </a>
+    <a [routerLink]="['/response']" class="col" routerLinkActive="active">
+      Response
+    </a>
+    <a [routerLink]="['/graphic']" class="col" routerLinkActive="active">
+      Graphic
+    </a>
+  </div>
+</div>
 
 <router-outlet></router-outlet>
