@@ -1,3 +1,36 @@
-<p>
-  response works!
-</p>
+<table class="col-sm-12">
+    <thead>
+      <tr>
+        <th class="row m-0">
+          <div class="border col-sm-1">Sr.</div>
+          <div class="border col-sm-2">Project Name</div>
+          <div class="border col-sm-2">Submitted by</div>
+          <div class="border col-sm-2">Date</div>
+          <div class="border col-sm-2">Details</div>
+        </th>
+
+        <!-- <th>Project Name</th>
+        <th>Submitted by</th>
+        <th>Date</th>
+        <th>down icon</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let response of responses; let i = index;" [class.hidden]="!hideme[i]">
+        <td class="row m-0" style="position:relative">
+          <div class="border col-sm-1">{{i}}</div>
+          <div class="border col-sm-2">{{response.project_name}}</div>
+          <div class="border col-sm-2">{{response.project_submitted_by}}</div>
+          <div class="border col-sm-2">{{response.project_submition_date}}</div>
+          <div class="border" *ngIf="response.project_info" (click)="hideme[i] = !hideme[i]">Show/Hide details
+            <div class="border" style="position:absolute;bottom:0;left:0;" [hidden]="!hideme[i]">
+              {{response.project_info.info1}}
+              {{response.project_info.info2}}
+              {{response.project_info.info3}}
+              {{response.project_info.info4}}
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+</table>
