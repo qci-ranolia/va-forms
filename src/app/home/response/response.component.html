@@ -2,33 +2,27 @@
     <thead>
       <tr>
         <th class="row m-0">
-          <div class="border col-sm-1">Sr.</div>
-          <div class="border col-sm-2">Project Name</div>
-          <div class="border col-sm-2">Submitted by</div>
-          <div class="border col-sm-2">Date</div>
-          <div class="border col-sm-2">Details</div>
+          <div class="border">Sr.</div>
+          <div class="border">Project Name</div>
+          <div class="border">Submitted by</div>
+          <div class="border">Date</div>
+          <div class="border">Details</div>
         </th>
-
-        <!-- <th>Project Name</th>
-        <th>Submitted by</th>
-        <th>Date</th>
-        <th>down icon</th> -->
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let response of responses; let i = index;" [class.hidden]="!hideme[i]">
-        <td class="row m-0" style="position:relative">
-          <div class="border col-sm-1">{{i}}</div>
-          <div class="border col-sm-2">{{response.project_name}}</div>
-          <div class="border col-sm-2">{{response.project_submitted_by}}</div>
-          <div class="border col-sm-2">{{response.project_submition_date}}</div>
-          <div class="border" *ngIf="response.project_info" (click)="hideme[i] = !hideme[i]">Show/Hide details
-            <div class="border" style="position:absolute;bottom:0;left:0;" [hidden]="!hideme[i]">
-              {{response.project_info.info1}}
-              {{response.project_info.info2}}
-              {{response.project_info.info3}}
-              {{response.project_info.info4}}
-            </div>
+      <tr *ngFor="let response of responses; let i = index;" [class.active]="clicked === response" (click)="clicked = response">
+        <td class="row m-0" style="position:relative;">
+          <div class="border">{{i}}</div>
+          <div class="border">{{response.project_name}}</div>
+          <div class="border">{{response.project_submitted_by}}</div>
+          <div class="border">{{response.project_submition_date}}</div>
+          <div class="border">Some more details...</div>
+          <div class="border extra-details p-0">
+            <div class="border d-inline-block">{{response.project_info.info1}}</div>
+            <div class="border d-inline-block">{{response.project_info.info2}}</div>
+            <div class="border d-inline-block">{{response.project_info.info3}}</div>
+            <div class="border d-inline-block">{{response.project_info.info4}}</div>
           </div>
         </td>
       </tr>

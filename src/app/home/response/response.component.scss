@@ -1,0 +1,60 @@
+table thead th div, table tbody td div {
+    min-width: 24%;
+    max-width: 24%;
+    padding: 5px;
+    box-sizing: border-box;
+    height: 48px;
+    max-height: 48px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp:2;
+    line-height: 18px;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    color: #424342;
+}
+table thead th div:first-child, table tbody td div:first-child {
+    min-width: 4%;
+    max-width: 4%;
+}
+table tbody tr td {
+    cursor: pointer;
+    transition: all 250ms linear 50ms;
+    height: 48px;
+    & .extra-details {
+        transition: all 250ms linear 50ms;
+        display: none;
+        & div {
+            min-width: 25%;
+            max-width: 25%;
+            padding: 5px;
+            box-sizing: border-box;
+            height: 48px;
+            max-height: 48px;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp:2;
+            line-height: 18px;
+            -webkit-box-orient:vertical;
+            overflow: hidden;
+            color: #424342;
+        }
+    }
+}
+table tbody tr.active td {
+    transition: all 250ms linear 50ms;
+    height: 96px;
+    & .extra-details {
+        transition: all 250ms linear 50ms;
+        display: block;       
+    }
+}
+.extra-details {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    max-width: 100% !important;
+}

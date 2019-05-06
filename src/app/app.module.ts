@@ -15,6 +15,9 @@ import { ResponseComponent } from "./home/response/response.component";
 import { GraphicComponent } from "./home/graphic/graphic.component";
 import { MatTabsModule } from "@angular/material/tabs";
 
+import { APIService } from './service/APIService';
+import { ProjectService } from './service/ProjectService';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,7 @@ import { MatTabsModule } from "@angular/material/tabs";
     FormsModule,
     RouterModule.forRoot(routes, { useHash: true })
   ],
-  providers: [],
+  providers: [APIService, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
