@@ -1,35 +1,10 @@
-<div class="container">
+<div class="pl-2 pr-2">
   <div class="row">
-    <div class="col">
-      <div class="card" *ngFor="let form of forms; let i = index" (click)="formQuestions(i)">
+    <div class="col mt-3">
+      <mat-card class="mb-2" *ngFor="let form of forms; let i = index" (click)="formQuestions(i)">
         <p>Form:{{form.project_name}}</p>
         <p><strong>questions</strong>:{{form.questions}}</p>
-      </div>
+      </mat-card>
     </div>
   </div>
 </div>
-
-
-<!-- <form>
-  <div class="form-group">
-    <label for="name">Servey Name:</label>
-    <input type="text" class="form-control" id="name" />
-  </div>
-  <div class="form-group">
-    <label for="name">Click Doc :</label>
-    <input type="text" class="form-control" id="name" />
-  </div>
-  <div class="form-group">
-    <label for="name">Select Gender :</label>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio" />male
-      </label>
-    </div>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio" />female
-      </label>
-    </div>
-  </div>
-</form> -->

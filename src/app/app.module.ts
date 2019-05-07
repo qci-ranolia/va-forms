@@ -13,10 +13,18 @@ import { FormComponent } from "./home/form/form.component";
 import { ChatComponent } from "./home/chat/chat.component";
 import { ResponseComponent } from "./home/response/response.component";
 import { GraphicComponent } from "./home/graphic/graphic.component";
-import { MatTabsModule } from "@angular/material/tabs";
 
 import { APIService } from './service/APIService';
 import { ProjectService } from './service/ProjectService';
+
+import {
+  MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule,
+  MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule, MatGridListModule,
+  MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule,
+  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule,
+  MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatTableModule,
+  MatTabsModule, MatToolbarModule, MatTooltipModule
+} from '@angular/material'
 
 @NgModule({
   declarations: [
@@ -30,10 +38,28 @@ import { ProjectService } from './service/ProjectService';
     GraphicComponent
   ],
   imports: [
-    MatTabsModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule,
+    MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule,
+    MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatTableModule,
+    MatTabsModule, MatToolbarModule, MatTooltipModule,
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [APIService, ProjectService],

@@ -1,24 +1,7 @@
-<!-- <mat-tab-group>
-  <mat-tab label="forms">
-    <app-form></app-form>
-  </mat-tab>
-  <mat-tab label="call">
-    <app-chat></app-chat>
-  </mat-tab>
-  <mat-tab label="response">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <app-graphic></app-graphic>
-        </div>
-      </div>
-    </div>
-  </mat-tab>
-</mat-tab-group> -->
-
-<a [routerLink]="['/form']">Form</a>
-<a [routerLink]="['/chat']">Chat</a>
-<a [routerLink]="['/response']">Response</a>
-<a [routerLink]="['/graphic']">Graphic</a>
-
+<div class="row">
+  <button class="col-sm-4 rounded-0" mat-stroked-button [routerLink]="['/form']" routerLinkActive="active">Forms</button>
+  <button class="col-sm-4 rounded-0" mat-stroked-button [routerLink]="['/chat']" routerLinkActive="active">Chat</button>
+  <button class="col-sm-4 rounded-0" mat-stroked-button [routerLink]="['/response']" routerLinkActive="active">Response</button>
+  <!-- <button class="col-sm-4 rounded-0" mat-stroked-button [routerLink]="['/graphic']">nav name</button> -->
+</div>
 <router-outlet></router-outlet>
