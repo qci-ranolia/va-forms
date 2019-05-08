@@ -11,24 +11,30 @@ import { ProjectService } from "../../service/ProjectService";
 export class ChatComponent implements OnInit {
 
   chatUsers: any = [];
+  dialUser: boolean = false;
+  contactUser: any = {}
 
   constructor(private projectService: ProjectService, private bottomSheet: MatBottomSheet) {
     this.projectService.emitChatUsers.subscribe(res=>{
       this.chatUsers = res.chatUsers
-      console.log(this.chatUsers)
+      this.dialUser = res.dialUser
     })
-  }
 
-  openBottomSheet(): void {
-    this.bottomSheet.open(PopUpComponent);
+    this.projectService.emitDialUser.subscribe(res=>{
+      this.dialUser = res.dialUser
+    })
   }
 
   ngOnInit() {
     this.projectService.getChatUsers()
+    // this.projectService.getChatUsers()
   }
 
   contactThisUser(chatUser) {
     console.log(chatUser)
+    this.contactUser = chatUser
+    this.projectService.emitUserDial(true)
+    this.projectService.emitDialUserDetailsTOComponent(chatUser)
   }
 
 }

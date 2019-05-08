@@ -1,23 +1,30 @@
 <div class="container">
-  <ul class="list-group row" *ngFor="let chatUser of chatUsers">
 
-    <li class="list-group-item col" (click)=contactThisUser(chatUser) >
-      <div class="seperate">
-        <a class="float-left phone-no">{{chatUser.name}}</a>
-      </div>
-      <div class="seperate text-right">
+  <div *ngIf="!dialUser" >
+    <ul class="list-group row" *ngFor="let chatUser of chatUsers">
 
-        <span class="call" mat-raised-button (click)="openBottomSheet()"
-           *ngIf="chatUser.status=='online'" class="online"
-          ><i class="fa fa-phone " aria-hidden="true"></i
-        ></span>
+      <li class="list-group-item col" (click)=contactThisUser(chatUser) >
+        <div class="seperate">
+          <a class="float-left phone-no">{{chatUser.name}}</a>
+        </div>
+        <div class="seperate text-right">
 
-        <span *ngIf="chatUser.status=='offline'" class="offline"
-          ><i class="fa fa-phone " aria-hidden="true"></i
-        ></span>
+          <span class="call" mat-raised-button
+             *ngIf="chatUser.status=='online'" class="online"
+            ><i class="fa fa-phone " aria-hidden="true"></i
+          ></span>
 
-      </div>
-    </li>
+          <span *ngIf="chatUser.status=='offline'" class="offline"
+            ><i class="fa fa-phone " aria-hidden="true"></i
+          ></span>
 
-  </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div *ngIf="dialUser" >
+  <br>
+  <app-dial [user]=contactUser ></app-dial>
 </div>

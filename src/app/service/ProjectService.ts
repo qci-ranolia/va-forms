@@ -7,8 +7,12 @@ import { HttpEvent, HttpEventType, HttpClient, HttpRequest, HttpErrorResponse } 
 @Injectable()
 export class ProjectService {
 
+  dialUser = false;
+  userToBeDialed = {};
   emitUI : EventEmitter<any> = new EventEmitter<any>();
+  emitDialUser : EventEmitter<any> = new EventEmitter<any>();
   emitChatUsers: EventEmitter<any> = new EventEmitter<any>();
+  emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
 
@@ -57,8 +61,23 @@ export class ProjectService {
       if(response)
       // console.log(response)
       this.emitChatUsers.emit({
-        chatUsers: response
+        chatUsers: response,
+        dialUser: this.dialUser
       })
+    })
+  }
+
+  emitUserDial(flag) {
+    this.dialUser = flag;
+    this.emitDialUser.emit(
+      {dialUser : this.dialUser}
+    )
+  }
+
+  emitDialUserDetailsTOComponent(user) {
+    this.userToBeDialed = user
+    this.emitDialUserDetails.emit({
+      user: this.userToBeDialed
     })
   }
 
