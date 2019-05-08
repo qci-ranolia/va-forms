@@ -15,7 +15,6 @@ export class ResponseComponent implements OnInit {
     this.projectService.emitResponses.subscribe( res => {
       this.responses = res
     })
-  
   }
 
   ngOnInit(){

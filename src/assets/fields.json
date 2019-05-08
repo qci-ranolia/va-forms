@@ -1,0 +1,103 @@
+{
+    "physical_location":[
+        {
+            "id":"ahjdashj",
+            "question":"Geotagged Assessment",
+            "radio":"Yes",
+            "evidence":"show condition if true"
+        }
+    ],
+    "production_capability":[
+        {
+            "id":"ahjdsdashj",
+            "question":"Which machines are critical for your production?",
+            "radio":"No",
+            "evidence":[
+                {
+                    "equipment":"machine/equipment",
+                    "picture":"image src 1"
+                },
+                {
+                    "equipment":"machine/equipment",
+                    "picture":"image src 2"
+                },
+                {
+                    "equipment":"machine/equipment",
+                    "picture":"image src 3"
+                }
+            ]
+        },
+        {
+            "id":"ahjdashjsad",
+            "question":"If these machines are automated",
+            "radio":"Yes",
+            "evidence":"if true show next question"
+        },
+        {
+            "id":"ahjdashfhj",
+            "question":"What is the capability of your daily unit manufacturing and for monthly?",
+            "radio":"No",
+            "evidence":"show condition if true"
+        }
+    ],
+    "quality":[
+        {
+            "id":"ahjdassasahj",
+            "question":"Do you have quality control mechanism for product?",
+            "radio":"Yes",
+            "evidence":"show condition if true"
+        },
+        {
+            "id":"ahjdasahaj",
+            "question":"Have you made SOP for quality plan?",
+            "radio":"Yes",
+            "evidence":"show condition if true"
+        },
+        {
+            "id":"ahjdashjaa",
+            "question":"What is the rejection percentage of the final product?",
+            "radio":"No",
+            "evidence":"show condition if true"
+        },
+        {
+            "id":"fdahjdashj",
+            "question":"Do you provide warranty/guarantee or recalling to your product?",
+            "radio":"Yes",
+            "evidence":"show condition if true"
+        }
+    ],
+    "transportation":[
+        {
+            "id":"fddfahjdashj",
+            "question":"What are the various practices/tools for transport and storage techniques?",
+            "radio":"No",
+            "evidence":"show condition if true"
+        },
+        {
+            "id":"bmbahjdashj",
+            "question":"Have you documented at various stages?",
+            "radio":"Yes",
+            "evidence":"show condition if true"
+        },
+        {
+            "id":"zxczahjdashj",
+            "question":"Is the state of art Pan India or regional?",
+            "radio":"Yes",
+            "evidence":"show condition if true"
+        }
+    ],
+    "suppliers":[
+        {
+            "id":"trahjdashj",
+            "question":"What key aspects do you focus on while selecting suppliers?",
+            "radio":"No",
+            "evidence":"show condition if true"
+        },
+        {
+            "id":"jhgahjdashj",
+            "question":"Do you monitor their performance, If yes, How?",
+            "radio":"Yes",
+            "evidence":"show condition if true"
+        }
+    ]
+}

@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HttpClientModule, HttpEventType,  HttpClient,  HttpRequest } from '@angular/common/http';
 
 import { routes } from "./app.routes";
 import { AppComponent } from "./app.component";
@@ -16,7 +17,7 @@ import { GraphicComponent } from "./home/graphic/graphic.component";
 
 import { APIService } from './service/APIService';
 import { ProjectService } from './service/ProjectService';
-
+//import { MatFileUploadModule } from 'angular-material-fileupload';
 import {
   MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule,
   MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule, MatGridListModule,
@@ -41,6 +42,7 @@ import {
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -60,6 +62,7 @@ import {
     MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule,
     MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatTableModule,
     MatTabsModule, MatToolbarModule, MatTooltipModule,
+    //MatFileUploadModule,
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [APIService, ProjectService],

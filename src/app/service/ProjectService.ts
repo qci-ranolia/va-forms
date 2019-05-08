@@ -1,5 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpEvent, HttpEventType, HttpClient, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { APIService } from './APIService';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class ProjectService {
@@ -8,8 +11,40 @@ export class ProjectService {
     emitChatUsers: EventEmitter<any> = new EventEmitter<any>();
     emitResponses: EventEmitter<any> = new EventEmitter<any>();
 
-    // constructor() {}
+    constructor(private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
 
+    HttpEventResponse(event) {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            // console.log('Request started');
+            break;
+          case HttpEventType.ResponseHeader:
+            // console.log('Headers received ->', event.headers);
+            break;
+          case HttpEventType.DownloadProgress:
+            const loaded = Math.round(event.loaded / 1024);
+            // console.log(`Downloading ${ loaded } kb downloaded`);
+            break;
+          case HttpEventType.Response:
+            // console.log('Finished -> ', event.body);
+            return event.body;
+        }
+    }
+    
+    get_admin_ui(){
+      this.APIService.Get_Admin_UI().subscribe((event: HttpEvent<any>) =>{
+        let response = this.HttpEventResponse(event)
+        if(response){
+          this.emitUI.emit(response)
+        } else {
+          // Some info to user;
+        }
+      }, (err) => {
+        // Some info to users;
+      });
+    }
+    
+    
     response(){
         this.res = [
             {
