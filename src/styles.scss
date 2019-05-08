@@ -19,7 +19,8 @@
   padding: 15px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
-.online, .offline{
+.online,
+.offline {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -29,10 +30,10 @@
   text-align: center;
   color: #fff;
 }
-.online{
+.online {
   background: #73ec7e;
 }
-.offline{
+.offline {
   background: #bfbfbf;
 }
 .phone-no {
@@ -51,18 +52,43 @@
   border-bottom: 2px solid #3f51b5;
 }
 
-
-
-.OT_publisher, .OT_subscriber {
-
-  width:100vw !important;
+.OT_publisher,
+.OT_subscriber {
+  width: 100vw !important;
   background-color: white !important;
 }
 
-.OT_subscriber{
+.OT_subscriber {
   // height:30px !important;
 }
 
-.OT_widget-container{
+.OT_widget-container {
   // height:10px !important
+}
+.alert-success {
+  padding: 10px;
+  font-weight: 400;
+  border-radius: 0px;
+  color: rgba(0, 0, 0, 0.87);
+}
+.btn-danger {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+.conToggle {
+  transition: all 0.5s ease-in-out;
+  transform: translateY(-500px);
+  position: absolute;
+  z-index: 9999;
+  text-align: right;
+  width: 100%;
+}
+.bodyActive .conToggle {
+  transform: translateY(-20px);
+}
+.btn-danger {
+  margin-right: 15px;
 }
