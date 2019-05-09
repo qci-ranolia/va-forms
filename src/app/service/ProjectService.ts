@@ -81,4 +81,14 @@ export class ProjectService {
     })
   }
 
+  startArchive(data) {
+    this.APIService.StartArchive(data).subscribe((event: HttpEvent<any>)=>{
+      let response = this.HttpEventResponse(event)
+      if(response)
+      console.log(response)
+    })
+  }
+
+  
+
 }
