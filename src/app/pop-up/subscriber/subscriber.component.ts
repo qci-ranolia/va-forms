@@ -11,7 +11,7 @@ export class SubscriberComponent implements AfterViewInit {
   @ViewChild('subscriberDiv') subscriberDiv: ElementRef;
   @Input() session: OT.Session;
   @Input() stream: OT.Stream;
-
+  someTestData = "321";
   constructor() {
     // const subscriber1 = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {}, (err) => {
     //   if (err) {
@@ -22,6 +22,7 @@ export class SubscriberComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {}, (err) => {
+      this.someTestData = "123"
       if (err) {
         alert(err.message);
       }

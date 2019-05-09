@@ -18,6 +18,11 @@ export class ChatComponent implements OnInit {
     this.projectService.emitChatUsers.subscribe(res=>{
       this.chatUsers = res.chatUsers
       this.dialUser = res.dialUser
+
+      // if(res.userCalling){
+      //   this.userCalling(res.userCalling)
+      // }
+
     })
 
     this.projectService.emitDialUser.subscribe(res=>{
@@ -27,14 +32,24 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.projectService.getChatUsers()
-    // this.projectService.getChatUsers()
   }
 
   contactThisUser(chatUser) {
     console.log(chatUser)
     this.contactUser = chatUser
-    this.projectService.emitUserDial(true)
-    this.projectService.emitDialUserDetailsTOComponent(chatUser)
+    this.bottomSheet.open(PopUpComponent);
+    setTimeout(()=>{
+      this.projectService.emitUserDial(true)
+
+      this.projectService.emitDialUserDetailsTOComponent(chatUser)
+
+      // this.bottomSheet.dismiss(PopUpComponent)
+
+    }, 2000)
+  }
+
+  userCalling() {
+    this.bottomSheet.open(PopUpComponent);
   }
 
 }

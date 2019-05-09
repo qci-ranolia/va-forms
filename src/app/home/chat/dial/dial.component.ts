@@ -20,7 +20,6 @@ export class DialComponent implements OnInit {
   connected : boolean = true;
 
   constructor(private ref: ChangeDetectorRef, private opentokService: OpentokService, private bottomSheet: MatBottomSheet, private projectService: ProjectService) {
-    // this.bottomSheet.open(PopUpComponent);
     this.userToBeDialed = projectService.userToBeDialed
     console.log(this.userToBeDialed)
     this.changeDetectorRef = ref;
@@ -36,13 +35,9 @@ export class DialComponent implements OnInit {
 
         let tabElements1 = document.getElementsByClassName("OT_subscriber")[1] as HTMLElement;
         tabElements1.style.display = 'none'
-        let tabElements2 = document.getElementsByClassName("OT_subscriber")[2] as HTMLElement;
-        tabElements2.style.display = 'none'
-        let tabElements3 = document.getElementsByClassName("OT_subscriber")[3] as HTMLElement;
-        tabElements3.style.display = 'none'
-        let tabElements4 = document.getElementsByClassName("OT_subscriber")[4] as HTMLElement;
-        tabElements4.style.display = 'none'
 
+        let tabElements2 = document.getElementsByClassName("OT_pulisher")[1] as HTMLElement;
+        tabElements2.style.display = 'none'
 
       });
 
@@ -73,12 +68,8 @@ export class DialComponent implements OnInit {
 
     let tabElements1 = document.getElementsByClassName("OT_subscriber")[1] as HTMLElement;
     tabElements1.style.display = 'none'
-    let tabElements2 = document.getElementsByClassName("OT_subscriber")[2] as HTMLElement;
+    let tabElements2 = document.getElementsByClassName("OT_pulisher")[1] as HTMLElement;
     tabElements2.style.display = 'none'
-    let tabElements3 = document.getElementsByClassName("OT_subscriber")[3] as HTMLElement;
-    tabElements3.style.display = 'none'
-    let tabElements4 = document.getElementsByClassName("OT_subscriber")[4] as HTMLElement;
-    tabElements4.style.display = 'none'
 
   }
 
