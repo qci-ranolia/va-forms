@@ -10,23 +10,19 @@ export class ProjectService {
     emitUI : EventEmitter<any> = new EventEmitter<any>();
     emitChatUsers: EventEmitter<any> = new EventEmitter<any>();
     emitResponses: EventEmitter<any> = new EventEmitter<any>();
-
-    constructor(private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
+    emitQuestions: EventEmitter<any> = new EventEmitter<any>();
+    constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
 
     HttpEventResponse(event) {
         switch (event.type) {
           case HttpEventType.Sent:
-            // console.log('Request started');
             break;
           case HttpEventType.ResponseHeader:
-            // console.log('Headers received ->', event.headers);
             break;
           case HttpEventType.DownloadProgress:
             const loaded = Math.round(event.loaded / 1024);
-            // console.log(`Downloading ${ loaded } kb downloaded`);
             break;
           case HttpEventType.Response:
-            // console.log('Finished -> ', event.body);
             return event.body;
         }
     }
@@ -35,16 +31,30 @@ export class ProjectService {
       this.APIService.Get_Admin_UI().subscribe((event: HttpEvent<any>) =>{
         let response = this.HttpEventResponse(event)
         if(response){
-          this.emitUI.emit(response)
+          this.emitQuestions.emit(response.data)
         } else {
-          // Some info to user;
+            // alert('else tru while emitQuestions')
+            // Some info to user;
         }
       }, (err) => {
-        // Some info to users;
-      });
+            // alert('err tru while emitQuestions')
+            // Some info to users;
+      })
     }
     
-    
+    postRadio(temp){
+        this.APIService.post_Radio(temp).subscribe((event: HttpEvent<any>) =>{
+            let response = this.HttpEventResponse(event)
+            if(response){
+              this.emitUI.emit(response)
+            } else {
+              // Some info to user;
+            }
+        }, (err) => {
+            // Some info to users;
+        })
+    }
+
     response(){
         this.res = [
             {
@@ -94,5 +104,5 @@ export class ProjectService {
         ]
         this.emitResponses.emit(this.res)
     }
-
+    
 }

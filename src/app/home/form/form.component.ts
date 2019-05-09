@@ -19,10 +19,13 @@ export class FormComponent implements OnInit {
   para_array : any
   param_name : any
   param_ques_index : any
+  response:any
   
   constructor( private ProjectService: ProjectService ){
-    this.ProjectService.emitUI.subscribe((res)=>{
+    this.ProjectService.emitQuestions.subscribe(res => {
+      this.response = Object.keys(res)
       this.para_array = Object.keys(res)
+      // console.log(this.para_array)
     })
   }
 
@@ -31,15 +34,18 @@ export class FormComponent implements OnInit {
   }
 
   checkAndUpdate(i){
+    for ( let i = 0; i < this.response.length; i++ ){
+      console.log(i)
+    }
     if (i == "physical_location"){
       this.showSubQuestions = true
       this.subquestions = [
-        {// Post Api
+        {
           id:"ahjdashj",
           question:"Geotagged Assessment",
           radio:"Yes",
-          evidence:"upload 4 photos and send them",
-          criteria:"failed/passed depends upon geotags"
+          evidence:"Provide evidence by uploading 4 photos",
+          criteria:"Failed/passed depends upon geotags"
         }
       ]
     } else if (i == "production_capability"){
@@ -150,12 +156,19 @@ export class FormComponent implements OnInit {
     this.param_name = i
   }
 
-  saveRadioWithSubQues(i, event:MatRadioChange){
-    this.param_ques_index = i
-    console.log(event.value)
-    console.log(i)
-    console.log(this.param_name)
-    // Save Somewhere
+  saveRadioWithSubQues( id, event:MatRadioChange ){
+    // this.param_ques_index = id
+    var temp = {
+      id: id,
+      parameter_name: this.param_name,
+      value: event.value
+    }
+    if ( event.value == 'Yes' ){
+      this.ProjectService.postRadio(temp)
+      // Save Somewhere
+      // console.log(this.subquestions)
+      return this.subquestions
+    }
   }
 
 }

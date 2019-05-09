@@ -17,7 +17,7 @@
           <label id="example-radio-group-label" class="col-sm-12 p-0"><strong>{{i+1}}</strong>.&nbsp;{{subques.question}}</label>
           <div *ngIf="subques.radio == 'Yes'">
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
-              <mat-radio-button class="example-radio-button mr-3 ml-3" *ngFor="let condition of conditions" [value]="condition" (change)="saveRadioWithSubQues(i, $event)">
+              <mat-radio-button class="example-radio-button mr-3 ml-3" *ngFor="let condition of conditions" [value]="condition" (change)="saveRadioWithSubQues(subques.id, $event)">
                 {{condition}}
               </mat-radio-button>
             </mat-radio-group>
