@@ -83,6 +83,11 @@ export class DialComponent implements OnInit {
     this.opentokService.disconnect()
     this.connected = false;
     this.projectService.emitUserDial(false)
+    let data = {
+      session_id:  this.projectService.openTokCreds.SESSION_ID,
+      epoch: (new Date).getTime()
+    }
+    this.projectService.endSession(data)
   }
 
 }

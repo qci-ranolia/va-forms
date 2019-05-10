@@ -9,10 +9,16 @@ export class ProjectService {
 
   dialUser = false;
   userToBeDialed = {};
+  openTokCreds = {
+    API:"",
+    SESSION_ID:"",
+    TOKEN:""
+  }
   emitUI : EventEmitter<any> = new EventEmitter<any>();
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();
   emitUserLogin : EventEmitter<any> = new EventEmitter<any>();
   emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
+  emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
@@ -44,6 +50,7 @@ export class ProjectService {
         console.log(response)
         if(response.success){
           localStorage.setItem("token", response.token+"")
+          localStorage.setItem("email", data.email+"")
           this.emitUserLogin.emit({login:'true'});
         }
       }
@@ -92,6 +99,46 @@ export class ProjectService {
       if(response)
       console.log(response)
     })
+  }
+
+  initiateSession(data) {
+    this.APIService.InitiateSession(data).subscribe((event: HttpEvent<any>)=>{
+      let response = this.HttpEventResponse(event)
+      if(response)
+      {
+        console.log(response)
+        if(response.success) {
+          this.setOpenTokCredentials(response)
+          this.emitDismissPopupFunction()
+        }
+      }
+    })
+  }
+
+  setOpenTokCredentials(response) {
+    this.openTokCreds = {
+      API:response.api_key,
+      SESSION_ID:response.session_id,
+      TOKEN:response.token
+    }
+  }
+
+  emitDismissPopupFunction() {
+    this.emitDismissPopup.emit({
+      dismiss: "true"
+    })
+  }
+
+  endSession(data) {
+    this.APIService.EndSession(data).subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log(response)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
   }
 
 }

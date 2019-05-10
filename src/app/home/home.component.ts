@@ -8,9 +8,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private route: Router) { }
+  email : any = ""
+
+  constructor(private router: Router) { }
+
+  logout(){
+    localStorage.clear()
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
+    this.email = localStorage.getItem("email")+""
   }
 
 }

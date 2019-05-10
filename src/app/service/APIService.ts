@@ -43,7 +43,20 @@ export class APIService {
   }
 
   StartArchive(data) {
+    this.setHeader()
     const request = new HttpRequest('POST', this.localURL2+"/opentok/archive", data , { reportProgress: true, headers: this.appHeader });
+    return this.http.request(request)
+  }
+
+  InitiateSession(data) {
+    this.setHeader()
+    const request = new HttpRequest('POST', this.localURL2+"/opentok/createSession", data , { reportProgress: true, headers: this.appHeader });
+    return this.http.request(request)
+  }
+
+  EndSession(data) {
+    this.setHeader()
+    const request = new HttpRequest('POST', this.localURL2+"/opentok/disconnectSession", data , { reportProgress: true, headers: this.appHeader });
     return this.http.request(request)
   }
 
