@@ -26,17 +26,50 @@
   padding: 15px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
-.call {
+.online, .offline{
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #73ec7e;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
   display: inline-block;
   line-height: 40px;
   text-align: center;
   color: #fff;
 }
+.online{
+  background: #73ec7e;
+}
+.offline{
+  background: #bfbfbf;
+}
 .phone-no {
   line-height: 40px;
+}
+.navBar a {
+  line-height: 40px;
+  border-bottom: 2px solid #fff;
+  transition: 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+.navBar a.active {
+  border-bottom: 2px solid #3f51b5;
+}
+
+
+
+.OT_publisher, .OT_subscriber {
+
+  width:100vw !important;
+  background-color: white !important;
+}
+
+.OT_subscriber{
+  // height:30px !important;
+}
+
+.OT_widget-container{
+  // height:10px !important
 }
