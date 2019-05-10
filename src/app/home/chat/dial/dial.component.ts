@@ -26,18 +26,26 @@ export class DialComponent implements OnInit {
   }
 
   ngOnInit () {
-
+    document.body.className = "bodyActive";
     this.opentokService.initSession().then((session: OT.Session) => {
       this.session = session;
 
       session.on("streamCreated", function(event) {
         session.subscribe(event.stream);
+        this.connected = true;
 
-        let tabElements1 = document.getElementsByClassName("OT_subscriber")[1] as HTMLElement;
-        tabElements1.style.display = 'none'
-
-        let tabElements2 = document.getElementsByClassName("OT_pulisher")[1] as HTMLElement;
-        tabElements2.style.display = 'none'
+        // let tabElements1 = document.getElementsByClassName("OT_subscriber")[0] as HTMLElement;
+        // tabElements1.style.display = 'block'
+        //
+        // let tabElements2 = document.getElementsByClassName("OT_pulisher")[0] as HTMLElement;
+        // tabElements2.style.display = 'block'
+        //
+        //
+        // let tabElements1 = document.getElementsByClassName("OT_subscriber")[1] as HTMLElement;
+        // tabElements1.style.display = 'none'
+        //
+        // let tabElements2 = document.getElementsByClassName("OT_pulisher")[1] as HTMLElement;
+        // tabElements2.style.display = 'none'
 
       });
 
@@ -56,20 +64,15 @@ export class DialComponent implements OnInit {
       console.error(err);
       alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
     });
-
   }
 
   ngAfterViewInit() {
     this.connected = true;
-    let tabElements = document.getElementsByClassName("OT_subscriber")[0] as HTMLElement;
-    tabElements.style.height = "100px !important";
-    tabElements.style.display = 'block'
-    console.log(tabElements.style.height)
+    let tabElements1 = document.getElementsByClassName("OT_subscriber")[0] as HTMLElement;
+    tabElements1.style.display = 'block'
 
-    let tabElements1 = document.getElementsByClassName("OT_subscriber")[1] as HTMLElement;
-    tabElements1.style.display = 'none'
-    let tabElements2 = document.getElementsByClassName("OT_pulisher")[1] as HTMLElement;
-    tabElements2.style.display = 'none'
+    let tabElements2 = document.getElementsByClassName("OT_publisher")[0] as HTMLElement;
+    tabElements2.style.display = 'block'
 
   }
 
@@ -84,6 +87,11 @@ export class DialComponent implements OnInit {
     this.opentokService.disconnect()
     this.connected = false;
     this.projectService.emitUserDial(false)
+    let data = {
+      session_id:  this.projectService.openTokCreds.SESSION_ID,
+      epoch: (new Date).getTime()
+    }
+    this.projectService.endSession(data)
   }
 
 }

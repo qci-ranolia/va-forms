@@ -23,9 +23,9 @@ export class FormComponent implements OnInit {
   
   constructor( private ProjectService: ProjectService ){
     this.ProjectService.emitQuestions.subscribe(res => {
-      this.response = Object.keys(res)
-      this.para_array = Object.keys(res)
-      // console.log(this.para_array)
+      // this.response = Object.keys(res)
+      // this.para_array = Object.keys(res)
+      console.log(res)
     })
   }
 
@@ -34,9 +34,9 @@ export class FormComponent implements OnInit {
   }
 
   checkAndUpdate(i){
-    for ( let i = 0; i < this.response.length; i++ ){
-      console.log(i)
-    }
+    // for ( let i = 0; i < this.response.length; i++ ){
+    //   console.log(i)
+    // }
     if (i == "physical_location"){
       this.showSubQuestions = true
       this.subquestions = [

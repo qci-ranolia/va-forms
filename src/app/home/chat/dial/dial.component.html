@@ -1,20 +1,22 @@
-<p *ngIf="!connected" >
-  Dailling {{userToBeDialed.name}}
-</p>
+<p *ngIf="!connected">Dailling {{ userToBeDialed.name }}</p>
 
-<div  *ngIf="connected" >
-  <p>
-    Call is now connected with {{userToBeDialed.name}}
+<div *ngIf="connected" class="conToggle">
+  <p class="alert-success text-left">
+    Call is now connected with {{ userToBeDialed.user_name }}
   </p>
-  <br>
-  <button  (click)=endSession()>
-    Hang up
+
+  <button (click)="endSession()" class="btn btn-danger">
+    <i aria-hidden="true" class="fa fa-phone "></i>
   </button>
 </div>
 
-<br>
+<br />
 
 <div *ngIf="session">
   <app-publisher [session]="session"></app-publisher>
-  <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session"></app-subscriber>
+  <app-subscriber
+    *ngFor="let stream of streams"
+    [stream]="stream"
+    [session]="session"
+  ></app-subscriber>
 </div>

@@ -1,4 +1,7 @@
 <div class="row">
+  <div class="col-sm-12 mb-3">
+    <p class="p-2">{{email}}</p> <button class="float-right m-2" (click)="logout()" >Logout</button>
+  </div>
   <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/form']" routerLinkActive="active">Forms</button>
   <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/chat']" routerLinkActive="active">Chat</button>
   <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/response']" routerLinkActive="active">Response</button>
