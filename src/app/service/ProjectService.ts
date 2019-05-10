@@ -11,7 +11,8 @@ export class ProjectService {
   userToBeDialed = {};
   emitUI : EventEmitter<any> = new EventEmitter<any>();
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();
-  emitChatUsers: EventEmitter<any> = new EventEmitter<any>();
+  emitUserLogin : EventEmitter<any> = new EventEmitter<any>();
+  emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
@@ -40,30 +41,34 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response){
-        if(response.authorization){
-          // this.emitUserLogin.emit({login:'true', role: role});
-        } else {
-          console.log("Authorization Failed");
+        console.log(response)
+        if(response.success){
+          localStorage.setItem("token", response.token+"")
+          this.emitUserLogin.emit({login:'true'});
         }
       }
     }, (err:HttpErrorResponse)=>{
-
-      // this.emitError.emit(err.error.message)
-      // this.errorSnack()
-      console.log(err.error.message)
+      console.log(err)
     });
+  }
+
+  checkLogin() {
+
+    if(localStorage.getItem('token'))
+    this.router.navigate(['/']);
   }
 
   getChatUsers() {
     this.APIService.GetChatUsers().subscribe((event: HttpEvent<any>) => {
 
       let response = this.HttpEventResponse(event)
-      if(response)
-      // console.log(response)
-      this.emitChatUsers.emit({
-        chatUsers: response,
-        dialUser: this.dialUser
-      })
+      if(response) {
+        console.log(response)
+        this.emitChatUsers.emit({
+          chatUsers: response,
+          dialUser: this.dialUser
+        })
+      }
     })
   }
 
@@ -88,7 +93,5 @@ export class ProjectService {
       console.log(response)
     })
   }
-
-  
 
 }

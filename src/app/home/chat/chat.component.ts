@@ -16,9 +16,9 @@ export class ChatComponent implements OnInit {
 
   constructor(private projectService: ProjectService, private bottomSheet: MatBottomSheet) {
     this.projectService.emitChatUsers.subscribe(res=>{
-      this.chatUsers = res.chatUsers
+      this.chatUsers = res.chatUsers.all_user_data
       this.dialUser = res.dialUser
-
+      console.log(res)
       // if(res.userCalling){
       //   this.userCalling(res.userCalling)
       // }

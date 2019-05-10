@@ -25,19 +25,20 @@ export class APIService {
   setHeader() {
     let token = localStorage.getItem('token');
     // console.log(token);
-    this.appHeader = new HttpHeaders({'token': ""+token});
+    this.appHeader = new HttpHeaders({'Authorization': ""+token});
     this.appHeader.append({'Content-Type':'application/json'});
     // console.log(token);
   }
 
   Login(data) {
     data = JSON.stringify(data);
-    const request = new HttpRequest('POST', this.current_URL+"/login", data , { reportProgress: true, headers: this.appHeader });
+    const request = new HttpRequest('POST', this.localURL2+"/opentok/login", data , { reportProgress: true});
     return this.http.request(request)
   }
 
   GetChatUsers() {
-    const request = new HttpRequest('GET', this.current_URL+"/chat_users", { reportProgress: true, headers: this.appHeader });
+    this.setHeader()
+    const request = new HttpRequest('GET', this.localURL2+"/opentok/getUsers", { reportProgress: true, headers: this.appHeader });
     return this.http.request(request)
   }
 
