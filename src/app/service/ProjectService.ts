@@ -104,8 +104,7 @@ export class ProjectService {
   initiateSession(data) {
     this.APIService.InitiateSession(data).subscribe((event: HttpEvent<any>)=>{
       let response = this.HttpEventResponse(event)
-      if(response)
-      {
+      if(response) {
         console.log(response)
         if(response.success) {
           this.setOpenTokCredentials(response)
@@ -135,6 +134,7 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response){
         console.log(response)
+        this.getChatUsers()
       }
     }, (err:HttpErrorResponse)=>{
       console.log(err)
