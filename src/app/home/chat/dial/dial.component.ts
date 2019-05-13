@@ -18,6 +18,8 @@ export class DialComponent implements OnInit {
   streams: Array<OT.Stream> = [];
   changeDetectorRef: ChangeDetectorRef;
   connected : boolean = true;
+  alreadyPublishing : boolean = false;
+  copyOfSession: any;
 
   constructor(private ref: ChangeDetectorRef, private opentokService: OpentokService, private bottomSheet: MatBottomSheet, private projectService: ProjectService) {
     this.userToBeDialed = projectService.userToBeDialed
@@ -25,18 +27,30 @@ export class DialComponent implements OnInit {
     this.changeDetectorRef = ref;
   }
 
+  checkForExistingSession() {
+    if(!this.session && this.projectService.storeCopyOfSession) {
+      this.copyOfSession = this.projectService.storeCopyOfSession
+      this.alreadyPublishing = true;
+      // console.log(true)
+      return true;
+    }
+  }
+
   ngOnInit () {
+
+    console.log(this.alreadyPublishing)
+    console.log(this.session)
 
     if(!this.projectService.sessionConnected) {
 
       document.body.className = "bodyActive";
       this.opentokService.initSession().then((session: OT.Session) => {
         this.session = session;
+        this.projectService.storeCopyOfSession  = session;
 
         session.on("streamCreated", function(event) {
           session.subscribe(event.stream);
           this.connected = true;
-
         });
 
         this.session.on('streamDestroyed', (event) => {
@@ -85,7 +99,10 @@ export class DialComponent implements OnInit {
       session_id:  this.projectService.openTokCreds.SESSION_ID,
       epoch: (new Date).getTime()
     }
+    this.alreadyPublishing = false;
+    this.projectService.storeCopyOfSession = null;
     this.projectService.endSession(data)
+
   }
 
 }
