@@ -1,6 +1,12 @@
 <div class="container-fluid navBar text-center">
-  {{email}}
-  <button (click)="logout()" >Logout</button>
+  <div class="row">
+    <div class="col-8 float-left text-left top-m">
+      <strong>{{ email }}</strong>
+    </div>
+    <div class="col-4 float-left text-right top-m">
+      <button (click)="logout()" class="btn btn-primary">Logout</button>
+    </div>
+  </div>
   <div class="row">
     <a [routerLink]="['/form']" class="col" routerLinkActive="active"> Form </a>
     <a [routerLink]="['/chat']" class="col" routerLinkActive="active"> Chat </a>

@@ -1,24 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
+  email: any = "";
 
-  email : any = ""
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) { }
-
-  logout(){
-    localStorage.clear()
-    this.router.navigate(['/login']);
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/login"]);
   }
 
   ngOnInit() {
-    this.email = localStorage.getItem("email")+""
+    this.email = localStorage.getItem("email") + "";
   }
-
 }
