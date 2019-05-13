@@ -86,12 +86,12 @@
 .OT_publisher,
 .OT_subscriber {
   width: 100vw !important;
-  background-color: white !important;
-  display: none;
+  // background-color: white !important;
+  // display: none;
 }
 
 .OT_subscriber:first-child, .OT_publisher:first-child {
-  display: block;
+  // display: block;
 }
 
 .OT_widget-container {
