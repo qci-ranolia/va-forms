@@ -26,44 +26,38 @@ export class DialComponent implements OnInit {
   }
 
   ngOnInit () {
-    document.body.className = "bodyActive";
-    this.opentokService.initSession().then((session: OT.Session) => {
-      this.session = session;
 
-      session.on("streamCreated", function(event) {
-        session.subscribe(event.stream);
-        this.connected = true;
+    if(!this.projectService.sessionConnected) {
 
-        // let tabElements1 = document.getElementsByClassName("OT_subscriber")[0] as HTMLElement;
-        // tabElements1.style.display = 'block'
-        //
-        // let tabElements2 = document.getElementsByClassName("OT_pulisher")[0] as HTMLElement;
-        // tabElements2.style.display = 'block'
-        //
-        //
-        // let tabElements1 = document.getElementsByClassName("OT_subscriber")[1] as HTMLElement;
-        // tabElements1.style.display = 'none'
-        //
-        // let tabElements2 = document.getElementsByClassName("OT_pulisher")[1] as HTMLElement;
-        // tabElements2.style.display = 'none'
+      document.body.className = "bodyActive";
+      this.opentokService.initSession().then((session: OT.Session) => {
+        this.session = session;
 
+        session.on("streamCreated", function(event) {
+          session.subscribe(event.stream);
+          this.connected = true;
+
+        });
+
+        this.session.on('streamDestroyed', (event) => {
+          const idx = this.streams.indexOf(event.stream);
+          if (idx > -1) {
+            this.streams.splice(idx, 1);
+            this.changeDetectorRef.detectChanges();
+          }
+        });
+
+      })
+      .then(() => {
+        this.projectService.sessionConnected = true;
+        this.opentokService.connect()
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
       });
+    }
 
-      this.session.on('streamDestroyed', (event) => {
-        const idx = this.streams.indexOf(event.stream);
-        if (idx > -1) {
-          this.streams.splice(idx, 1);
-          this.changeDetectorRef.detectChanges();
-        }
-      });
-
-    })
-    .then(() =>
-    this.opentokService.connect())
-    .catch((err) => {
-      console.error(err);
-      alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
-    });
   }
 
   ngAfterViewInit() {
