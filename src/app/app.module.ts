@@ -5,6 +5,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from '@angular/common/http';
+import { WebcamModule } from 'ngx-webcam';
 
 import { routes } from "./app.routes";
 import { AppComponent } from "./app.component";
@@ -46,6 +47,7 @@ import { SubscriberComponent } from './pop-up/subscriber/subscriber.component';
     MatBottomSheetModule,
     BrowserModule,
     BrowserAnimationsModule,
+    WebcamModule,
     FormsModule,
     RouterModule.forRoot(routes, { useHash: true })
   ],

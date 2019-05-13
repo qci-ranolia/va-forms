@@ -12,8 +12,15 @@
 
 <br />
 
+<div *ngIf= checkForExistingSession() >
+
+  <webcam
+    [height]="250"
+  ></webcam>
+
+</div>
 <div *ngIf="session">
-  <app-publisher [session]="session"></app-publisher>
+  <app-publisher [session]="session" [alreadyPublishing] = "alreadyPublishing"></app-publisher>
   <app-subscriber
     *ngFor="let stream of streams"
     [stream]="stream"

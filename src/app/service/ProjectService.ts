@@ -14,6 +14,7 @@ export class ProjectService {
     SESSION_ID:"",
     TOKEN:""
   }
+  storeCopyOfSession : any;
   sessionConnected = false;
   emitUI : EventEmitter<any> = new EventEmitter<any>();
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();

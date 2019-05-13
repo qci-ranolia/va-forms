@@ -15,8 +15,8 @@ export class APIService {
   projectURL: string = '../assets/APIData/';
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
-  // localURL2: string = 'http://192.168.15.161:5000';
-  localURL2: string = 'http://13.223.138.181:5000';
+  localURL2: string = 'http://192.168.15.161:5000';
+  // localURL2: string = 'http://13.233.138.181:5000';
   current_URL : string = this.localURL;
   Header: any;
   appHeader: any = new HttpHeaders({ 'Autherization'  : 'true' });
