@@ -14,6 +14,7 @@ export class ProjectService {
     SESSION_ID:"",
     TOKEN:""
   }
+  sessionConnected = false;
   emitUI : EventEmitter<any> = new EventEmitter<any>();
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();
   emitUserLogin : EventEmitter<any> = new EventEmitter<any>();
@@ -133,6 +134,7 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response){
+        this.sessionConnected = false;
         console.log(response)
         this.getChatUsers()
       }
