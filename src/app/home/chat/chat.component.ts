@@ -53,7 +53,8 @@ export class ChatComponent implements OnInit {
     let data = {
       participant_id: chatUser.user_id,
       chat_name: "chat_name_1",
-      chat_id: "chat_id_"+Math.floor(Math.random() * (9999 - 1000)) + 1000
+      chat_id: "chat_id_"+Math.floor(Math.random() * (9999 - 1000)) + 1000,
+      start_time : (new Date).getTime()
     }
     this.projectService.initiateSession(data)
 
