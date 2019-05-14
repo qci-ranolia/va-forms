@@ -37,7 +37,7 @@
 .offline {
   background: #bfbfbf;
 }
-.calling{
+.calling {
   background: orange;
 }
 .phone-no {
@@ -90,7 +90,8 @@
   // display: none;
 }
 
-.OT_subscriber:first-child, .OT_publisher:first-child {
+.OT_subscriber:first-child,
+.OT_publisher:first-child {
   // display: block;
 }
 
@@ -100,3 +101,10 @@
 .top-m {
   margin-top: 15px;
 }
+
+// webcam video.autoplay {
+//   position: absolute;
+//   width: 100% !important;
+
+//   transform-origin: 0 0;
+// }
