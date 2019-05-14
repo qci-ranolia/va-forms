@@ -101,10 +101,24 @@
 .top-m {
   margin-top: 15px;
 }
-
-// webcam video.autoplay {
-//   position: absolute;
-//   width: 100% !important;
-
-//   transform-origin: 0 0;
-// }
+.OT_publisher,
+.OT_subscriber {
+  height: 350px !important;
+}
+.OT_publisher .OT_video-element,
+.OT_subscriber .OT_video-element {
+  width: 100%;
+}
+video {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.OT_fit-mode-cover .OT_video-element {
+  -o-object-fit: contain !important;
+  object-fit: contain !important;
+}
+.webcam-wrapper[_ngcontent-c6] {
+  display: block !important;
+  height: 350px;
+}
