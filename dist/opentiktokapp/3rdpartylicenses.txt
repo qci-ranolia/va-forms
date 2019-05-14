@@ -355,10 +355,33 @@ THE SOFTWARE.
 
 @angular/material/bottom-sheet
 
+@angular/material/dialog
+
+@angular/forms
+MIT
+
+@angular/material/button
+
+@angular/material/datepicker
+
+@angular/material/tooltip
+
+@angular/material/snack-bar
+
 @angular/router
 MIT
 
-@angular/forms
+@angular/material/radio
+
+@angular/material/card
+
+@angular/material/form-field
+
+@angular/material/select
+
+@angular/material/core
+
+@angular/service-worker
 MIT
 
 zone.js

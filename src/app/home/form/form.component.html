@@ -1,41 +1,68 @@
+<mat-progress-bar mode="buffer" *ngIf="!sync"></mat-progress-bar>
 <div class="pl-2 pr-2">
-  <div class="row mt-4">
-    <div class="col mt-3">
-      <mat-form-field class="col-sm-5">
-        <mat-label>Select parameter</mat-label>
-        <mat-select [(value)]="parameters" (selectionChange)="checkAndUpdate(parameters)"><!--*ngFor="let parameter of para_array"-->
-          <mat-option>None</mat-option>
-          <mat-option value="physical_location">Physical Location</mat-option>
-          <mat-option value="production_capability">Production Capability</mat-option>
-          <mat-option value="quality">Quality</mat-option>
-          <mat-option value="transportation">Transportation</mat-option>
-          <mat-option value="suppliers">Suppliers</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="" *ngIf="showSubQuestions">
-        <mat-card class="mb-2" *ngFor="let subques of subquestions; let i = index">
-          <label id="example-radio-group-label" class="col-sm-12 p-0"><strong>{{i+1}}</strong>.&nbsp;{{subques.question}}</label>
-          <div *ngIf="subques.radio == 'Yes'">
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
-              <mat-radio-button class="example-radio-button mr-3 ml-3" *ngFor="let condition of conditions" [value]="condition" (change)="saveRadioWithSubQues(subques.id, $event)">
-                {{condition}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <!-- <div *ngIf="!subques.radio == 'Yes'">
-            
-          </div> -->
-        </mat-card>
+  <div class="row mt-2">
+    <div class="col">
+      <!--<mat-list>
+        <mat-list-item><small>1. Select a paramater from dropdown menu.</small></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><small>2. Fill all the details corresponding to the selected parameter.</small></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><small>3. Navigate to next parameter to sync/save data.</small></mat-list-item>
+      </mat-list>-->
+      <div class="col-sm-12 p-2 rounded-top">     
+        <mat-form-field class="col-sm-5 mt-2">
+          <mat-label class="">Select parameter</mat-label>
+          <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter, i)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let parameter of para_array; let i = index" value="{{parameter}}"><strong>{{i+1}}.&nbsp;</strong>{{parameter}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="" *ngIf="showSubQuestions">
+          <mat-card class="mb-2" *ngFor="let subques of subquestions; let i = index">
+            <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>{{i+1}}</strong>.&nbsp;{{subques.question}}</label>
+            <div *ngIf="subques.options == 'Yes/No'">
+              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+                <mat-radio-button class="example-radio-button mr-3 ml-3" *ngFor="let condition of conditions" [value]="condition" (change)="saveRadioWithSubQues(subques.id, $event)">
+                  {{condition}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div *ngIf="subques.options == 'photo'">
+              <!-- <mat-form-field class="example-full-width col-sm-6 p-0">
+                <input matInput #message placeholder="Upload document" value="" (click)="uploadDocument(subques.id,$event)" />
+                <input id="{{subques.id}}" type="file" class="d-none" accept="image/*" (change)="browseImages(subques.id, $event)" multiple />
+                <mat-hint id="{{subques.id}}+1" align="start" class="displayText"></mat-hint>
+              </mat-form-field> -->
+              <div class="example-full-width col-sm-12 p-0">
+                <input class="col-sm-12" type="file" accept="image/*;capture=camera" (change)="browseImages(subques.id, $event)" />
+                <div *ngIf="!imgPreview">
+                  <div class="col-sm-6 p-0" *ngFor="let img of images; let i = index">
+                    <img class="col-sm-12 p-3" src="{{images}}" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="subques.options == 'Text'">
+              <mat-form-field class="example-full-width col-sm-6 p-0">
+                <input id="{{subques.id}}" matInput #message placeholder="Enter details here..." (change)="textDetails(subques.id, $event)" value="" />
+              </mat-form-field>
+            </div>
+            <!-- <div *ngIf="subques.options == 'video+image'">
+              <mat-form-field class="example-full-width col-sm-6 p-0">
+                <input matInput #message placeholder="Upload Video" value="{{videoName}}" (click)="uploadVideo(subques.id,$event)" />
+                <input id="{{subques.id}}" type="file" class="d-none" accept="image/*" (change)="browseVideo(subques.id, $event)" />
+                <mat-hint align="start" class="displayText">{{videoName}}</mat-hint>
+              </mat-form-field>
+            </div> -->
+          </mat-card>
+          <strong class="d-block text-center">Change parameters to save/sync this data</strong>
+        </div>
       </div>
-      <div *ngIf="!showSubQuestions">
+      <div class="col-sm-12 p-2" *ngIf="!showSubQuestions">
         <mat-card>
           <h5 class="p-5 text-muted">No parameters is seleted. Please select parameter from above options.</h5>
         </mat-card>
       </div>
-      <!-- <mat-card class="mb-2" *ngFor="let form of forms; let i = index" (click)="formQuestions(i)">
-        <p>Form:{{form.project_name}}</p>
-        <p><strong>questions</strong>:{{form.questions}}</p>
-      </mat-card> -->
     </div>
   </div>
 </div>

@@ -46,15 +46,31 @@ export class ProjectService {
       if(response){
         this.emitQuestions.emit(response.data)
       } else {
-          // alert('else tru while emitQuestions')
-          // Some info to user;
+        // alert('else tru while emitQuestions')
+        // Some info to user;
       }
     }, (err) => {
-          // alert('err tru while emitQuestions')
-          // Some info to users;
+      // alert('err tru while emitQuestions')
+      // Some info to users;
     })
   }
     
+  updateParameterResponse(temp){
+    this.APIService.updateParameterResponse(temp).subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log("updateParameterResponse suc ",response)
+        //this.emitUI.emit(response)
+      } else {
+        console.log("updateParameterResponse else err ",response)
+        // Some info to user;
+      }
+    }, (err) => {
+        console.log("updateParameterResponse err ", err)
+        // Some info to users;
+    })
+  }
+
   postRadio(temp){
     this.APIService.post_Radio(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
@@ -65,6 +81,22 @@ export class ProjectService {
       }
     }, (err) => {
       // Some info to users;
+    })
+  }
+
+  postTextDetails(temp){
+    this.APIService.postTextDetails(temp).subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log("postTextDetails suc ",response)
+        //this.emitUI.emit(response)
+      } else {
+        console.log("postTextDetails else err ",response)
+        // Some info to user;
+      }
+    }, (err) => {
+        console.log("postTextDetails err ", err)
+        // Some info to users;
     })
   }
 

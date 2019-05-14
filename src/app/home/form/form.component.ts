@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { copyStyles } from 'v3/opentiktokapp/node_modules/@angular/animations/browser/src/util';
 import { MatRadioChange } from '@angular/material';
 import { ProjectService } from '../../service/ProjectService';
+// import * as fs from 'fs'
 
 @Component({
   selector: 'app-form',
@@ -10,23 +11,33 @@ import { ProjectService } from '../../service/ProjectService';
 })
 
 export class FormComponent implements OnInit {
+  images = new Array()
+  
   conditions : string[] = ['Yes', 'No'];
   parameters : any;
   
   showSubQuestions : boolean = false
   subquestions : any;
   
+  sync : boolean = true
+  imgPreview : boolean = true
+
   para_array : any
   param_name : any
+  param_id : any
   param_ques_index : any
-  response:any
+  response : any
+  
+  imageName : any
+  videoName : any
   
   constructor( private ProjectService: ProjectService ){
     this.ProjectService.emitQuestions.subscribe(res => {
-      // this.response = Object.keys(res)
-      // this.para_array = Object.keys(res)
-      console.log(res)
+      this.response = res
+      this.para_array = Object.keys(res)
+      // console.log(res)
     })
+    // this.para_array = ["1","2","3","4","5","6","7","8"]
   }
 
   ngOnInit(){
@@ -34,141 +45,97 @@ export class FormComponent implements OnInit {
   }
 
   checkAndUpdate(i){
-    // for ( let i = 0; i < this.response.length; i++ ){
-    //   console.log(i)
-    // }
-    if (i == "physical_location"){
-      this.showSubQuestions = true
-      this.subquestions = [
+    // Hit api
+    var temp = {
+      "form_id":[
         {
-          id:"ahjdashj",
-          question:"Geotagged Assessment",
-          radio:"Yes",
-          evidence:"Provide evidence by uploading 4 photos",
-          criteria:"Failed/passed depends upon geotags"
-        }
-      ]
-    } else if (i == "production_capability"){
-      this.showSubQuestions = true
-      this.subquestions = [
-        {
-          id:"ahjdsdashj",
-          question:"Which machines are critical for your production?",
-          radio:"No",
-          evidence:[
+          "parameter_id":[
             {
-              equipment:"machine/equipment",
-              picture:"image src"
-            },
-            {
-              equipment:"machine/equipment",
-              picture:"image src"
-            },
-            {
-              equipment:"machine/equipment",
-              picture:"image src"
+              "question_id":"ahjdashj",
+              "question_response":"Geotagged Assessment"
             }
           ]
-        },
-        {
-          id:"ahjdashjsad",
-          question:"If these machines are automated",
-          radio:"Yes",
-          evidence:"If true show next question"
-        },
-        {
-          id:"ahjdashfhj",
-          question:"What is the capability of your daily unit manufacturing and for monthly?",
-          radio:"No",
-          evidence:"show condition if true"
         }
       ]
-    } else if (i == "quality"){
-      this.showSubQuestions = true
-      this.subquestions = [
-        {
-          id:"ahjdassasahj",
-          question:"Do you have quality control mechanism for product?",
-          radio:"Yes",
-          evidence:"show condition if true"
-        },
-        {
-          id:"ahjdasahaj",
-          question:"Have you made SOP for quality plan?",
-          radio:"Yes",
-          evidence:"show condition if true"
-        },
-        {
-          id:"ahjdashjaa",
-          question:"What is the rejection percentage of the final product?",
-          radio:"No",
-          evidence:"show condition if true"
-        },
-        {
-          id:"fdahjdashj",
-          question:"Do you provide warranty/guarantee or recalling to your product?",
-          radio:"Yes",
-          evidence:"show condition if true"
-        }
-      ]
-    } else if (i == "transportation"){
-      this.showSubQuestions = true
-      this.subquestions = [
-        {
-          id:"fddfahjdashj",
-          question:"What are the various practices/tools for transport and storage techniques?",
-          radio:"No",
-          evidence:"show condition if true"
-        },
-        {
-          id:"bmbahjdashj",
-          question:"Have you documented at various stages?",
-          radio:"Yes",
-          evidence:"show condition if true"
-        },
-        {
-          id:"zxczahjdashj",
-          question:"Is the state of art Pan India or regional?",
-          radio:"Yes",
-          evidence:"show condition if true"
-        }
-      ]
-    } else if (i == "suppliers"){
-      this.showSubQuestions = true
-      this.subquestions = [
-        {
-          id:"trahjdashj",
-          question:"What key aspects do you focus on while selecting suppliers?",
-          radio:"No",
-          evidence:"show condition if true"
-        },
-        {
-          id:"jhgahjdashj",
-          question:"Do you monitor their performance, If yes, How?",
-          radio:"Yes",
-          evidence:"show condition if true"
-        }
-      ]
-    } else {
-      this.showSubQuestions = false
-      // Show snackbar and hide after some proper delay
     }
-    this.param_name = i
+    
+    // this.ProjectService.updateParameterResponse(temp)
+    for ( let j = 0; j < this.para_array.length; j++ ){
+      if ( i == this.para_array[j] ) {
+        // this.param_id = set it to a value
+        this.showSubQuestions = true
+        this.subquestions = this.response[i]
+        this.param_name = i
+        return this.subquestions
+      } else {
+        this.param_name = null
+        this.showSubQuestions = false
+      }
+    }
   }
 
   saveRadioWithSubQues( id, event:MatRadioChange ){
+    this.sync = false
     // this.param_ques_index = id
     var temp = {
       id: id,
       parameter_name: this.param_name,
       value: event.value
     }
-    if ( event.value == 'Yes' ){
+    if ( event.value == 'Yes' ) {
       this.ProjectService.postRadio(temp)
-      // Save Somewhere
-      // console.log(this.subquestions)
       return this.subquestions
     }
+    this.sync = true
   }
+
+  textDetails(id, $event){
+     var temp = {
+      id: id,
+      parameter_name: this.param_name,
+      value: $event.target.value
+    }
+    // this.ProjectService.postTextDetails(temp)
+  }
+
+  // uploadDocument( id, $event ){
+  //   var element : HTMLElement = document.getElementById(id+'+1') as HTMLElement;
+  //   element.innerText = "Please hold on for a moment..."
+  //   var element : HTMLElement = document.getElementById(id) as HTMLElement;
+  //   element.click()
+  // }
+
+  browseImages( id, $event ){
+    this.imgPreview = false
+    let files = $event.target.files || $event.srcElement.files;
+    for ( let i = 0; i < $event.target.files.length; i++ ){
+      let reader = new FileReader()
+      reader.readAsDataURL(files[i])
+      reader.onload = (event:any) => {
+        this.images.push(reader.result)
+      }
+    }
+    console.log(this.images)
+    return this.images
+  }
+
+  // imageNameFunc(id){
+  //   var a
+  //   return this.imageName
+  // }
+  
+  /*
+  uploadVideo( id, $event ){
+    this.videoName = "Please hold on for a moment..."
+    var element : HTMLElement = document.getElementById(id) as HTMLElement;
+    element.click()
+  }
+  
+  browseVideo( id, $event ){
+    this.videoName = $event.target.value
+    this.sync = true
+    this.sync = false
+  }
+  */
 
 }
