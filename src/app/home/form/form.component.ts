@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { copyStyles } from 'v3/opentiktokapp/node_modules/@angular/animations/browser/src/util';
 import { MatRadioChange } from '@angular/material';
 import { ProjectService } from '../../service/ProjectService';
-// import * as fs from 'fs'
 
 @Component({
   selector: 'app-form',
@@ -106,6 +105,7 @@ export class FormComponent implements OnInit {
   // }
 
   browseImages( id, $event ){
+    console.log(id)
     this.imgPreview = false
     let files = $event.target.files || $event.srcElement.files;
     for ( let i = 0; i < $event.target.files.length; i++ ){
@@ -115,7 +115,6 @@ export class FormComponent implements OnInit {
         this.images.push(reader.result)
       }
     }
-    console.log(this.images)
     return this.images
   }
 

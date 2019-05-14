@@ -37,7 +37,7 @@
                 <input class="col-sm-12" type="file" accept="image/*;capture=camera" (change)="browseImages(subques.id, $event)" />
                 <div *ngIf="!imgPreview">
                   <div class="col-sm-6 p-0" *ngFor="let img of images; let i = index">
-                    <img class="col-sm-12 p-3" src="{{images}}" />
+                    <img class="col-sm-12 p-3" src="{{img}}" />
                   </div>
                 </div>
               </div>
