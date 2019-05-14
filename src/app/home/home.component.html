@@ -1,10 +1,12 @@
 <div class="container-fluid navBar text-center">
-  <div class="row">
+  <div class="row align-items-center">
     <div class="col-8 float-left text-left top-m">
-      <strong>{{ email }}</strong>
+      <strong class="email">{{ email }}</strong>
     </div>
     <div class="col-4 float-left text-right top-m">
-      <button (click)="logout()" class="btn btn-primary">Logout</button>
+      <button (click)="logout()" class="btn btn-primary logout">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
   <div class="row">
