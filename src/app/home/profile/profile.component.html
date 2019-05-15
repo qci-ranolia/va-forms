@@ -1,25 +1,36 @@
-<div style="height:70vh" >
+<div style="height:70vh">
+  <div class="form-group clearfix text-center">
+    <button class="btn btn-primary logout">
+      <i class="fa fa-user" aria-hidden="true"></i>{{ user_name }}
+    </button>
+    <button (click)="logout()" class="btn btn-primary logout pull-right">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>
+    </button>
+  </div>
+  <hr />
 
-  <p>
-    {{user_name}}
-  </p>
+  <form>
+    <div class="form-group">
+      <label for="email">Current Password:</label>
+      <input
+        type="password"
+        class="form-control"
+        id="email"
+        placeholder="current Password"
+        name="email"
+      />
+    </div>
+    <div class="form-group">
+      <label for="pwd">New Password:</label>
+      <input
+        type="password"
+        class="form-control"
+        id="pwd"
+        placeholder="New Password"
+        name="pswd"
+      />
+    </div>
 
-  <button (click)="logout()" class="btn btn-primary logout">
-    <i class="fa fa-user" aria-hidden="true"></i>
-  </button>
-
-  <hr>
-
-  Current Password
-  <input type="password">
-
-
-  New Password
-  <input type="password">
-
-  <button>Change</button>
-
-
-  <hr>
-
+    <button type="submit" class="btn btn-primary">Change</button>
+  </form>
 </div>
