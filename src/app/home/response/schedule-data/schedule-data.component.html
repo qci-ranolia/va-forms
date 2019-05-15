@@ -4,15 +4,30 @@
 
   <div class="boxContainer">
 
-    <div class="box1">
-      10:30 AM
+    <div *ngFor="let sData of scheduledData" class="box1" >
+
+      <div *ngIf="sData.status==='online'"  class="onlineBox1">
+        <br>
+        {{sData.time}}
+        <br>
+        {{sData.date}}
+        <br>
+        {{sData.status}}
+        <br>
+      </div>
+
+      <div *ngIf="sData.status==='offline'"  class="offlineBox1">
+        <br>
+        {{sData.time}}
+        <br>
+        {{sData.date}}
+        <br>
+        {{sData.status}}
+        <br>
+      </div>
+
     </div>
-    <div class="box1">
-      10:30 AM
-    </div>
-    <div class="box1">
-      10:30 AM
-    </div>
+
   </div>
 
 </div>
