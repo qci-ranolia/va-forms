@@ -144,7 +144,10 @@ video {
 .email {
   color: $text-default-color;
 }
-.logout {
+.logout,
+.logout:active,
+.logout:focus,
+.logout:hover {
   width: 41px;
   height: 41px;
   border-radius: 50%;
@@ -155,7 +158,8 @@ video {
 }
 .login,
 .login:active,
-.login:focus {
+.login:focus,
+.login:hover {
   background: $default-theme-color !important;
   border-color: $default-theme-color !important;
 }
