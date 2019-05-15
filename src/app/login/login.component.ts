@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     console.log(this.email)
     console.log(this.password)
     let data = {
-      email: this.email,
+      user_name: this.email,
       password: this.password
     }
     this.projectService.login(data);
