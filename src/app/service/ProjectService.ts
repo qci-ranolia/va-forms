@@ -52,7 +52,7 @@ export class ProjectService {
         console.log(response)
         if(response.success){
           localStorage.setItem("token", response.token+"")
-          localStorage.setItem("email", data.email+"")
+          localStorage.setItem("email", data.user_name+"")
           this.emitUserLogin.emit({login:'true'});
         }
       }
@@ -109,6 +109,9 @@ export class ProjectService {
       if(response) {
         console.log(response)
         if(response.success) {
+          if(response.form_id){
+            localStorage.setItem('form_id',""+response.form_id)
+          }
           this.setOpenTokCredentials(response)
           this.emitDismissPopupFunction()
           let archiveData = {

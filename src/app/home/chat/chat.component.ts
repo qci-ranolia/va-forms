@@ -50,10 +50,16 @@ export class ChatComponent implements OnInit {
     this.chatUser = chatUser
     this.contactUser = chatUser
     this.bottomSheet.open(PopUpComponent);
+
+    let form_id = "";
+    if(localStorage.getItem('form_id')) {
+      form_id = ""+localStorage.getItem('form_id')
+    }
     let data = {
       participant_id: chatUser.user_id,
       chat_name: "chat_name_1",
-      chat_id: "chat_id_"+Math.floor(Math.random() * (9999 - 1000)) + 1000,
+      // chat_id: "chat_id_"+Math.floor(Math.random() * (9999 - 1000)) + 1000,
+      form_id: form_id,
       start_time : (new Date).getTime()
     }
     this.projectService.initiateSession(data)
