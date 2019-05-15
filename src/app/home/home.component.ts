@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { MatBottomSheet } from "@angular/material";
+import { ProfileComponent } from "./profile/profile.component";
 
 @Component({
   selector: "app-home",
@@ -9,11 +11,12 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class HomeComponent implements OnInit {
   email: any = "";
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private bottomSheet: MatBottomSheet) {}
 
-  logout() {
-    localStorage.clear();
-    this.router.navigate(["/login"]);
+  profileComponent() {
+    // localStorage.clear();
+    // this.router.navigate(["/login"]);
+    this.bottomSheet.open(ProfileComponent);
   }
 
   ngOnInit() {

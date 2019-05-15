@@ -107,9 +107,14 @@ export class DialComponent implements OnInit {
       this.opentokService.disconnect();
       this.connected = false;
       this.projectService.emitUserDial(false);
+      let form_id = "";
+      if(localStorage.getItem("form_id")){
+        form_id = ""+ localStorage.getItem("form_id")
+      }
       let data = {
         session_id: this.projectService.openTokCreds.SESSION_ID,
-        epoch: new Date().getTime()
+        epoch: new Date().getTime(),
+        form_id: form_id
       };
       this.alreadyPublishing = false;
       this.projectService.storeCopyOfSession = null;

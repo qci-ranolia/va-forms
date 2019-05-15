@@ -56,11 +56,10 @@ export class ChatComponent implements OnInit {
       form_id = ""+localStorage.getItem('form_id')
     }
     let data = {
-      participant_id: chatUser.user_id,
-      chat_name: "chat_name_1",
+      calling_user_id: chatUser.user_id,
+      chat_time: chatUser.chat_time,
       // chat_id: "chat_id_"+Math.floor(Math.random() * (9999 - 1000)) + 1000,
-      form_id: form_id,
-      start_time : (new Date).getTime()
+      form_id: form_id
     }
     this.projectService.initiateSession(data)
 

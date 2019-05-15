@@ -27,6 +27,7 @@ import { SubscriberComponent } from './pop-up/subscriber/subscriber.component';
 import { ScheduleGraphComponent } from './home/response/schedule-graph/schedule-graph.component';
 import { ScheduleDataComponent } from './home/response/schedule-data/schedule-data.component';
 import { LiveAssesmentComponent } from './home/response/live-assesment/live-assesment.component';
+import { ProfileComponent } from './home/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -44,9 +45,10 @@ import { LiveAssesmentComponent } from './home/response/live-assesment/live-asse
     SubscriberComponent,
     ScheduleGraphComponent,
     ScheduleDataComponent,
-    LiveAssesmentComponent
+    LiveAssesmentComponent,
+    ProfileComponent
   ],
-  entryComponents: [PopUpComponent],
+  entryComponents: [PopUpComponent, ProfileComponent],
   imports: [
     HttpClientModule,
     MatTabsModule,
