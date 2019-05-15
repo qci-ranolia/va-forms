@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "schedule-graph.component.scss"
+    ],
+    "names": [],
+    "file": "schedule-graph.component.css"
+}
