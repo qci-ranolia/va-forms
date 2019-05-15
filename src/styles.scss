@@ -167,8 +167,41 @@ video {
   display: block;
 }
 
-.webcam-wrapper[_ngcontent-c9] {
-  vedio {
+vedio {
     height: 350px;
   }
+.scheduleGraph, .scheduleData {
+  height:300px;
+  // border: 1px solid gray
+}
+
+.tableContainer{
+  margin:2%;
+}
+.liveAssesmentStrip{
+  margin:3%;
+  width: 90vw;
+}
+.tableContainer{
+  width: 96%;
+  overflow-x: auto;
+}
+.boxContainer{
+  margin-top: 15px;
+  overflow-x: auto;
+  width: 100%;
+}
+.box1{
+  border : 1px solid gray;
+  // border-radius: 20px;
+  width: 150px;
+  text-align: center;
+  padding: auto;
+
+}
+.onlineBox1{
+  background-color: green;
+}
+.offlineBox1{
+  background-color: orange;
 }

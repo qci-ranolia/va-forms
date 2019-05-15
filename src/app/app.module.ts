@@ -24,6 +24,9 @@ import { BackupcomponentComponent } from "./home/backupcomponent/backupcomponent
 import { DialComponent } from './home/chat/dial/dial.component';
 import { PublisherComponent } from './pop-up/publisher/publisher.component';
 import { SubscriberComponent } from './pop-up/subscriber/subscriber.component';
+import { ScheduleGraphComponent } from './home/response/schedule-graph/schedule-graph.component';
+import { ScheduleDataComponent } from './home/response/schedule-data/schedule-data.component';
+import { LiveAssesmentComponent } from './home/response/live-assesment/live-assesment.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { SubscriberComponent } from './pop-up/subscriber/subscriber.component';
     PopUpComponent,
     DialComponent,
     PublisherComponent,
-    SubscriberComponent
+    SubscriberComponent,
+    ScheduleGraphComponent,
+    ScheduleDataComponent,
+    LiveAssesmentComponent
   ],
   entryComponents: [PopUpComponent],
   imports: [
