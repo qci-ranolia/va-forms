@@ -1,0 +1,16 @@
+.mdl-layout {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.mdl-layout__content {
+  padding: 1vh;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+}
+/*# sourceMappingURL=login.component.css.map */

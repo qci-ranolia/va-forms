@@ -3,101 +3,76 @@
         {
             "id":"ahjdashj",
             "question":"Geotagged Assessment",
-            "radio":"Yes",
-            "evidence":"show condition if true"
+            "options":"image"
+        }
+    ],
+    "basic_information":[
+        {
+            "id":"fddfahjdashj",
+            "question":"What is the name of the official taking part in the assessment?",
+            "options":"text"
+        },
+        {
+            "id":"bmbahjdashj",
+            "question":"Designation of the official in the firm?",
+            "options":"text"
+        }
+    ],
+    "process_capability":[
+        {
+            "id":"fddfahjdashj",
+            "question":"Show the process of production of the product.",
+            "options":"video+image"
         }
     ],
     "production_capability":[
         {
             "id":"ahjdsdashj",
-            "question":"Which machines are critical for your production?",
-            "radio":"No",
-            "evidence":[
-                {
-                    "equipment":"machine/equipment",
-                    "picture":"image src 1"
-                },
-                {
-                    "equipment":"machine/equipment",
-                    "picture":"image src 2"
-                },
-                {
-                    "equipment":"machine/equipment",
-                    "picture":"image src 3"
-                }
-            ]
-        },
-        {
-            "id":"ahjdashjsad",
-            "question":"If these machines are automated",
-            "radio":"Yes",
-            "evidence":"if true show next question"
-        },
-        {
-            "id":"ahjdashfhj",
-            "question":"What is the capability of your daily unit manufacturing and for monthly?",
-            "radio":"No",
-            "evidence":"show condition if true"
-        }
-    ],
-    "quality":[
-        {
-            "id":"ahjdassasahj",
-            "question":"Do you have quality control mechanism for product?",
-            "radio":"Yes",
-            "evidence":"show condition if true"
-        },
-        {
-            "id":"ahjdasahaj",
-            "question":"Have you made SOP for quality plan?",
-            "radio":"Yes",
-            "evidence":"show condition if true"
-        },
-        {
-            "id":"ahjdashjaa",
-            "question":"What is the rejection percentage of the final product?",
-            "radio":"No",
-            "evidence":"show condition if true"
-        },
-        {
-            "id":"fdahjdashj",
-            "question":"Do you provide warranty/guarantee or recalling to your product?",
-            "radio":"Yes",
-            "evidence":"show condition if true"
-        }
-    ],
-    "transportation":[
-        {
-            "id":"fddfahjdashj",
-            "question":"What are the various practices/tools for transport and storage techniques?",
-            "radio":"No",
-            "evidence":"show condition if true"
-        },
-        {
-            "id":"bmbahjdashj",
-            "question":"Have you documented at various stages?",
-            "radio":"Yes",
-            "evidence":"show condition if true"
-        },
-        {
-            "id":"zxczahjdashj",
-            "question":"Is the state of art Pan India or regional?",
-            "radio":"Yes",
-            "evidence":"show condition if true"
+            "question":"Show the machines critical for production for the product.",
+            "options":"image"
         }
     ],
     "suppliers":[
         {
             "id":"trahjdashj",
-            "question":"What key aspects do you focus on while selecting suppliers?",
-            "radio":"No",
-            "evidence":"show condition if true"
+            "question":"What key aspects are focussed while selecting suppliers?",
+            "options":"text"
+        }
+    ],
+    "transportation":[
+        {
+            "id":"fddfahjdashj",
+            "question":"Show the transport facility.",
+            "options":"image"
+        }
+    ],
+    "safety":[
+        {
+            "id":"fddfahjdashj",
+            "question":"Are there any effective signs and labels for safety?",
+            "options":"radio"
         },
         {
-            "id":"jhgahjdashj",
-            "question":"Do you monitor their performance, If yes, How?",
-            "radio":"Yes",
-            "evidence":"show condition if true"
+            "id":"bmbahjdashj",
+            "question":"Are there any fire extinguisher and other safety equipment in sight?",
+            "options":"radio"
+        }
+    ],
+    "research_and_development":[
+        {
+            "id":"fddfahjdashj",
+            "question":"Show the R&D facility.",
+            "options":"image"
+        },
+        {
+            "id":"bmbahjdashj",
+            "question":"Show the products/processes for which patents have been obtained.",
+            "options":"image"
+        },
+        {
+            "id":"zxczahjdashj",
+            "question":"Show prototype if any.",
+            "options":"image"
         }
     ]
 }

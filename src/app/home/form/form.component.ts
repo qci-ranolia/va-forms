@@ -13,7 +13,7 @@ export class FormComponent implements OnInit {
   images = new Array()
   
   conditions : string[] = ['Yes', 'No'];
-  parameters : any;
+  parameter : any;
   
   showSubQuestions : boolean = false
   subquestions : any;

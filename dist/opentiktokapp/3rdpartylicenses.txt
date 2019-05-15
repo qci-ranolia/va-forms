@@ -371,15 +371,20 @@ MIT
 @angular/router
 MIT
 
-@angular/material/radio
+@angular/material/progress-bar
 
-@angular/material/card
+@angular/material/core
+
+@angular/material/radio
 
 @angular/material/form-field
 
+@angular/material/card
+
 @angular/material/select
 
-@angular/material/core
+ngx-webcam
+MIT
 
 @angular/service-worker
 MIT

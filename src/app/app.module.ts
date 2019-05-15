@@ -3,17 +3,18 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HttpClientModule, HttpEventType,  HttpClient,  HttpRequest } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { WebcamModule } from 'ngx-webcam';
 
 import { routes } from "./app.routes";
 import { AppComponent } from "./app.component";
-// import { OpentokService } from './service/Opentok.service';
+import { OpentokService } from './service/Opentok.service';
 import { HomeComponent } from "./home/home.component";
-// import { LoginComponent } from "./login/login.component";
+import { LoginComponent } from "./login/login.component";
 import { FormComponent } from "./home/form/form.component";
-// import { FormBuilderComponent } from "./home/form/form-builder/form-builder.component";
-// import { ChatComponent } from "./home/chat/chat.component";
-// import { GraphicComponent } from "./home/graphic/graphic.component";
+import { FormBuilderComponent } from "./home/form/form-builder/form-builder.component";
+import { ChatComponent } from "./home/chat/chat.component";
+import { GraphicComponent } from "./home/graphic/graphic.component";
 
 import { APIService } from './service/APIService';
 import { ProjectService } from './service/ProjectService';
@@ -26,32 +27,39 @@ import {
   MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatTableModule,
   MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material'
-// import { PopUpComponent } from "./pop-up/pop-up.component";
+import { PopUpComponent } from "./pop-up/pop-up.component";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
-// import { ResponseComponent } from "./home/response/response.component";
-// import { BackupcomponentComponent } from "./home/backupcomponent/backupcomponent.component";
-// import { DialComponent } from './home/chat/dial/dial.component';
-// import { PublisherComponent } from './pop-up/publisher/publisher.component';
-// import { SubscriberComponent } from './pop-up/subscriber/subscriber.component';
+import { ResponseComponent } from "./home/response/response.component";
+import { BackupcomponentComponent } from "./home/backupcomponent/backupcomponent.component";
+import { DialComponent } from './home/chat/dial/dial.component';
+import { PublisherComponent } from './pop-up/publisher/publisher.component';
+import { SubscriberComponent } from './pop-up/subscriber/subscriber.component';
+import { ScheduleGraphComponent } from './home/response/schedule-graph/schedule-graph.component';
+import { ScheduleDataComponent } from './home/response/schedule-data/schedule-data.component';
+import { LiveAssesmentComponent } from './home/response/live-assesment/live-assesment.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
+// import { ServiceWorkerModule } from '@angular/service-worker';
+// import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    // LoginComponent,
-    // BackupcomponentComponent,
+    LoginComponent,
+    BackupcomponentComponent,
     FormComponent,
-    // FormBuilderComponent,
-    // ChatComponent,
-    // ResponseComponent,
-    // GraphicComponent,
-    // PopUpComponent,
-    // DialComponent,
-    // PublisherComponent,
-    // SubscriberComponent
+    FormBuilderComponent,
+    ChatComponent,
+    ResponseComponent,
+    GraphicComponent,
+    PopUpComponent,
+    DialComponent,
+    PublisherComponent,
+    SubscriberComponent,
+    ScheduleGraphComponent,
+    ScheduleDataComponent,
+    LiveAssesmentComponent
   ],
   // entryComponents: [PopUpComponent],
   imports: [
@@ -60,6 +68,7 @@ import { environment } from '../environments/environment';
     MatBottomSheetModule,
     BrowserModule,
     BrowserAnimationsModule,
+    WebcamModule,
     FormsModule,
     HttpClientModule,
     MatAutocompleteModule,
@@ -84,11 +93,13 @@ import { environment } from '../environments/environment';
     //MatFileUploadModule,
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    // ,
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     APIService,
     ProjectService,
-    // OpentokService
+    OpentokService
   ],
   bootstrap: [AppComponent]
 })

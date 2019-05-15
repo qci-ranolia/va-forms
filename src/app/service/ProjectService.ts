@@ -17,6 +17,8 @@ export class ProjectService {
     SESSION_ID:"",
     TOKEN:""
   }
+  storeCopyOfSession : any;
+  sessionConnected = false;
   emitUI : EventEmitter<any> = new EventEmitter<any>();
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();
   emitUserLogin : EventEmitter<any> = new EventEmitter<any>();
@@ -217,6 +219,20 @@ export class ProjectService {
         if(response.success) {
           this.setOpenTokCredentials(response)
           this.emitDismissPopupFunction()
+          let archiveData = {
+            chat_id: data.chat_id,
+            chat_name: data.chat_name,
+            session_id: response.session_id,
+            has_video: true,
+            has_audio: true
+          }
+          // this.startArchive(archiveData).subscribe((event: HttpEvent<any>)=>{
+          //   let response = this.HttpEventResponse(event)
+          //   if(response) {
+          //     console.log("Video Archive")
+          //     console.log(response)
+          //   }
+          // })
         }
       }
     })
@@ -241,6 +257,7 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response){
+        this.sessionConnected = false;
         console.log(response)
         this.getChatUsers()
       }

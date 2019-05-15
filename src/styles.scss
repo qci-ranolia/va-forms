@@ -2,6 +2,15 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~font-awesome/css/font-awesome.css";
+$text-default-color: #fff;
+$text-online-color: #73ec7e;
+$text-offline-color: #bfbfbf;
+$text-calling-color: orange;
+$text-black-color: #000;
+$default-theme-color: #53bca6;
+%box-shadow {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+}
 
 *{
   outline: none !important;
@@ -14,6 +23,9 @@
   display: flex !important;
   min-width: 33.33% !important;
 }
+.list-group-item {
+  @extend %box-shadow;
+}
 .seperate {
   width: 50%;
   float: left;
@@ -24,7 +36,7 @@
 .card {
   margin: 15px 0;
   padding: 15px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  @extend %box-shadow;
 }
 .online,
 .offline,
@@ -32,48 +44,53 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  @extend %box-shadow;
   display: inline-block;
   line-height: 40px;
   text-align: center;
-  color: #fff;
+  color: $text-default-color;
 }
 .online {
-  background: #73ec7e;
+  background: $text-online-color;
 }
 .offline {
-  background: #bfbfbf;
+  background: $text-offline-color;
 }
-.calling{
-  background: orange;
+.calling {
+  background: $text-calling-color;
 }
 .phone-no {
   line-height: 40px;
 }
 .navBar a {
   line-height: 40px;
-  border-bottom: 2px solid #fff;
-  transition: 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+  border-bottom: 2px solid #53bca6;
+  transition: 0.5s ease-in-out;
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.87);
+  color: #e2dcdc;
+}
+.navBar a.active:focus {
+  background: rgba(0, 0, 0, 0.05);
 }
 .navBar a.active {
-  border-bottom: 2px solid #3f51b5;
+  color: $text-default-color;
+  border-bottom: 2px solid $text-default-color;
 }
 .alert-success {
-  padding: 10px;
+  padding: 15px;
   font-weight: 400;
   border-radius: 0px;
   color: rgba(0, 0, 0, 0.87);
+  margin: 0 !important;
 }
 .btn-danger {
   width: 40px;
   height: 40px;
   border-radius: 40px;
   text-align: center;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  @extend %box-shadow;
 }
 .conToggle {
   transition: all 0.5s ease-in-out;
@@ -84,7 +101,7 @@
   width: 100%;
 }
 .bodyActive .conToggle {
-  transform: translateY(-20px);
+  transform: translateY(-24px);
 }
 .btn-danger {
   margin-right: 15px;
@@ -93,14 +110,102 @@
 .OT_publisher,
 .OT_subscriber {
   width: 100vw !important;
-  background-color: white !important;
-  display: none;
+  // background-color: white !important;
+  // display: none;
 }
 
-.OT_subscriber:first-child, .OT_publisher:first-child {
-  display: block;
+.OT_subscriber:first-child,
+.OT_publisher:first-child {
+  // display: block;
 }
 
 .OT_widget-container {
   // height:10px !important
+}
+.top-m {
+  margin: 15px 0;
+}
+.OT_publisher,
+.OT_subscriber {
+  height: 350px !important;
+}
+.OT_publisher .OT_video-element,
+.OT_subscriber .OT_video-element {
+  width: 100%;
+}
+video {
+  width: 100%;
+  height: 100%;
+  background: $text-black-color;
+}
+.OT_fit-mode-cover .OT_video-element {
+  -o-object-fit: contain !important;
+  object-fit: contain !important;
+}
+.webcam-wrapper[_ngcontent-c6] {
+  display: block !important;
+  height: 350px;
+}
+.navBar {
+  background: $default-theme-color;
+}
+.email {
+  color: $text-default-color;
+}
+.logout {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  background: $text-default-color;
+  color: $default-theme-color;
+  border: transparent;
+  @extend %box-shadow;
+}
+.login,
+.login:active,
+.login:focus {
+  background: $default-theme-color !important;
+  border-color: $default-theme-color !important;
+}
+.webcam-wrapper[_ngcontent-c9] {
+  display: block;
+}
+
+vedio {
+    height: 350px;
+  }
+.scheduleGraph, .scheduleData {
+  height:300px;
+  // border: 1px solid gray
+}
+
+.tableContainer{
+  margin:2%;
+}
+.liveAssesmentStrip{
+  margin:3%;
+  width: 90vw;
+}
+.tableContainer{
+  width: 96%;
+  overflow-x: auto;
+}
+.boxContainer{
+  margin-top: 15px;
+  overflow-x: auto;
+  width: 100%;
+}
+.box1{
+  border : 1px solid gray;
+  // border-radius: 20px;
+  width: 150px;
+  text-align: center;
+  padding: auto;
+
+}
+.onlineBox1{
+  background-color: green;
+}
+.offlineBox1{
+  background-color: orange;
 }

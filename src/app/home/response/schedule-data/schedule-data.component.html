@@ -1,0 +1,33 @@
+<div class="scheduleData">
+
+  <h4>Scheduled sessions</h4>
+
+  <div class="boxContainer">
+
+    <div *ngFor="let sData of scheduledData" class="box1" >
+
+      <div *ngIf="sData.status==='online'"  class="onlineBox1">
+        <br>
+        {{sData.time}}
+        <br>
+        {{sData.date}}
+        <br>
+        {{sData.status}}
+        <br>
+      </div>
+
+      <div *ngIf="sData.status==='offline'"  class="offlineBox1">
+        <br>
+        {{sData.time}}
+        <br>
+        {{sData.date}}
+        <br>
+        {{sData.status}}
+        <br>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,163 @@
+/* You can add global styles to this file, and also import other style files */
+.list-group-item, .card, .online,
+.offline,
+.calling, .btn-danger, .logout {
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+}
+
+.mat-tab-label {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  min-width: 33.33% !important;
+}
+
+.seperate {
+  width: 50%;
+  float: left;
+}
+
+.list-group {
+  margin: 15px 0 0;
+}
+
+.card {
+  margin: 15px 0;
+  padding: 15px;
+}
+
+.online,
+.offline,
+.calling {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-block;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+}
+
+.online {
+  background: #73ec7e;
+}
+
+.offline {
+  background: #bfbfbf;
+}
+
+.calling {
+  background: orange;
+}
+
+.phone-no {
+  line-height: 40px;
+}
+
+.navBar a {
+  line-height: 40px;
+  border-bottom: 2px solid #53bca6;
+  -webkit-transition: 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+  transition: 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #e2dcdc;
+}
+
+.navBar a.active:focus {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.navBar a.active {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.alert-success {
+  padding: 10px;
+  font-weight: 400;
+  border-radius: 0px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.btn-danger {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  text-align: center;
+}
+
+.conToggle {
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transform: translateY(-500px);
+          transform: translateY(-500px);
+  position: absolute;
+  z-index: 9999;
+  text-align: right;
+  width: 100%;
+}
+
+.bodyActive .conToggle {
+  -webkit-transform: translateY(-24px);
+          transform: translateY(-24px);
+}
+
+.btn-danger {
+  margin-right: 15px;
+}
+
+.OT_publisher,
+.OT_subscriber {
+  width: 100vw !important;
+}
+
+.top-m {
+  margin: 15px 0;
+}
+
+.OT_publisher,
+.OT_subscriber {
+  height: 350px !important;
+}
+
+.OT_publisher .OT_video-element,
+.OT_subscriber .OT_video-element {
+  width: 100%;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.OT_fit-mode-cover .OT_video-element {
+  -o-object-fit: contain !important;
+  object-fit: contain !important;
+}
+
+.webcam-wrapper[_ngcontent-c6] {
+  display: block !important;
+  height: 350px;
+}
+
+.navBar {
+  background: #53bca6;
+}
+
+.email {
+  color: #fff;
+}
+
+.logout {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  background: #fff;
+  color: #53bca6;
+  border: transparent;
+}
+/*# sourceMappingURL=styles.css.map */
