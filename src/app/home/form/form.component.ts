@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
   
   sync : boolean = true
   imgPreview : boolean = true
+  showFreeze : boolean = true
 
   para_array : any
   param_name : any
@@ -46,21 +47,16 @@ export class FormComponent implements OnInit {
   checkAndUpdate(i){
     // Hit api
     var temp = {
-      "form_id":[
-        {
-          "parameter_id":[
-            {
-              "question_id":"ahjdashj",
-              "question_response":"Geotagged Assessment"
-            }
-          ]
-        }
-      ]
+      "form_id":"something",
+      "parameter_id":"something",
+      "question_id":"something",
+      "response":"something"
     }
-    
     // this.ProjectService.updateParameterResponse(temp)
-    for ( let j = 0; j < this.para_array.length; j++ ){
+    for ( let j = 0; j < this.para_array.length; j++ ) {
       if ( i == this.para_array[j] ) {
+        if ( j+1 == this.para_array.length ) this.showFreeze = false
+        else this.showFreeze = true
         // this.param_id = set it to a value
         this.showSubQuestions = true
         this.subquestions = this.response[i]
@@ -73,6 +69,16 @@ export class FormComponent implements OnInit {
     }
   }
 
+  freeze() {
+    var temp = {
+      "some data":"1",
+      "somedata":"1",
+      "sodata":"2",
+      "somata":"3",
+      "somta":"3"
+    }
+    // this.ProjectService.freeze(temp)
+  }
   saveRadioWithSubQues( id, event:MatRadioChange ){
     this.sync = false
     // this.param_ques_index = id
@@ -106,7 +112,7 @@ export class FormComponent implements OnInit {
 
   browseImages( id, $event ){
     console.log(id)
-    this.imgPreview = false
+    this.imgPreview = true
     let files = $event.target.files || $event.srcElement.files;
     for ( let i = 0; i < $event.target.files.length; i++ ){
       let reader = new FileReader()
@@ -115,6 +121,7 @@ export class FormComponent implements OnInit {
         this.images.push(reader.result)
       }
     }
+    this.imgPreview = false
     return this.images
   }
 

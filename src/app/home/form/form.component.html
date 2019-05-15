@@ -12,7 +12,7 @@
       <div class="col-sm-12 p-2 rounded-top">     
         <mat-form-field class="col-sm-5 mt-2">
           <mat-label class="">Select parameter</mat-label>
-          <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter, i)">
+          <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter)">
             <mat-option>None</mat-option>
             <mat-option *ngFor="let parameter of para_array; let i = index" value="{{parameter}}"><strong>{{i+1}}.&nbsp;</strong>{{parameter}}</mat-option>
           </mat-select>
@@ -34,9 +34,9 @@
                 <mat-hint id="{{subques.id}}+1" align="start" class="displayText"></mat-hint>
               </mat-form-field> -->
               <div class="example-full-width col-sm-12 p-0">
-                <input class="col-sm-12" type="file" accept="image/*;capture=camera" (change)="browseImages(subques.id, $event)" />
+                <input class="col-sm-12 p-0" type="file" accept="image/*;capture=camera" (change)="browseImages(subques.id, $event)" />
                 <div *ngIf="!imgPreview">
-                  <div class="col-sm-6 p-0" *ngFor="let img of images; let i = index">
+                  <div id="{{subques.id}}" class="col-sm-6 p-0" *ngFor="let img of images; let i = index">
                     <img class="col-sm-12 p-3" src="{{img}}" />
                   </div>
                 </div>
@@ -55,6 +55,7 @@
               </mat-form-field>
             </div> -->
           </mat-card>
+          <button mat-raised-button *ngIf="!showFreeze" (click)="freeze()">Freeze Response</button>
           <strong class="d-block text-center">Change parameters to save/sync this data</strong>
         </div>
       </div>
