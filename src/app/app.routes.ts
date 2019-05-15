@@ -11,7 +11,7 @@ import { LoginComponent } from "./login/login.component"
 export const routes: Routes = [
 
   {path:'', component: HomeComponent, children: [
-    {path:'', component:ChatComponent},
+    {path:'', component:ResponseComponent},
     {path:'form', component:FormComponent},
     {path:'chat', component:ChatComponent},
     {path:'graphic', component:GraphicComponent},
