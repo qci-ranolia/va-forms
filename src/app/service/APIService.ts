@@ -31,7 +31,7 @@ export class APIService {
 
   // UI_JSON: string = '../assets/';
   api_url: "http://192.168.15.146:5000/"
-  
+
   constructor(private http: HttpClient) {}
 
   setHeader() {
@@ -74,9 +74,16 @@ export class APIService {
     );
     return this.http.request(request);
   }
-  
+
+  GetLiveAssesment(data) {
+    this.setHeader()
+    const request = new HttpRequest('POST', "http://192.168.15.146:5000/opentok/filleddetails", data, { reportProgress: true, headers: this.appHeader })
+    console.log(this.http.request(request))
+    return this.http.request(request)
+  }
+
   Get_Admin_UI(){
-    const request = new HttpRequest('GET', "http://192.168.15.146:5000/opentok/getform", { reportProgress: true })//, headers: this.appHeader 
+    const request = new HttpRequest('GET', "http://192.168.15.146:5000/opentok/getform", { reportProgress: true })//, headers: this.appHeader
     // "http://192.168.15.146:5000/opentok/getform"
     // http://192.168.15.214:4200/assets/fields.json
     // console.log(this.http.request(request))
@@ -87,24 +94,6 @@ export class APIService {
     return this.http.request(request)
   }
 
-
-  
-  // post_Radio(data:any){
-  //   this.setHeader()
-  //   const request = new HttpRequest('POST', "http://192.168.15.146:5000/opentok/submitresponse", data, { reportProgress: true, headers: this.appHeader})
-  //   console.log(this.http.request(request))
-  //   return this.http.request(request)
-  // }
-  
-  // sendImages(data:any){
-  //   // console.log(data)
-  //   this.setHeader()
-  //   const request = new HttpRequest('POST', "http://192.168.15.146:5000/opentok/submitresponse", data, { reportProgress: true, headers: this.appHeader})
-  //   console.log(this.http.request(request))
-  //   return this.http.request(request)
-  // }
-
-  
   postFormDetails(data:any){
     // console.log(data)
     this.setHeader()
@@ -112,10 +101,6 @@ export class APIService {
     console.log(this.http.request(request))
     return this.http.request(request)
   }
-  
-
-
-
 
   InitiateSession(data) {
     this.setHeader();
@@ -138,4 +123,5 @@ export class APIService {
     );
     return this.http.request(request);
   }
+
 }

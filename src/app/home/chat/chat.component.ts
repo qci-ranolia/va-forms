@@ -20,11 +20,6 @@ export class ChatComponent implements OnInit {
       this.chatUsers = res.chatUsers.all_user_data
       this.dialUser = res.dialUser
       console.log(res)
-
-      // if(res.userCalling){
-      //   this.userCalling(res.userCalling)
-      // }
-
     })
 
     this.projectService.emitDialUser.subscribe(res=>{
@@ -43,6 +38,11 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.projectService.getChatUsers()
+  }
+
+  checkForFormID(chatUser) {
+    if(chatUser.form_id)
+    localStorage.setItem("form_id", ""+chatUser.form_id)
   }
 
   contactThisUser(chatUser) {

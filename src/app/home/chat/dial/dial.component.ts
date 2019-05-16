@@ -120,6 +120,12 @@ export class DialComponent implements OnInit {
       this.alreadyPublishing = false;
       this.projectService.storeCopyOfSession = null;
       this.projectService.endSession(data);
+      let creds = {
+        api_key : "",
+        session_id : "",
+        token : "",
+      }
+      this.projectService.setOpenTokCredentials(creds)
     }, 600);
   }
 }
