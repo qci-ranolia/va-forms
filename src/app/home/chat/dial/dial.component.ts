@@ -84,11 +84,15 @@ export class DialComponent implements OnInit {
     let tabElements1 = document.getElementsByClassName(
       "OT_subscriber"
     )[0] as HTMLElement;
+
+    if(tabElements1)
     tabElements1.style.display = "block";
 
     let tabElements2 = document.getElementsByClassName(
       "OT_publisher"
     )[0] as HTMLElement;
+
+    if(tabElements2)
     tabElements2.style.display = "block";
   }
 
