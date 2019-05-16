@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { MatBottomSheet } from "@angular/material";
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ export class ProfileComponent implements OnInit {
 
   user_name : any = ""
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private bottomSheet: MatBottomSheet) {
     this.user_name = localStorage.getItem("email");
   }
 
@@ -20,6 +21,12 @@ export class ProfileComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.router.navigate(["/login"]);
+    this.bottomSheet.dismiss()
   }
+
+  dismiss() {
+    this.bottomSheet.dismiss()
+  }
+
 
 }
