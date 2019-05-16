@@ -11,14 +11,8 @@ export class ResponseComponent implements OnInit {
   showDetails:boolean = true;
   hideme = []
   
-  constructor(private projectService: ProjectService) {
-    this.projectService.emitResponses.subscribe( res => {
-      this.responses = res
-    })
-  }
+  constructor(private projectService: ProjectService) { }
 
-  ngOnInit(){
-    this.projectService.response()
-  }
+  ngOnInit(){}
 
 }

@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Injectable()
 export class ProjectService {
   res:any
-  emitResponses: EventEmitter<any> = new EventEmitter<any>();
   emitQuestions: EventEmitter<any> = new EventEmitter<any>();
 
   dialUser = false;
@@ -78,7 +77,6 @@ export class ProjectService {
   postFormDetails(temp){
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
-      console.log(response)      
       if(response){
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
@@ -90,71 +88,45 @@ export class ProjectService {
     })
   }
 
-  // pastFormArrayDetails(temp, question_id, _index){
-  //   this.APIService.pastFormArrayDetails(temp).subscribe((event: HttpEvent<any>) =>{
-  //     let response = this.HttpEventResponse(event)
-  //     let stored = localStorage.getItem(response.question_id)
-  //     if(response){
-  //       localStorage.setItem(response.question_id, response)
-  //       // this.emitData_id.emit(response)
-  //     } else {
-  //       // Some info to user;
-  //     }
-  //   }, (err) => {
-  //       // Some info to users;
-  //   })
-  // }
-
-  response(){
-    this.res = [
-      {
-        project_name:"Machine survey form",
-        project_submitted_by:"submitted",
-        project_submition_date:"10/12/2018",
-        project_info:{
-          info1:"Machine survey",
-          info2:"form in machine",
-          info3:"survey forms",
-          info4:"submit form"
-        }
-      },
-      {
-        project_name:"Open Defication",
-        project_submitted_by:"submitted",
-        project_submition_date:"10/12/2018",
-        project_info:{
-          info1:"open defication",
-          info2:"submit",
-          info3:"View OD",
-          info4:"info"
-        }
-      },
-      {
-        project_name:"google toilet locator",
-        project_submitted_by:"submitted",
-        project_submition_date:"10/12/2018",
-        project_info:{
-          info1:"Google toilet",
-          info2:"Located areas",
-          info3:"info",
-          info4:"Google project"
-        }
-      },
-      {
-        project_name:"Swach bharat mission",
-        project_submitted_by:"submitted",
-        project_submition_date:"10/12/2018",
-        project_info:{
-          info1:"Swach Areas",
-          info2:"Mission Swach",
-          info3:"View details",
-          info4:"info"
-        }
+  submitResponse(temp){
+    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      if(response){
+        localStorage.setItem(response.question_id, response.data_id)
+        // this.emitData_id.emit(response)
+      } else {
+        // Some info to user;
       }
-    ]
-    this.emitResponses.emit(this.res)
+    }, (err) => {
+        // Some info to users;
+    })
   }
-
+  deleteImage(temp){
+    this.APIService.deleteImage(temp).subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      if(response){
+        localStorage.removeItem("form_id")
+        // this.emitData_id.emit(response)
+      } else {
+        // Some info to user;
+      }
+    }, (err) => {
+        // Some info to users;
+    })
+  }
+  postImageDetailsCounter(temp){
+    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      if(response){
+        localStorage.setItem(response.question_id, response.data_id)
+        // this.emitData_id.emit(response)
+      } else {
+        // Some info to user;
+      }
+    }, (err) => {
+        // Some info to users;
+    })
+  }
 
   login(data){
     this.APIService.Login(data).subscribe((event: HttpEvent<any>) => {

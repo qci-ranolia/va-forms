@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 import { ProjectService } from '../../service/ProjectService';
+import { ImagesComponent } from './images/images.component' 
 
 @Component({
   selector: 'app-form',
@@ -10,13 +11,17 @@ import { ProjectService } from '../../service/ProjectService';
 
 export class FormComponent implements OnInit {
   images : any
-  
+  imagesArray = new Array()
+  imagesCounter : any
+  form_id:any
+
   conditions : string[] = ['Yes', 'No'];
   parameter : any;
-  
+
   showSubQuestions : boolean = false
   subquestions : any;
-  
+
+  local_form_id : boolean = false
   sync : boolean = true
   imgPreview : boolean = true
   showFreeze : boolean = true
@@ -26,11 +31,13 @@ export class FormComponent implements OnInit {
   param_id : any
   param_ques_index : any
   response : any
-  
+
   imageName : any
   videoName : any
-  
-  constructor( private ProjectService: ProjectService ){
+
+  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
+
+  constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService ){
     this.ProjectService.emitQuestions.subscribe(res => {
       this.response = res
       this.para_array = Object.keys(res)
@@ -63,22 +70,41 @@ export class FormComponent implements OnInit {
     //             "options":"photo"
     //         }
     //     ]
-    //   } 
+    //   }
     // ]
   }
 
   ngOnInit(){
     this.ProjectService.get_admin_ui()
+    this.form_id = localStorage.getItem('form_id')
+    if (this.form_id){
+      this.local_form_id = true
+    } else {
+      this.local_form_id = false
+    }
+    
   }
 
+
+  addComponent(id){
+    // check and resolve the component
+    var comp = this._cfr.resolveComponentFactory(ImagesComponent);
+    // Create component inside container
+    var expComponent = this.container.createComponent(comp);
+    // see explanations
+    expComponent.instance.question_id = id;
+    expComponent.instance._ref = expComponent;
+  }
+  
+
   checkAndUpdate(i){
-    // Hit api
-    var temp = {
-      "form_id":"something",
-      "parameter_id":"something",
-      "question_id":"something",
-      "response":"something"
-    }
+    // Hit api for syncing
+    // var temp = {
+    //   "form_id":"something",
+    //   "parameter_id":"something",
+    //   "question_id":"something",
+    //   "response":"something"
+    // }
     // this.ProjectService.updateParameterResponse(this.images)
     this.images = ''
     for ( let j = 0; j < this.para_array.length; j++ ) {
@@ -98,107 +124,101 @@ export class FormComponent implements OnInit {
     }
   }
 
-  freeze() {
+  submitResponse(){
     var temp = {
-      "some data":"1",
-      "somedata":"1",
-      "sodata":"2",
-      "somata":"3",
-      "somta":"3"
+      assessor_id:'assessor_id_01',
+      assessor_name:'assessor_name_01',
+      vendor_id:'vendor_id_01',
+      vendor_name:'vendor_name_01',
+      form_id:this.form_id,
+      is_submit:true
     }
-    // this.ProjectService.freeze(temp)
+    this.ProjectService.submitResponse(temp)
   }
 
-  saveRadioWithSubQues( id, event:MatRadioChange ){
-    // this.sync = false
-      // this.param_ques_index = id
+  saveRadioWithSubQues( id, event:MatRadioChange ) {
+    let data_id : any = localStorage.getItem(id)
+    console.log(data_id)
     var temp = {
-      form_id: 'form_id_01',
+      form_id: this.form_id,
       question_id: id,
       file_data: event.value,
       is_submit:false,
-      data_id:null
+      data_id:data_id
     }
-    if ( event.value == 'Yes' ) {
-      this.ProjectService.postFormDetails(temp)
-      return this.subquestions
-    }
-    this.sync = true
+    this.ProjectService.postFormDetails(temp)
+    return this.subquestions
+    // this.sync = true
   }
 
   textDetails(id, $event){
+    let data_id : any = localStorage.getItem(id)
+    console.log(data_id)
     var temp = {
-      form_id: 'form_id_01',
+      form_id: this.form_id,
       question_id: id,
       file_data: $event.target.value,
-      is_submit:false,
-      data_id:null
+      is_submit : false,
+      data_id: data_id
     }
     this.ProjectService.postFormDetails(temp)
-    // console.log(localStorage.getItem("formResponse"))  
   }
 
   browseImages( id, $event, pos ){
-    this.imgPreview = true
+    this.imgPreview = false
     let files = $event.target.files || $event.srcElement.files
-    let src : any;    
+    let src : any;
     let data_id : any = localStorage.getItem(id)
-    // console.log(data_id)
-    
     let reader = new FileReader()
     reader.readAsDataURL(files[0])
     reader.onload = (event:any) => {
       this.images = reader.result
+      // this.imagesArray.push(reader.result)
       this.subquestions[pos].src = reader.result
       var temp = {
-        form_id: 'form_id_01',
-        question_id: id,
-        file_data: this.images,
-        is_submit:false,
-        data_id:data_id
+        form_id : this.form_id,
+        question_id : id,
+        file_data : this.images,
+        is_submit : false,
+        data_id : data_id
       }
       this.ProjectService.postFormDetails(temp)
-      // console.log(localStorage.getItem("formResponse"))
+      this.ProjectService.postFormDetails(temp)
+
     }
-    // console.log(this.subquestions[pos].src)
+    // setTimeout(function() {
+      // console.log(this.imagesArray)
+      // console.log(this.imagesArray.length)
+    // }, 100)
     
-    this.imgPreview = false
-    
-    // console.log(this.subquestions[pos].src)
-    if ( this.subquestions[0].quantity ){
-      // if ((this.images.length+1) == this.subquestions[0].quantity ) alert("Uploaded "+this.subquestions[0].quantity+ " images.")
-      // alert("upload only "+this.subquestions[0].quantity+" images.")
-    }
-    // this.ProjectService.sendImages(temp)
-    // return this.images
+    // if (this.subquestions[0].quantity){
+    //   // console.log(this.subquestions[0].quantity)
+    //   this.imagesArray
+    //   // return some data
+    // }
   }
 
   /* ltr(id){
-    if (this.subquestions[0].id == id ){
-      for ( let y = 0 ; y < this.images.length; y++ ){
-        var x = document.createElement("img")
-        x.setAttribute('class', 'col-2')
-        x.setAttribute('src', this.images[y])
-        var element : HTMLElement = document.getElementById(id) as HTMLElement;
-        element.appendChild(x)
-        // console.log(element)
+      if (this.subquestions[0].id == id ){
+        for ( let y = 0 ; y < this.images.length; y++ ){
+          var x = document.createElement("img")
+          x.setAttribute('class', 'col-2')
+          x.setAttribute('src', this.images[y])
+          var element : HTMLElement = document.getElementById(id) as HTMLElement;
+          element.appendChild(x)
+          // console.log(element)
+        }
       }
     }
-  }
-  
   */
-    // imageNameFunc(id){
-    //   var a
-    //   return this.imageName
-    // }
-  
+
   /*
     uploadVideo( id, $event ){
       this.videoName = "Please hold on for a moment..."
       var element : HTMLElement = document.getElementById(id) as HTMLElement;
       element.click()
     }
-    
+
     browseVideo( id, $event ){
       this.videoName = $event.target.value
       this.sync = true

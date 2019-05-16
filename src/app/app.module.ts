@@ -37,11 +37,12 @@ import { SubscriberComponent } from './pop-up/subscriber/subscriber.component';
 import { ScheduleGraphComponent } from './home/response/schedule-graph/schedule-graph.component';
 import { ScheduleDataComponent } from './home/response/schedule-data/schedule-data.component';
 import { LiveAssesmentComponent } from './home/response/live-assesment/live-assesment.component';
+
+import { ProfileComponent } from './home/profile/profile.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-// import { ServiceWorkerModule } from '@angular/service-worker';
-// import { environment } from '../environments/environment';
-import { ProfileComponent } from './home/profile/profile.component';
+import { ImagesComponent } from './home/form/images/images.component';
+
 
 @NgModule({
   declarations: [
@@ -61,9 +62,10 @@ import { ProfileComponent } from './home/profile/profile.component';
     ScheduleGraphComponent,
     ScheduleDataComponent,
     LiveAssesmentComponent,
-    ProfileComponent
+    ProfileComponent,
+    ImagesComponent
   ],
-  entryComponents: [PopUpComponent, ProfileComponent],
+  entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent],
   imports: [
     HttpClientModule,
     MatTabsModule,
@@ -92,11 +94,8 @@ import { ProfileComponent } from './home/profile/profile.component';
     MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule,
     MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatTableModule,
     MatTabsModule, MatToolbarModule, MatTooltipModule,
-    //MatFileUploadModule,
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-    // ,
-    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     APIService,
