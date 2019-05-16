@@ -27,8 +27,11 @@ export class APIService {
   current_URL : string = this.localURL;
 
   Header: any;
-  appHeader: any = new HttpHeaders({ Autherization: "true" });
+  appHeader: any = new HttpHeaders({ Authorization: "true" });
 
+  // UI_JSON: string = '../assets/';
+  api_url: "http://192.168.15.146:5000/"
+  
   constructor(private http: HttpClient) {}
 
   setHeader() {
@@ -40,6 +43,7 @@ export class APIService {
   }
 
   Login(data) {
+    console.log('s')
     data = JSON.stringify(data);
     const request = new HttpRequest(
       "POST",
@@ -70,6 +74,48 @@ export class APIService {
     );
     return this.http.request(request);
   }
+  
+  Get_Admin_UI(){
+    const request = new HttpRequest('GET', "http://192.168.15.146:5000/opentok/getform", { reportProgress: true })//, headers: this.appHeader 
+    // "http://192.168.15.146:5000/opentok/getform"
+    // http://192.168.15.214:4200/assets/fields.json
+    // console.log(this.http.request(request))
+    return this.http.request(request)
+  }
+  updateParameterResponse(data:any){
+    const request = new HttpRequest('POST', "API", JSON.stringify(data), { reportProgress: true, headers: this.appHeader })
+    return this.http.request(request)
+  }
+
+
+  
+  // post_Radio(data:any){
+  //   this.setHeader()
+  //   const request = new HttpRequest('POST', "http://192.168.15.146:5000/opentok/submitresponse", data, { reportProgress: true, headers: this.appHeader})
+  //   console.log(this.http.request(request))
+  //   return this.http.request(request)
+  // }
+  
+  // sendImages(data:any){
+  //   // console.log(data)
+  //   this.setHeader()
+  //   const request = new HttpRequest('POST', "http://192.168.15.146:5000/opentok/submitresponse", data, { reportProgress: true, headers: this.appHeader})
+  //   console.log(this.http.request(request))
+  //   return this.http.request(request)
+  // }
+
+  
+  postFormDetails(data:any){
+    // console.log(data)
+    this.setHeader()
+    const request = new HttpRequest('POST', "http://192.168.15.146:5000/opentok/submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
+    console.log(this.http.request(request))
+    return this.http.request(request)
+  }
+  
+
+
+
 
   InitiateSession(data) {
     this.setHeader();

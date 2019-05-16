@@ -1,11 +1,14 @@
-import { NgForm } from '@angular/forms';
-import { APIService } from './APIService';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EventEmitter, Injectable, } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpEvent, HttpEventType, HttpClient, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { APIService } from './APIService';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class ProjectService {
+  res:any
+  emitResponses: EventEmitter<any> = new EventEmitter<any>();
+  emitQuestions: EventEmitter<any> = new EventEmitter<any>();
 
   dialUser = false;
   userToBeDialed = {};
@@ -22,31 +25,139 @@ export class ProjectService {
   emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
+  emitData_id : EventEmitter<any> = new EventEmitter<any>();
+  
+  constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
 
   HttpEventResponse(event) {
-    // console.log(event)
     switch (event.type) {
       case HttpEventType.Sent:
-        // console.log('Request started');
         break;
       case HttpEventType.ResponseHeader:
-        // console.log('Headers received ->', event.headers);
         break;
       case HttpEventType.DownloadProgress:
         const loaded = Math.round(event.loaded / 1024);
-        // console.log(`Downloading ${ loaded } kb downloaded`);
         break;
       case HttpEventType.Response:
-        // console.log('Finished -> ', event.body);
         return event.body;
     }
   }
+    
+  get_admin_ui(){
+    this.APIService.Get_Admin_UI().subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      if(response){
+        this.emitQuestions.emit(response.data)
+      } else {
+        // alert('else tru while emitQuestions')
+        // Some info to user;
+      }
+    }, (err) => {
+      // alert('err tru while emitQuestions')
+      // Some info to users;
+    })
+  }
+    
+  // updateParameterResponse(temp){
+  //   // console.log(temp)
+  //   this.APIService.updateParameterResponse(temp).subscribe((event: HttpEvent<any>) =>{
+  //     let response = this.HttpEventResponse(event)
+  //     if(response){
+  //       console.log("updateParameterResponse suc ",response)
+  //       //this.emitUI.emit(response)
+  //     } else {
+  //       console.log("updateParameterResponse else err ",response)
+  //       // Some info to user;
+  //     }
+  //   }, (err) => {
+  //       console.log("updateParameterResponse err ", err)
+  //       // Some info to users;
+  //   })
+  // }
+
+  postFormDetails(temp){
+    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      console.log(response)      
+      if(response){
+        localStorage.setItem(response.question_id, response.data_id)
+        // this.emitData_id.emit(response)
+      } else {
+        // Some info to user;
+      }
+    }, (err) => {
+        // Some info to users;
+    })
+  }
+
+  // pastFormArrayDetails(temp, question_id, _index){
+  //   this.APIService.pastFormArrayDetails(temp).subscribe((event: HttpEvent<any>) =>{
+  //     let response = this.HttpEventResponse(event)
+  //     let stored = localStorage.getItem(response.question_id)
+  //     if(response){
+  //       localStorage.setItem(response.question_id, response)
+  //       // this.emitData_id.emit(response)
+  //     } else {
+  //       // Some info to user;
+  //     }
+  //   }, (err) => {
+  //       // Some info to users;
+  //   })
+  // }
+
+  response(){
+    this.res = [
+      {
+        project_name:"Machine survey form",
+        project_submitted_by:"submitted",
+        project_submition_date:"10/12/2018",
+        project_info:{
+          info1:"Machine survey",
+          info2:"form in machine",
+          info3:"survey forms",
+          info4:"submit form"
+        }
+      },
+      {
+        project_name:"Open Defication",
+        project_submitted_by:"submitted",
+        project_submition_date:"10/12/2018",
+        project_info:{
+          info1:"open defication",
+          info2:"submit",
+          info3:"View OD",
+          info4:"info"
+        }
+      },
+      {
+        project_name:"google toilet locator",
+        project_submitted_by:"submitted",
+        project_submition_date:"10/12/2018",
+        project_info:{
+          info1:"Google toilet",
+          info2:"Located areas",
+          info3:"info",
+          info4:"Google project"
+        }
+      },
+      {
+        project_name:"Swach bharat mission",
+        project_submitted_by:"submitted",
+        project_submition_date:"10/12/2018",
+        project_info:{
+          info1:"Swach Areas",
+          info2:"Mission Swach",
+          info3:"View details",
+          info4:"info"
+        }
+      }
+    ]
+    this.emitResponses.emit(this.res)
+  }
+
 
   login(data){
     this.APIService.Login(data).subscribe((event: HttpEvent<any>) => {
-
       let response = this.HttpEventResponse(event)
       if(response){
         console.log(response)
@@ -80,21 +191,21 @@ export class ProjectService {
       }
     })
   }
-
+  
   emitUserDial(flag) {
     this.dialUser = flag;
     this.emitDialUser.emit(
       {dialUser : this.dialUser}
     )
   }
-
+  
   emitDialUserDetailsTOComponent(user) {
     this.userToBeDialed = user
     this.emitDialUserDetails.emit({
       user: this.userToBeDialed
     })
   }
-
+  
   startArchive(data) {
     this.APIService.StartArchive(data).subscribe((event: HttpEvent<any>)=>{
       let response = this.HttpEventResponse(event)

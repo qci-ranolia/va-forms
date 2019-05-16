@@ -12,6 +12,14 @@ $active-theme-color: #ffd600;
 %box-shadow {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
 }
+
+*{
+  outline: none !important;
+  &:focus{
+    outline: none !important;
+  }
+}
+
 .mat-tab-label {
   display: flex !important;
   min-width: 33.33% !important;

@@ -19,6 +19,6 @@ export const routes: Routes = [
     {path:'backup', component:BackupcomponentComponent},
   ]},
   {path:'login', component:LoginComponent},
-  {path:'**', redirectTo:'/login'},
+  {path:'**', redirectTo:'/login'}
 
 ]

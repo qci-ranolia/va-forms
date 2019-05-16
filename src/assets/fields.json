@@ -1,0 +1,78 @@
+{
+    "physical_location":[
+        {
+            "id":"ahjdashj",
+            "question":"Geotagged Assessment",
+            "options":"photo"
+        }
+    ],
+    "basic_information":[
+        {
+            "id":"fddfahjdashj",
+            "question":"What is the name of the official taking part in the assessment?",
+            "options":"text"
+        },
+        {
+            "id":"bmbahjdashj",
+            "question":"Designation of the official in the firm?",
+            "options":"text"
+        }
+    ],
+    "process_capability":[
+        {
+            "id":"fddfahjdashj",
+            "question":"Show the process of production of the product.",
+            "options":"video+image"
+        }
+    ],
+    "production_capability":[
+        {
+            "id":"ahjdsdashj",
+            "question":"Show the machines critical for production for the product.",
+            "options":"photo"
+        }
+    ],
+    "suppliers":[
+        {
+            "id":"trahjdashj",
+            "question":"What key aspects are focussed while selecting suppliers?",
+            "options":"text"
+        }
+    ],
+    "transportation":[
+        {
+            "id":"fddfahjdashj",
+            "question":"Show the transport facility.",
+            "options":"photo"
+        }
+    ],
+    "safety":[
+        {
+            "id":"fddfahjdashj",
+            "question":"Are there any effective signs and labels for safety?",
+            "options":"Yes/No"
+        },
+        {
+            "id":"bmbahjdashj",
+            "question":"Are there any fire extinguisher and other safety equipment in sight?",
+            "options":"Yes/No"
+        }
+    ],
+    "research_and_development":[
+        {
+            "id":"fddfahjdashj",
+            "question":"Show the R&D facility.",
+            "options":"photo"
+        },
+        {
+            "id":"bmbahjdashj",
+            "question":"Show the products/processes for which patents have been obtained.",
+            "options":"photo"
+        },
+        {
+            "id":"zxczahjdashj",
+            "question":"Show prototype if any.",
+            "options":"photo"
+        }
+    ]
+}

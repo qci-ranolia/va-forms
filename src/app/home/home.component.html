@@ -1,7 +1,7 @@
 <div class="container-fluid navBar text-center">
   <div class="row align-items-center">
     <div class="col-8 float-left text-left top-m">
-      <strong class="email">{{ email }}</strong>
+      <strong class="email" *ngIf="isEmail">{{ email }}</strong>
     </div>
     <div class="col-4 float-left text-right top-m">
       <button (click)="profileComponent()" class="btn btn-primary logout">
@@ -19,6 +19,9 @@
       Graphic
     </a>
   </div>
+  <!-- <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/form']" routerLinkActive="active">Forms</button>
+  <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/chat']" routerLinkActive="active">Chat</button>
+  <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/response']" routerLinkActive="active">Response</button>
+  <button class="col-sm-4 rounded-0" mat-stroked-button [routerLink]="['/graphic']">nav name</button> -->
 </div>
-
 <router-outlet></router-outlet>
