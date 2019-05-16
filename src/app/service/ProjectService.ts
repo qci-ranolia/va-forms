@@ -139,6 +139,7 @@ export class ProjectService {
       SESSION_ID:response.session_id,
       TOKEN:response.token
     }
+    localStorage.setItem('form_id',""+response.form_id)
   }
 
   emitDismissPopupFunction() {
