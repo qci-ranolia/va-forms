@@ -50,6 +50,9 @@ main {
 .list-group {
   margin: 15px 0 0;
 }
+.list-group.padding15{
+  padding: 0 15px;
+}
 .card {
   margin: 15px 0;
   padding: 15px;
@@ -355,13 +358,7 @@ vedio {
     font-size: 40px;
   }
 }
-.mat-flat-button.col:not([class*="mat-elevation-z"]),
-.mat-stroked-button.col:not([class*="mat-elevation-z"]) {
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.14),
-    0 0 0 0 rgba(0, 0, 0, 0.12);
-  background: transparent;
-  border-radius: 0;
-}
+
 @-webkit-keyframes pulse {
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -471,4 +468,14 @@ angular material css
 .example-full-width {
   width: 100%;
   display: block;
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: $default-theme-color;
+}
+.mat-flat-button.col:not([class*="mat-elevation-z"]),
+.mat-stroked-button.col:not([class*="mat-elevation-z"]) {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.14),
+    0 0 0 0 rgba(0, 0, 0, 0.12);
+  background: transparent;
+  border-radius: 0;
 }
