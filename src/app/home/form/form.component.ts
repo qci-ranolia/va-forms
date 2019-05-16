@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 import { ProjectService } from '../../service/ProjectService';
 import { ImagesComponent } from './images/images.component' 
@@ -34,22 +34,22 @@ export class FormComponent implements OnInit {
 
   imageName : any
   videoName : any
+  physical_location_question_id:any
 
+  presentData:any
+
+
+  index: number = 0;
+
+  // componentsReferences = [];
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
+  // @ViewChild('viewContainerRef1', { read: ViewContainerRef }) VCR: ViewContainerRef;
 
   constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService ){
-    this.ProjectService.emitQuestions.subscribe(res => {
-      this.response = res
-      this.para_array = Object.keys(res)
-      // this.form_id
+    
+    this.ProjectService.emitFilledDetails.subscribe(el=>{
+      console.log(el)
     })
-
-    // this.ProjectService.emitData_id.subscribe(res => {
-    //   console.log(res)
-    //   // this.response = res
-    //   // this.para_array = Object.keys(res)
-    //   // this.form_id
-    // })
     // this.para_array = ["physical_location", "basic_information", "process_capability", "suppliers","production_capability", "research_and_development"]
     // this.subquestions = [
     //   {
@@ -75,29 +75,80 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.ProjectService.emitQuestions.subscribe(res => {
+      this.response = res
+      this.para_array = Object.keys(res)
+      console.log(this.response)// this.form_id
+      if (this.response["Physical Location "]){
+        this.physical_location_question_id = this.response["Physical Location "][0].id 
+      }
+      console.log("physical id is ", this.physical_location_question_id)
+    // localStorage.setItem(this.physical_location_question_id, JSON.stringify([]))
+
+      // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+        
+      })
+
     this.ProjectService.get_admin_ui()
     this.form_id = localStorage.getItem('form_id')
+    // let physical_location_question_id = localStorage.getItem('question_id')
     if (this.form_id){
       this.local_form_id = true
+      this.ProjectService.filledDetails(this.form_id)
+      console.log("form id is ", this.form_id)
     } else {
       this.local_form_id = false
     }
-    
   }
 
 
-  addComponent(id){
-    // check and resolve the component
+  addComponent(id, src){
+    console.log(id)
+    //check and resolve the component
     var comp = this._cfr.resolveComponentFactory(ImagesComponent);
-    // Create component inside container
-    var expComponent = this.container.createComponent(comp);
-    // see explanations
+    //Create component inside container
+    var expComponent:ComponentRef<ImagesComponent> = this.container.createComponent(comp);
+    //see explanations
     expComponent.instance.question_id = id;
+    expComponent.instance.src = src;
+
     expComponent.instance._ref = expComponent;
-  }
   
 
+
+
+
+    // let componentFactory = this._cfr.resolveComponentFactory(ImagesComponent);
+    // let componentRef: ComponentRef<ImagesComponent> = this.VCR.createComponent(componentFactory);
+    // let currentComponent = componentRef.instance;
+
+    // currentComponent.selfRef = currentComponent;
+    // currentComponent.index = ++this.index;
+
+    // // prividing parent Component reference to get access to parent class methods
+    // currentComponent.compInteraction = this;
+
+    // // add reference for newly created component
+    // this.componentsReferences.push(componentRef);
+  
+  
+  
+  
+  }
+  
+  preFilledData(){
+    let storedData : any = JSON.parse(localStorage.getItem(this.physical_location_question_id))
+    // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+    // this.presentData = storedData
+    if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+
+  }
+
+
   checkAndUpdate(i){
+    // let storedData : any = JSON.parse(localStorage.getItem(this.physical_location_question_id))
+    // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+
     // Hit api for syncing
     // var temp = {
     //   "form_id":"something",
@@ -114,8 +165,10 @@ export class FormComponent implements OnInit {
         // this.param_id = set it to a value
         this.showSubQuestions = true
         this.subquestions = this.response[i]
+        
         this.param_name = i
         // console.log(this.subquestions)
+        this.preFilledData()
         return this.subquestions
       } else {
         this.param_name = null

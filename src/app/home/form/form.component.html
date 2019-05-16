@@ -22,12 +22,12 @@
                 </mat-radio-button>
               </mat-radio-group>
             </div>
-            
+            <!-- <div *ngFor="let item of presentData">{{addComponent(item.data_id, item.src)}}</div> -->
             <div *ngIf="subques.options == 'photo'">
-              <button mat-raised-button (click)="addComponent(subques.id)">Add Images</button>
+              <button mat-raised-button (click)="addComponent(subques.id, null)">Add Images</button>
               <div #parent></div>
             </div>
-
+            
             <div *ngIf="subques.options == 'Text'">
               <mat-form-field class="example-full-width col-sm-6 p-0">
                 <input id="{{subques.id}}" matInput #message placeholder="Enter details here..." (change)="textDetails(subques.id, $event,i)" value="" />

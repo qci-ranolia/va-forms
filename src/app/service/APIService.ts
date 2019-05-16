@@ -77,7 +77,8 @@ export class APIService {
   }
   
   Get_Admin_UI(){
-    const request = new HttpRequest('GET', this.projectURL2+"getform", { reportProgress: true })//, headers: this.appHeader 
+    this.setHeader()
+    const request = new HttpRequest('GET', this.projectURL2+"getform", { reportProgress: true, headers: this.appHeader  }) 
     return this.http.request(request)
   }
   
@@ -87,10 +88,15 @@ export class APIService {
   // }
 
   postFormDetails(data:any){
-    // console.log(data)
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL2+"submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
+  }
+  filledDetails(data:any){
+    this.setHeader()
+    const request = new HttpRequest('POST', this.projectURL2+"filleddetails", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
+    return this.http.request(request)
+
   }
   deleteImage(data:any){
     this.setHeader()

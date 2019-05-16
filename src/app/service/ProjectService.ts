@@ -24,8 +24,8 @@ export class ProjectService {
   emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
-  emitData_id : EventEmitter<any> = new EventEmitter<any>();
-  
+  emitFilledDetails : EventEmitter<any> = new EventEmitter<any>();
+  emitImageData_Id : EventEmitter<any> = new EventEmitter<any>();
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
 
   HttpEventResponse(event) {
@@ -48,10 +48,12 @@ export class ProjectService {
       if(response){
         this.emitQuestions.emit(response.data)
       } else {
+        // alert("Try again later")
         // alert('else tru while emitQuestions')
         // Some info to user;
       }
     }, (err) => {
+        // alert("Try again later.")      
       // alert('err tru while emitQuestions')
       // Some info to users;
     })
@@ -81,9 +83,50 @@ export class ProjectService {
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
       } else {
+        // alert("Try again later")
         // Some info to user;
       }
     }, (err) => {
+      // alert("Try again later.")
+        // Some info to users;
+    })
+  }
+
+  filledDetails(temp){
+    this.APIService.filledDetails(temp).subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      
+      console.log(response)
+      if(response){
+        // localStorage.setItem(response.question_id, response.data_id)
+        this.emitFilledDetails.emit(response)
+      } else {
+        // alert("Try again later")
+        // Some info to user;
+      }
+    }, (err) => {
+      // alert("Try again later.")
+        // Some info to users;
+    })
+  }
+
+  imageArray(temp){
+    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
+      let response = this.HttpEventResponse(event)
+      
+      if(response){
+        let x = {
+          data_id:response.data_id,
+          
+        }
+        // localStorage.setItem(response.question_id, response.data_id)
+        this.emitImageData_Id.emit(response.data_id)
+      } else {
+        // alert("Try again later")
+        // Some info to user;
+      }
+    }, (err) => {
+      // alert("Try again later.")
         // Some info to users;
     })
   }
@@ -95,9 +138,11 @@ export class ProjectService {
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
       } else {
+        // alert("Try again later")
         // Some info to user;
       }
     }, (err) => {
+      // alert("Try again later.")
         // Some info to users;
     })
   }
@@ -108,22 +153,11 @@ export class ProjectService {
         localStorage.removeItem("form_id")
         // this.emitData_id.emit(response)
       } else {
+        // alert("Try again later")
         // Some info to user;
       }
     }, (err) => {
-        // Some info to users;
-    })
-  }
-  postImageDetailsCounter(temp){
-    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
-      let response = this.HttpEventResponse(event)
-      if(response){
-        localStorage.setItem(response.question_id, response.data_id)
-        // this.emitData_id.emit(response)
-      } else {
-        // Some info to user;
-      }
-    }, (err) => {
+      // alert("Try again later.")
         // Some info to users;
     })
   }
