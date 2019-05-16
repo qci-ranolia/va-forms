@@ -27,6 +27,7 @@ export class DialComponent implements OnInit {
     private projectService: ProjectService
   ) {
     this.userToBeDialed = projectService.userToBeDialed;
+    localStorage.setItem("form_id",""+this.userToBeDialed.form_id)
     console.log(this.userToBeDialed);
     this.changeDetectorRef = ref;
   }
