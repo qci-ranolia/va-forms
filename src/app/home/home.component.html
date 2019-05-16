@@ -4,18 +4,42 @@
       <strong class="email" *ngIf="isEmail">{{ email }}</strong>
     </div>
     <div class="col-4 float-left text-right top-m">
-      <button (click)="profileComponent()" class="btn btn-primary logout">
-        <i class="fa fa-user" aria-hidden="true"></i>
+      <button mat-fab (click)="profileComponent()" class="logout">
+        <i class="fa fa-bars" aria-hidden="true"></i>
       </button>
     </div>
   </div>
   <div class="row">
-    <a [routerLink]="['/form']" class="col" routerLinkActive="active"> Form </a>
-    <a [routerLink]="['/chat']" class="col" routerLinkActive="active"> Chat </a>
-    <a [routerLink]="['/response']" class="col" routerLinkActive="active">
+    <a
+      [routerLink]="['/form']"
+      class="col"
+      routerLinkActive="active"
+      mat-flat-button
+    >
+      Form
+    </a>
+    <a
+      [routerLink]="['/chat']"
+      class="col"
+      routerLinkActive="active"
+      mat-flat-button
+    >
+      Chat
+    </a>
+    <a
+      [routerLink]="['/response']"
+      class="col"
+      routerLinkActive="active"
+      mat-flat-button
+    >
       Response
     </a>
-    <a [routerLink]="['/graphic']" class="col" routerLinkActive="active">
+    <a
+      [routerLink]="['/graphic']"
+      class="col"
+      routerLinkActive="active"
+      mat-flat-button
+    >
       Graphic
     </a>
   </div>

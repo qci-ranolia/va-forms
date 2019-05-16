@@ -1,36 +1,40 @@
 <div style="height:70vh">
-  <div class="form-group clearfix text-center">
-    <button class="btn btn-primary logout">
-      <i class="fa fa-user" aria-hidden="true"></i>{{ user_name }}
+  <div class="form-group clearfix text-center profilePopup">
+    <button mat-fab class="admin">
+      <i class="fa fa-user" aria-hidden="true"></i>
     </button>
-    <button (click)="logout()" class="btn btn-primary logout pull-right">
-      <i class="fa fa-sign-out" aria-hidden="true"></i>
+
+    <p>
+      <strong>{{ user_name }}</strong>
+    </p>
+
+    <button mat-fab (click)="logout()" class="cross pull-right">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+    <button mat-fab (click)="logout()" class="logout pull-right">
+      <i class="fa fa-lock" aria-hidden="true"></i>
     </button>
   </div>
   <hr />
-
-  <form>
-    <div class="form-group">
-      <label for="email">Current Password:</label>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
       <input
+        matInput
         type="password"
-        class="form-control"
-        id="email"
+        id="password"
         placeholder="current Password"
-        name="email"
+        name="password"
       />
-    </div>
-    <div class="form-group">
-      <label for="pwd">New Password:</label>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
       <input
+        matInput
         type="password"
-        class="form-control"
         id="pwd"
         placeholder="New Password"
         name="pswd"
       />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Change</button>
+    </mat-form-field>
+    <button mat-flat-button color="primary" class="login">Change</button>
   </form>
 </div>
