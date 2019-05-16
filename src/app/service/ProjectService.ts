@@ -25,7 +25,8 @@ export class ProjectService {
   emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
-
+  emitData_id : EventEmitter<any> = new EventEmitter<any>();
+  
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
 
   HttpEventResponse(event) {
@@ -57,50 +58,52 @@ export class ProjectService {
     })
   }
     
-  updateParameterResponse(temp){
-    this.APIService.updateParameterResponse(temp).subscribe((event: HttpEvent<any>) =>{
+  // updateParameterResponse(temp){
+  //   // console.log(temp)
+  //   this.APIService.updateParameterResponse(temp).subscribe((event: HttpEvent<any>) =>{
+  //     let response = this.HttpEventResponse(event)
+  //     if(response){
+  //       console.log("updateParameterResponse suc ",response)
+  //       //this.emitUI.emit(response)
+  //     } else {
+  //       console.log("updateParameterResponse else err ",response)
+  //       // Some info to user;
+  //     }
+  //   }, (err) => {
+  //       console.log("updateParameterResponse err ", err)
+  //       // Some info to users;
+  //   })
+  // }
+
+  postFormDetails(temp){
+    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
+      console.log(response)      
       if(response){
-        console.log("updateParameterResponse suc ",response)
-        //this.emitUI.emit(response)
+        localStorage.setItem(response.question_id, response.data_id)
+        // this.emitData_id.emit(response)
       } else {
-        console.log("updateParameterResponse else err ",response)
         // Some info to user;
       }
     }, (err) => {
-        console.log("updateParameterResponse err ", err)
         // Some info to users;
     })
   }
 
-  postRadio(temp){
-    this.APIService.post_Radio(temp).subscribe((event: HttpEvent<any>) =>{
-      let response = this.HttpEventResponse(event)
-      if(response){
-        this.emitUI.emit(response)
-      } else {
-        // Some info to user;
-      }
-    }, (err) => {
-      // Some info to users;
-    })
-  }
-
-  postTextDetails(temp){
-    this.APIService.postTextDetails(temp).subscribe((event: HttpEvent<any>) =>{
-      let response = this.HttpEventResponse(event)
-      if(response){
-        console.log("postTextDetails suc ",response)
-        //this.emitUI.emit(response)
-      } else {
-        console.log("postTextDetails else err ",response)
-        // Some info to user;
-      }
-    }, (err) => {
-        console.log("postTextDetails err ", err)
-        // Some info to users;
-    })
-  }
+  // pastFormArrayDetails(temp, question_id, _index){
+  //   this.APIService.pastFormArrayDetails(temp).subscribe((event: HttpEvent<any>) =>{
+  //     let response = this.HttpEventResponse(event)
+  //     let stored = localStorage.getItem(response.question_id)
+  //     if(response){
+  //       localStorage.setItem(response.question_id, response)
+  //       // this.emitData_id.emit(response)
+  //     } else {
+  //       // Some info to user;
+  //     }
+  //   }, (err) => {
+  //       // Some info to users;
+  //   })
+  // }
 
   response(){
     this.res = [

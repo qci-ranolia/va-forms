@@ -8,7 +8,6 @@ import { ProjectService } from '../service/ProjectService';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   email : any = "";
   password: any = "";
 
@@ -19,7 +18,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  
+  }
 
   login() {
     console.log(this.email)

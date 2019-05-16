@@ -3,7 +3,7 @@
         {
             "id":"ahjdashj",
             "question":"Geotagged Assessment",
-            "options":"image"
+            "options":"photo"
         }
     ],
     "basic_information":[
@@ -29,7 +29,7 @@
         {
             "id":"ahjdsdashj",
             "question":"Show the machines critical for production for the product.",
-            "options":"image"
+            "options":"photo"
         }
     ],
     "suppliers":[
@@ -43,36 +43,36 @@
         {
             "id":"fddfahjdashj",
             "question":"Show the transport facility.",
-            "options":"image"
+            "options":"photo"
         }
     ],
     "safety":[
         {
             "id":"fddfahjdashj",
             "question":"Are there any effective signs and labels for safety?",
-            "options":"radio"
+            "options":"Yes/No"
         },
         {
             "id":"bmbahjdashj",
             "question":"Are there any fire extinguisher and other safety equipment in sight?",
-            "options":"radio"
+            "options":"Yes/No"
         }
     ],
     "research_and_development":[
         {
             "id":"fddfahjdashj",
             "question":"Show the R&D facility.",
-            "options":"image"
+            "options":"photo"
         },
         {
             "id":"bmbahjdashj",
             "question":"Show the products/processes for which patents have been obtained.",
-            "options":"image"
+            "options":"photo"
         },
         {
             "id":"zxczahjdashj",
             "question":"Show prototype if any.",
-            "options":"image"
+            "options":"photo"
         }
     ]
 }

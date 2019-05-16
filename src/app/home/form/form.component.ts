@@ -10,7 +10,7 @@ import { ProjectService } from '../../service/ProjectService';
 })
 
 export class FormComponent implements OnInit {
-  images = new Array()
+  images : any
   
   conditions : string[] = ['Yes', 'No'];
   parameter : any;
@@ -35,9 +35,38 @@ export class FormComponent implements OnInit {
     this.ProjectService.emitQuestions.subscribe(res => {
       this.response = res
       this.para_array = Object.keys(res)
-      // console.log(res)
+      // this.form_id
     })
-    // this.para_array = ["1","2","3","4","5","6","7","8"]
+
+    this.ProjectService.emitData_id.subscribe(res => {
+      console.log(res)
+      // this.response = res
+      // this.para_array = Object.keys(res)
+      // this.form_id
+    })
+    // this.para_array = ["physical_location", "basic_information", "process_capability", "suppliers","production_capability", "research_and_development"]
+    // this.subquestions = [
+    //   {
+    //     "research_and_development":[
+    //         {
+    //             "id":"fddfahjdashj",
+    //             "question":"Show the R&D facility.",
+    //             "options":"photo"
+    //         },
+    //         {
+    //             "id":"bmbahjdashj",
+    //             "question":"Show the products/processes for which patents have been obtained.",
+    //             "options":"photo"
+    //         },
+    //         {
+    //             "id":"zxczahjdashj",
+    //             "question":"Show prototype if any.",
+    //             "options":"photo"
+    //         }
+    //     ]
+    //   } 
+    // ]
+
   }
 
   ngOnInit(){
@@ -52,7 +81,8 @@ export class FormComponent implements OnInit {
       "question_id":"something",
       "response":"something"
     }
-    // this.ProjectService.updateParameterResponse(temp)
+    // this.ProjectService.updateParameterResponse(this.images)
+    this.images = ''
     for ( let j = 0; j < this.para_array.length; j++ ) {
       if ( i == this.para_array[j] ) {
         if ( j+1 == this.para_array.length ) this.showFreeze = false
@@ -61,6 +91,7 @@ export class FormComponent implements OnInit {
         this.showSubQuestions = true
         this.subquestions = this.response[i]
         this.param_name = i
+        // console.log(this.subquestions)
         return this.subquestions
       } else {
         this.param_name = null
@@ -79,69 +110,102 @@ export class FormComponent implements OnInit {
     }
     // this.ProjectService.freeze(temp)
   }
+
   saveRadioWithSubQues( id, event:MatRadioChange ){
-    this.sync = false
-    // this.param_ques_index = id
+    // this.sync = false
+      // this.param_ques_index = id
     var temp = {
-      id: id,
-      parameter_name: this.param_name,
-      value: event.value
+      form_id: 'form_id_01',
+      question_id: id,
+      file_data: event.value,
+      is_submit:false,
+      data_id:null
     }
     if ( event.value == 'Yes' ) {
-      this.ProjectService.postRadio(temp)
+      this.ProjectService.postFormDetails(temp)
       return this.subquestions
     }
     this.sync = true
   }
 
   textDetails(id, $event){
-     var temp = {
-      id: id,
-      parameter_name: this.param_name,
-      value: $event.target.value
+    var temp = {
+      form_id: 'form_id_01',
+      question_id: id,
+      file_data: $event.target.value,
+      is_submit:false,
+      data_id:null
     }
-    // this.ProjectService.postTextDetails(temp)
+    this.ProjectService.postFormDetails(temp)
+    console.log(localStorage.getItem("formResponse"))  
   }
 
-  // uploadDocument( id, $event ){
-  //   var element : HTMLElement = document.getElementById(id+'+1') as HTMLElement;
-  //   element.innerText = "Please hold on for a moment..."
-  //   var element : HTMLElement = document.getElementById(id) as HTMLElement;
-  //   element.click()
-  // }
-
-  browseImages( id, $event ){
-    console.log(id)
+  browseImages( id, $event, pos ){
     this.imgPreview = true
-    let files = $event.target.files || $event.srcElement.files;
-    for ( let i = 0; i < $event.target.files.length; i++ ){
-      let reader = new FileReader()
-      reader.readAsDataURL(files[i])
-      reader.onload = (event:any) => {
-        this.images.push(reader.result)
+    let files = $event.target.files || $event.srcElement.files
+    let src : any;    
+    let data_id : any = localStorage.getItem(id)
+    console.log(data_id)
+    
+    let reader = new FileReader()
+    reader.readAsDataURL(files[0])
+    reader.onload = (event:any) => {
+      this.images = reader.result
+      this.subquestions[pos].src = reader.result
+      var temp = {
+        form_id: 'form_id_01',
+        question_id: id,
+        file_data: this.images,
+        is_submit:false,
+        data_id:data_id
+      }
+      this.ProjectService.postFormDetails(temp)
+      console.log(localStorage.getItem("formResponse"))
+    }
+    // console.log(this.subquestions[pos].src)
+    
+    this.imgPreview = false
+    
+    // console.log(this.subquestions[pos].src)
+    if ( this.subquestions[0].quantity ){
+      // if ((this.images.length+1) == this.subquestions[0].quantity ) alert("Uploaded "+this.subquestions[0].quantity+ " images.")
+      // alert("upload only "+this.subquestions[0].quantity+" images.")
+    }
+    // this.ProjectService.sendImages(temp)
+    // return this.images
+  }
+
+  /* ltr(id){
+    if (this.subquestions[0].id == id ){
+      for ( let y = 0 ; y < this.images.length; y++ ){
+        var x = document.createElement("img")
+        x.setAttribute('class', 'col-2')
+        x.setAttribute('src', this.images[y])
+        var element : HTMLElement = document.getElementById(id) as HTMLElement;
+        element.appendChild(x)
+        // console.log(element)
       }
     }
-    this.imgPreview = false
-    return this.images
   }
-
-  // imageNameFunc(id){
-  //   var a
-  //   return this.imageName
-  // }
+  
+  */
+    // imageNameFunc(id){
+    //   var a
+    //   return this.imageName
+    // }
   
   /*
-  uploadVideo( id, $event ){
-    this.videoName = "Please hold on for a moment..."
-    var element : HTMLElement = document.getElementById(id) as HTMLElement;
-    element.click()
-  }
-  
-  browseVideo( id, $event ){
-    this.videoName = $event.target.value
-    this.sync = true
-    this.sync = false
-  }
+    uploadVideo( id, $event ){
+      this.videoName = "Please hold on for a moment..."
+      var element : HTMLElement = document.getElementById(id) as HTMLElement;
+      element.click()
+    }
+    
+    browseVideo( id, $event ){
+      this.videoName = $event.target.value
+      this.sync = true
+      this.sync = false
+    }
   */
 
 }

@@ -1,7 +1,7 @@
 <div class="container-fluid navBar text-center">
   <div class="row align-items-center">
     <div class="col-8 float-left text-left top-m">
-      <strong class="email">{{ email }}</strong>
+      <strong class="email" *ngIf="isEmail">{{ email }}</strong>
     </div>
     <div class="col-4 float-left text-right top-m">
       <button (click)="logout()" class="btn btn-primary logout">
