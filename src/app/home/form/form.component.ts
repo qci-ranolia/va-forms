@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { copyStyles } from 'v3/opentiktokapp/node_modules/@angular/animations/browser/src/util';
 import { MatRadioChange } from '@angular/material';
 import { ProjectService } from '../../service/ProjectService';
 
@@ -38,12 +37,12 @@ export class FormComponent implements OnInit {
       // this.form_id
     })
 
-    this.ProjectService.emitData_id.subscribe(res => {
-      console.log(res)
-      // this.response = res
-      // this.para_array = Object.keys(res)
-      // this.form_id
-    })
+    // this.ProjectService.emitData_id.subscribe(res => {
+    //   console.log(res)
+    //   // this.response = res
+    //   // this.para_array = Object.keys(res)
+    //   // this.form_id
+    // })
     // this.para_array = ["physical_location", "basic_information", "process_capability", "suppliers","production_capability", "research_and_development"]
     // this.subquestions = [
     //   {
@@ -66,7 +65,6 @@ export class FormComponent implements OnInit {
     //     ]
     //   } 
     // ]
-
   }
 
   ngOnInit(){
@@ -137,7 +135,7 @@ export class FormComponent implements OnInit {
       data_id:null
     }
     this.ProjectService.postFormDetails(temp)
-    console.log(localStorage.getItem("formResponse"))  
+    // console.log(localStorage.getItem("formResponse"))  
   }
 
   browseImages( id, $event, pos ){
@@ -145,7 +143,7 @@ export class FormComponent implements OnInit {
     let files = $event.target.files || $event.srcElement.files
     let src : any;    
     let data_id : any = localStorage.getItem(id)
-    console.log(data_id)
+    // console.log(data_id)
     
     let reader = new FileReader()
     reader.readAsDataURL(files[0])
@@ -160,7 +158,7 @@ export class FormComponent implements OnInit {
         data_id:data_id
       }
       this.ProjectService.postFormDetails(temp)
-      console.log(localStorage.getItem("formResponse"))
+      // console.log(localStorage.getItem("formResponse"))
     }
     // console.log(this.subquestions[pos].src)
     
