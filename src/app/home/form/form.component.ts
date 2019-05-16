@@ -110,7 +110,7 @@ export class FormComponent implements OnInit {
     // this.ProjectService.freeze(temp)
   }
 
-  saveRadioWithSubQues( id, event:MatRadioChange ){
+  saveRadioWithSubQues( id, event ){
     // this.sync = false
       // this.param_ques_index = id
     var temp = {
@@ -120,10 +120,8 @@ export class FormComponent implements OnInit {
       is_submit:false,
       data_id:null
     }
-    if ( event.value == 'Yes' ) {
-      this.ProjectService.postFormDetails(temp)
-      return this.subquestions
-    }
+    this.ProjectService.postFormDetails(temp)
+
     this.sync = true
   }
 

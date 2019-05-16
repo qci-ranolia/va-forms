@@ -4,11 +4,9 @@
       <ul class="list-group " *ngFor="let chatUser of chatUsers">
         <li class="list-group-item  row">
           <div class="seperate col-6">
-            <strong
-              ><a class="float-left phone-no">{{
-                chatUser.user_name
-              }}</a></strong
-            >
+            <strong>
+              <a class="float-left phone-no">{{chatUser.user_name}} {{checkForFormID(chatUser)}}</a>
+            </strong>
           </div>
           <div class="seperate text-right col-6">
             <span

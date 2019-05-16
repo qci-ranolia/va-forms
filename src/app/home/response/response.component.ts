@@ -7,18 +7,10 @@ import { ProjectService } from "../../service/ProjectService";
   styleUrls: ['./response.component.scss']
 })
 export class ResponseComponent implements OnInit {
-  responses:any
-  showDetails:boolean = true;
-  hideme = []
-  
-  constructor(private projectService: ProjectService) {
-    this.projectService.emitResponses.subscribe( res => {
-      this.responses = res
-    })
-  }
 
-  ngOnInit(){
-    this.projectService.response()
-  }
+
+  constructor(private projectService: ProjectService) {}
+
+  ngOnInit(){}
 
 }
