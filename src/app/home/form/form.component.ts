@@ -41,15 +41,20 @@ export class FormComponent implements OnInit {
 
   index: number = 0;
 
-  // componentsReferences = [];
-  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
-  // @ViewChild('viewContainerRef1', { read: ViewContainerRef }) VCR: ViewContainerRef;
+  form_response:any
+  form_response_array:any
+  response_subquestions:any
 
+  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
+  
   constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService ){
     
-    this.ProjectService.emitFilledDetails.subscribe(el=>{
-      console.log(el)
+    this.ProjectService.emitVendorDetails.subscribe(el=>{
+      this.form_response = el
+      this.form_response_array = Object.keys(el)
+      this.storeVendorDetail(el)
     })
+
     // this.para_array = ["physical_location", "basic_information", "process_capability", "suppliers","production_capability", "research_and_development"]
     // this.subquestions = [
     //   {
@@ -83,7 +88,7 @@ export class FormComponent implements OnInit {
         this.physical_location_question_id = this.response["Physical Location "][0].id 
       }
       console.log("physical id is ", this.physical_location_question_id)
-    // localStorage.setItem(this.physical_location_question_id, JSON.stringify([]))
+      // localStorage.setItem(this.physical_location_question_id, JSON.stringify([]))
 
       // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
         
@@ -94,16 +99,36 @@ export class FormComponent implements OnInit {
     // let physical_location_question_id = localStorage.getItem('question_id')
     if (this.form_id){
       this.local_form_id = true
-      this.ProjectService.filledDetails(this.form_id)
-      console.log("form id is ", this.form_id)
+      this.ProjectService.vendorDetails({form_id:"form_id_01"})//"this.form_id"
     } else {
       this.local_form_id = false
     }
   }
 
+  storeVendorDetail(data){
+    console.log("physical ", this.response_subquestions)
+    // console.log("Data is ", data["Physical Location "][0].question_id)
+    this.storePhysicalLocation(data["Physical Location "])
+    this.storeBasicInfo(data["Basic Information"])
 
+  }
+
+  storePhysicalLocation(physicalLocationData){
+    for ( let data in physicalLocationData){
+      let pLData =  physicalLocationData[data]
+      localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
+    }
+  }
+
+  storeBasicInfo(basicInfoData){
+    console.log(basicInfoData)
+    for ( let data in basicInfoData){
+      let bIData =  basicInfoData[data]
+      localStorage.setItem(bIData.question_id, JSON.stringify(bIData.data))
+    }
+  }
   addComponent(id, src){
-    console.log(id)
+    console.log(src)
     //check and resolve the component
     var comp = this._cfr.resolveComponentFactory(ImagesComponent);
     //Create component inside container
@@ -113,27 +138,6 @@ export class FormComponent implements OnInit {
     expComponent.instance.src = src;
 
     expComponent.instance._ref = expComponent;
-  
-
-
-
-
-    // let componentFactory = this._cfr.resolveComponentFactory(ImagesComponent);
-    // let componentRef: ComponentRef<ImagesComponent> = this.VCR.createComponent(componentFactory);
-    // let currentComponent = componentRef.instance;
-
-    // currentComponent.selfRef = currentComponent;
-    // currentComponent.index = ++this.index;
-
-    // // prividing parent Component reference to get access to parent class methods
-    // currentComponent.compInteraction = this;
-
-    // // add reference for newly created component
-    // this.componentsReferences.push(componentRef);
-  
-  
-  
-  
   }
   
   preFilledData(){
@@ -149,16 +153,12 @@ export class FormComponent implements OnInit {
     // let storedData : any = JSON.parse(localStorage.getItem(this.physical_location_question_id))
     // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
 
-    // Hit api for syncing
-    // var temp = {
-    //   "form_id":"something",
-    //   "parameter_id":"something",
-    //   "question_id":"something",
-    //   "response":"something"
-    // }
-    // this.ProjectService.updateParameterResponse(this.images)
     this.images = ''
     for ( let j = 0; j < this.para_array.length; j++ ) {
+      if (i == this.form_response_array[j] ){
+        this.response_subquestions = this.form_response[j]
+        // console.log("this.response_subquestions is ", this.response_subquestions)
+      }
       if ( i == this.para_array[j] ) {
         if ( j+1 == this.para_array.length ) this.showFreeze = false
         else this.showFreeze = true
@@ -168,7 +168,9 @@ export class FormComponent implements OnInit {
         
         this.param_name = i
         // console.log(this.subquestions)
-        this.preFilledData()
+        setTimeout(()=>{
+           this.preFilledData()
+        }, 1000);        
         return this.subquestions
       } else {
         this.param_name = null
@@ -205,8 +207,7 @@ export class FormComponent implements OnInit {
   }
 
   textDetails(id, $event){
-    let data_id : any = localStorage.getItem(id)
-    console.log(data_id)
+    let data_id : any = localStorage.getItem(id)  
     var temp = {
       form_id: this.form_id,
       question_id: id,
@@ -216,67 +217,5 @@ export class FormComponent implements OnInit {
     }
     this.ProjectService.postFormDetails(temp)
   }
-
-  browseImages( id, $event, pos ){
-    this.imgPreview = false
-    let files = $event.target.files || $event.srcElement.files
-    let src : any;
-    let data_id : any = localStorage.getItem(id)
-    let reader = new FileReader()
-    reader.readAsDataURL(files[0])
-    reader.onload = (event:any) => {
-      this.images = reader.result
-      // this.imagesArray.push(reader.result)
-      this.subquestions[pos].src = reader.result
-      var temp = {
-        form_id : this.form_id,
-        question_id : id,
-        file_data : this.images,
-        is_submit : false,
-        data_id : data_id
-      }
-      this.ProjectService.postFormDetails(temp)
-      this.ProjectService.postFormDetails(temp)
-
-    }
-    // setTimeout(function() {
-      // console.log(this.imagesArray)
-      // console.log(this.imagesArray.length)
-    // }, 100)
-    
-    // if (this.subquestions[0].quantity){
-    //   // console.log(this.subquestions[0].quantity)
-    //   this.imagesArray
-    //   // return some data
-    // }
-  }
-
-  /* ltr(id){
-      if (this.subquestions[0].id == id ){
-        for ( let y = 0 ; y < this.images.length; y++ ){
-          var x = document.createElement("img")
-          x.setAttribute('class', 'col-2')
-          x.setAttribute('src', this.images[y])
-          var element : HTMLElement = document.getElementById(id) as HTMLElement;
-          element.appendChild(x)
-          // console.log(element)
-        }
-      }
-    }
-  */
-
-  /*
-    uploadVideo( id, $event ){
-      this.videoName = "Please hold on for a moment..."
-      var element : HTMLElement = document.getElementById(id) as HTMLElement;
-      element.click()
-    }
-
-    browseVideo( id, $event ){
-      this.videoName = $event.target.value
-      this.sync = true
-      this.sync = false
-    }
-  */
 
 }

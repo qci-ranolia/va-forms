@@ -62,9 +62,9 @@ export class ImagesComponent implements OnInit {
       this.ProjectService.imageArray(temp)
       this.ProjectService.emitImageData_Id.subscribe(el=>{
         this.data_id = el
+        console.log("el is ", el)
         this.storedData()
       })
-     
     }
 
 

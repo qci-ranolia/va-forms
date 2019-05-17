@@ -29,8 +29,9 @@
             </div>
             
             <div *ngIf="subques.options == 'Text'">
+              
               <mat-form-field class="example-full-width col-sm-6 p-0">
-                <input id="{{subques.id}}" matInput #message placeholder="Enter details here..." (change)="textDetails(subques.id, $event,i)" value="" />
+                <input id="{{subques.id}}" matInput #message placeholder="Enter details here..." (change)="textDetails(subques.id, $event, i)" value="" />
               </mat-form-field>
             </div>
             <!--<div *ngIf="subques.options == 'video+image'">

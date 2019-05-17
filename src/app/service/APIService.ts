@@ -92,9 +92,9 @@ export class APIService {
     const request = new HttpRequest('POST', this.projectURL2+"submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
-  filledDetails(data:any){
+  vendorDetails(data:any){
     this.setHeader()
-    const request = new HttpRequest('POST', this.projectURL2+"filleddetails", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
+    const request = new HttpRequest('POST', this.projectURL2+"vendordetails", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
 
   }

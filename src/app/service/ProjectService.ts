@@ -24,7 +24,7 @@ export class ProjectService {
   emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
-  emitFilledDetails : EventEmitter<any> = new EventEmitter<any>();
+  emitVendorDetails : EventEmitter<any> = new EventEmitter<any>();
   emitImageData_Id : EventEmitter<any> = new EventEmitter<any>();
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
 
@@ -92,14 +92,12 @@ export class ProjectService {
     })
   }
 
-  filledDetails(temp){
-    this.APIService.filledDetails(temp).subscribe((event: HttpEvent<any>) =>{
+  vendorDetails(temp){
+    this.APIService.vendorDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
-      
-      console.log(response)
-      if(response){
+      if( response ){
         // localStorage.setItem(response.question_id, response.data_id)
-        this.emitFilledDetails.emit(response)
+        this.emitVendorDetails.emit(response.data)
       } else {
         // alert("Try again later")
         // Some info to user;
