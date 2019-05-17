@@ -72,29 +72,29 @@ export class ImagesComponent implements OnInit {
 
   storedData(){
     // localStorage.setItem(this.question_id, JSON.stringify(rd))
-      // storedData must be an emoty array
-      let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
-      console.log("storedData is ", storedData)
-      let x:any = []
-      if (storedData){
-        x = storedData.filter(el => el.data_id == this.data_id )
-      }
-      let newItem:any = {
-        data_id:this.data_id,
-        src:this.src
-      }
+    // storedData must be an emoty array
+    let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
+    console.log("storedData is ", storedData)
+    let x:any = []
+    if (storedData){
+      x = storedData.filter(el => el.data_id == this.data_id )
+    }
+    let newItem:any = {
+      data_id:this.data_id,
+      src:this.src
+    }
 
-      if (x.length == 0 ){
+    if (x.length == 0 ){
 
-        storedData.push(newItem)
-        console.log("new stored data", storedData)
-        localStorage.setItem(this.question_id, JSON.stringify(storedData))
-      } else {
-        let v : any = storedData.filter(item => item.data_id !== this.data_id);
-        console.log("v is ", v)
-        v.push(newItem)
-        localStorage.setItem(this.question_id, JSON.stringify(v))
-      }
+      storedData.push(newItem)
+      console.log("new stored data", storedData)
+      localStorage.setItem(this.question_id, JSON.stringify(storedData))
+    } else {
+      let v : any = storedData.filter(item => item.data_id !== this.data_id);
+      console.log("v is ", v)
+      v.push(newItem)
+      localStorage.setItem(this.question_id, JSON.stringify(v))
+    }
   }
 
   ngOnInit() {

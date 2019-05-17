@@ -15,6 +15,7 @@ export class BasicinfoComponent implements OnInit {
   officialDesignationQuesID:any="4f7414dcea7d5e61ee08e4ddf238a04f"
   officialNameQuesID:any="4367252b9f222177ac5134c1b84d6341"
   
+  
   questionIds:any= new Array()
   componentName:any ="Basic Information"
   
