@@ -155,7 +155,7 @@ export class ProjectService {
           }
 
           setTimeout(()=>{
-            this.startArchive(archiveData)
+           // this.startArchive(archiveData)
           }, 4000)
         }
       }
