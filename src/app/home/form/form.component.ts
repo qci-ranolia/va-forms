@@ -2,6 +2,8 @@ import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, Component
 import { MatRadioChange } from '@angular/material';
 import { ProjectService } from '../../service/ProjectService';
 import { ImagesComponent } from './images/images.component' 
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-form',
@@ -47,7 +49,7 @@ export class FormComponent implements OnInit {
 
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
   
-  constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService ){
+  constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
     
     this.ProjectService.emitVendorDetails.subscribe(el=>{
       this.form_response = el
@@ -97,17 +99,40 @@ export class FormComponent implements OnInit {
     this.ProjectService.get_admin_ui()
     this.form_id = localStorage.getItem('form_id')
     // let physical_location_question_id = localStorage.getItem('question_id')
+    
     if (this.form_id){
       this.local_form_id = true
-      this.ProjectService.vendorDetails({form_id:"form_id_01"})//"this.form_id"
+      this.ProjectService.vendorDetails({form_id:this.form_id})//"this.form_id"
     } else {
       this.local_form_id = false
     }
   }
 
   storeVendorDetail(data){
-    console.log("physical ", this.response_subquestions)
+    console.log("data is ", data)
     // console.log("Data is ", data["Physical Location "][0].question_id)
+    let subSectionKeys :any = Object.keys(data)
+    let subSectionData :any
+    for (let i = 0; i < subSectionKeys.length; i++){
+      let name = subSectionKeys[i]
+      // console.log("sasasa", data[name])
+      let x=[]
+      for ( let datas in data[name]){
+        let pLData:any =  data[name][datas]
+        x.push(pLData.question_id)
+        console.log(pLData.question_id, pLData.data )
+        // stroring data for each question id in localstorage
+        localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
+
+      }
+      // localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
+      localStorage.setItem(name, JSON.stringify(x))
+
+      console.log(name, x)
+      
+    }
+    
+
     this.storePhysicalLocation(data["Physical Location "])
     this.storeBasicInfo(data["Basic Information"])
 
@@ -121,7 +146,7 @@ export class FormComponent implements OnInit {
   }
 
   storeBasicInfo(basicInfoData){
-    console.log(basicInfoData)
+    // console.log(basicInfoData)
     for ( let data in basicInfoData){
       let bIData =  basicInfoData[data]
       localStorage.setItem(bIData.question_id, JSON.stringify(bIData.data))
@@ -152,16 +177,20 @@ export class FormComponent implements OnInit {
   checkAndUpdate(i){
     // let storedData : any = JSON.parse(localStorage.getItem(this.physical_location_question_id))
     // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
-
     this.images = ''
     for ( let j = 0; j < this.para_array.length; j++ ) {
-      if (i == this.form_response_array[j] ){
-        this.response_subquestions = this.form_response[j]
-        // console.log("this.response_subquestions is ", this.response_subquestions)
-      }
+      // if (i == this.form_response_array[j] ){
+      //   this.response_subquestions = this.form_response[j]
+      //   console.log("this.response_subquestions is ", this.response_subquestions)
+      // }
       if ( i == this.para_array[j] ) {
+        let routeName = i.replace(/ +/g, "")
+        this.router.navigate(['/form/'+routeName])
+
         if ( j+1 == this.para_array.length ) this.showFreeze = false
         else this.showFreeze = true
+        // this.router.navigate(['/form/transp']);
+        
         // this.param_id = set it to a value
         this.showSubQuestions = true
         this.subquestions = this.response[i]
@@ -169,7 +198,7 @@ export class FormComponent implements OnInit {
         this.param_name = i
         // console.log(this.subquestions)
         setTimeout(()=>{
-           this.preFilledData()
+          //  this.preFilledData()
         }, 1000);        
         return this.subquestions
       } else {

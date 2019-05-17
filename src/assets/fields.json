@@ -1,76 +1,78 @@
 {
     "physical_location":[
         {
-            "id":"ahjdashj",
+            "question_id":"ahjdashj",
             "question":"Geotagged Assessment",
             "options":"photo"
         }
     ],
-    "basic_information":[
+    "Basic Information":[
         {
-            "id":"fddfahjdashj",
+            "question_id":"4f7414dcea7d5e61ee08e4ddf238a04f",
             "question":"What is the name of the official taking part in the assessment?",
-            "options":"text"
+            "options":"text",
+            "model_name":"officialDesignation"
         },
         {
-            "id":"bmbahjdashj",
+            "question_id":"4367252b9f222177ac5134c1b84d6341",
             "question":"Designation of the official in the firm?",
-            "options":"text"
+            "options":"text",
+            "model_name":"officialName"
         }
     ],
     "process_capability":[
         {
-            "id":"fddfahjdashj",
+            "question_id":"fddfahjdashj",
             "question":"Show the process of production of the product.",
             "options":"video+image"
         }
     ],
     "production_capability":[
         {
-            "id":"ahjdsdashj",
+            "question_id":"ahjdsdashj",
             "question":"Show the machines critical for production for the product.",
             "options":"photo"
         }
     ],
     "suppliers":[
         {
-            "id":"trahjdashj",
+            "question_id":"trahjdashj",
             "question":"What key aspects are focussed while selecting suppliers?",
             "options":"text"
         }
     ],
     "transportation":[
         {
-            "id":"fddfahjdashj",
+            "question_id":"fddfahjdashj",
             "question":"Show the transport facility.",
             "options":"photo"
         }
     ],
     "safety":[
         {
-            "id":"fddfahjdashj",
+            "question_id":"fddfahjdashj",
             "question":"Are there any effective signs and labels for safety?",
             "options":"Yes/No"
         },
         {
-            "id":"bmbahjdashj",
+            "question_id":"bmbahjdashj",
             "question":"Are there any fire extinguisher and other safety equipment in sight?",
             "options":"Yes/No"
         }
     ],
     "research_and_development":[
         {
-            "id":"fddfahjdashj",
+            "question_id":"fddfahjdashj",
             "question":"Show the R&D facility.",
             "options":"photo"
         },
         {
-            "id":"bmbahjdashj",
+            "question_id":"bmbahjdashj",
             "question":"Show the products/processes for which patents have been obtained.",
             "options":"photo"
         },
         {
-            "id":"zxczahjdashj",
+            "question_id":"zxczahjdashj",
             "question":"Show prototype if any.",
             "options":"photo"
         }

@@ -1,5 +1,5 @@
-<mat-progress-bar mode="buffer" *ngIf="!sync"></mat-progress-bar>
-<div class="pl-2 pr-2" *ngIf="local_form_id">
+<!-- <mat-progress-bar mode="buffer" *ngIf="!sync"></mat-progress-bar> -->
+<div class="pl-2 pr-2">
   <div class="row mt-2">
     <div class="col">
       <div class="col-sm-12 p-2 rounded-top">     
@@ -10,7 +10,17 @@
             <mat-option *ngFor="let parameter of para_array; let i = index" value="{{parameter}}"><strong>{{i+1}}.&nbsp;</strong>{{parameter}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <div class="" *ngIf="showSubQuestions">
+        <div class="">
+          <router-outlet></router-outlet>
+        </div>
+
+
+
+
+
+
+
+        <!-- <div class="" *ngIf="showSubQuestions">
 
           <mat-card class="mb-2" *ngFor="let subques of subquestions; let i = index">
             <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>{{i+1}}</strong>.&nbsp;{{subques.question}}</label>
@@ -22,38 +32,24 @@
                 </mat-radio-button>
               </mat-radio-group>
             </div>
-            <!-- <div *ngFor="let item of presentData">{{addComponent(item.data_id, item.src)}}</div> -->
             <div *ngIf="subques.options == 'photo'">
               <button mat-raised-button (click)="addComponent(subques.id, null)">Add Images</button>
               <div #parent></div>
             </div>
             
-            <div *ngIf="subques.options == 'Text'">
-              
-              <mat-form-field class="example-full-width col-sm-6 p-0">
-                <input id="{{subques.id}}" matInput #message placeholder="Enter details here..." (change)="textDetails(subques.id, $event, i)" value="" />
-              </mat-form-field>
-            </div>
-            <!--<div *ngIf="subques.options == 'video+image'">
-              <mat-form-field class="example-full-width col-sm-6 p-0">
-                <input matInput #message placeholder="Upload Video" value="{{videoName}}" (click)="uploadVideo(subques.id,$event)" />
-                <input id="{{subques.id}}" type="file" class="d-none" accept="image/*" (change)="browseVideo(subques.id, $event)" />
-                <mat-hint align="start" class="displayText">{{videoName}}</mat-hint>
-              </mat-form-field>
-            </div> -->
-          </mat-card>
+            </mat-card>
           <button mat-raised-button *ngIf="!showFreeze" (click)="submitResponse()">Submit</button>
           <strong class="d-block text-center mt-3">Change parameters to save/sync this data</strong>
         </div>
-      </div>
-      <div class="col-sm-12 p-2" *ngIf="!showSubQuestions">
+      </div> -->
+      <!-- <div class="col-sm-12 p-2" *ngIf="!showSubQuestions">
         <mat-card>
           <h5 class="p-5 text-muted">No parameters is selected. Please select parameter from above options.</h5>
         </mat-card>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
-<div class="p-5" *ngIf="!local_form_id">
+<!-- <div class="p-5">
   <h5>Please start video chat first</h5>
-</div>
+</div> -->

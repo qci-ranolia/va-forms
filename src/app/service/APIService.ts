@@ -19,7 +19,7 @@ export class APIService {
   headers: any;
   opts: any;
   request: any;
-  projectURL: string = '../assets/APIData/';
+  projectURL: string = '../assets/fields.json';
   projectURL2: string = "http://192.168.15.146:5000/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
@@ -79,6 +79,11 @@ export class APIService {
   Get_Admin_UI(){
     this.setHeader()
     const request = new HttpRequest('GET', this.projectURL2+"getform", { reportProgress: true, headers: this.appHeader  }) 
+    return this.http.request(request)
+  }
+
+  JSON_IU(){
+    const request = new HttpRequest('GET', this.projectURL, { reportProgress: true}) 
     return this.http.request(request)
   }
   

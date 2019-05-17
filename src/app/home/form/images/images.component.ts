@@ -11,7 +11,7 @@ export class ImagesComponent implements OnInit {
   images:any;
   @Input() src:any
   // imageName:string
-  data_id:any
+  @Input() data_id:any
   @Input() question_id:any
   
   constructor(private ProjectService: ProjectService ) {
@@ -25,7 +25,7 @@ export class ImagesComponent implements OnInit {
       question_id:this.question_id,
       data_id:this.data_id
     }
-    console.log(temp)
+    // console.log(temp)
     this.ProjectService.deleteImage(temp)
     let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
 
@@ -62,7 +62,7 @@ export class ImagesComponent implements OnInit {
       this.ProjectService.imageArray(temp)
       this.ProjectService.emitImageData_Id.subscribe(el=>{
         this.data_id = el
-        console.log("el is ", el)
+        // console.log("el is ", el)
         this.storedData()
       })
     }

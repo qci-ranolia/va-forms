@@ -42,6 +42,14 @@ import { ProfileComponent } from './home/profile/profile.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ImagesComponent } from './home/form/images/images.component';
+import { BasicinfoComponent } from './home/basicinfo/basicinfo.component';
+import { PhyslocComponent } from './home/physloc/physloc.component';
+import { ProccapabComponent } from './home/proccapab/proccapab.component';
+import { ProdcapacComponent } from './home/prodcapac/prodcapac.component';
+import { RdevComponent } from './home/rdev/rdev.component';
+import { SafetyComponent } from './home/safety/safety.component';
+import { SupplierComponent } from './home/supplier/supplier.component';
+import { TranspComponent } from './home/transp/transp.component';
 
 
 @NgModule({
@@ -63,7 +71,15 @@ import { ImagesComponent } from './home/form/images/images.component';
     ScheduleDataComponent,
     LiveAssesmentComponent,
     ProfileComponent,
-    ImagesComponent
+    ImagesComponent,
+    BasicinfoComponent,
+    PhyslocComponent,
+    ProccapabComponent,
+    ProdcapacComponent,
+    RdevComponent,
+    SafetyComponent,
+    SupplierComponent,
+    TranspComponent
   ],
   entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent],
   imports: [

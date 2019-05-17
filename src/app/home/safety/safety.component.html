@@ -1,0 +1,26 @@
+<mat-card class="mb-2">
+    <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>1</strong>.&nbsp;Are there any effective signs and labels for safety?</label>
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+      <mat-radio-button
+      class="example-radio-button mr-3 ml-3"
+      [value]="firstCondYes"
+      (change)="clickSafety($event)">Yes</mat-radio-button>
+        <mat-radio-button
+      class="example-radio-button mr-3 ml-3"
+      [value]="firstCondNo"
+      (change)="clickSafety($event)">No</mat-radio-button>
+    </mat-radio-group>
+</mat-card>
+<mat-card class="mb-2">
+  <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>2</strong>.&nbsp;Are there any fire extinguisher and other safety equipment in sight?</label>
+  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+    <mat-radio-button
+    class="example-radio-button mr-3 ml-3"
+    [value]="secondCondYes"
+    (change)="clickExtn($event)">Yes</mat-radio-button>
+    <mat-radio-button
+    class="example-radio-button mr-3 ml-3"
+    [value]="secondCondNo"
+    (change)="clickExtn($event)">No</mat-radio-button>
+  </mat-radio-group>
+</mat-card>
