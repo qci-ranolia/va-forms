@@ -20,7 +20,10 @@ $active-theme-color: #ffd600;
   }
 }
 main {
-  padding-top: 113px;
+  overflow-y: auto;
+  position: relative;
+  top: 113px;
+  height: calc(100vh - 113px);
 }
 .webcam-wrapper {
   height: 350px !important;
@@ -114,8 +117,8 @@ main {
   border-radius: 40px;
   text-align: center;
   @extend %box-shadow;
-  margin-right: 36px !important;
-  margin-top: 20px !important;
+  margin-right: 20px !important;
+  margin-top: 40px !important;
 }
 .conToggle {
   transition: all 0.5s ease-in-out;
@@ -456,6 +459,10 @@ vedio {
   }
   .session-summary {
     margin: 0 auto;
+  }
+  .OT_publisher,
+  .OT_subscriber {
+    height: 35vh !important;
   }
 }
 /*
