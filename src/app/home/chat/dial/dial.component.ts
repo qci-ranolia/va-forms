@@ -41,7 +41,9 @@ export class DialComponent implements OnInit {
     }
   }
 
-  
+  cycleVideo() {
+    this.projectService.getCycleVideo()
+  }
 
   ngOnInit() {
     console.log(this.alreadyPublishing);

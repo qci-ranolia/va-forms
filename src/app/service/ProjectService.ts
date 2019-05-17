@@ -27,6 +27,7 @@ export class ProjectService {
   emitLiveResponse : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
+  emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
 
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
 
@@ -207,6 +208,12 @@ export class ProjectService {
     }, (err:HttpErrorResponse)=>{
       console.log(err)
     });
+  }
+
+  getCycleVideo() {
+    this.emitCycleVideo.emit({
+      cycle: "video"
+    })
   }
 
 }

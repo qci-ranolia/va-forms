@@ -1,5 +1,6 @@
 import { Component, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { OpentokService } from '../../service/Opentok.service';
+import { ProjectService } from "../../service/ProjectService";
 
 const publish = () => {
 
@@ -18,8 +19,13 @@ export class PublisherComponent implements AfterViewInit {
   publishing: Boolean;
   @Input() alreadyPublishing: Boolean = false;
 
-  constructor(private opentokService: OpentokService) {
+  constructor(private opentokService: OpentokService, private projectService: ProjectService) {
     this.publishing = false;
+    this.projectService.emitCycleVideo.subscribe(res=>{
+      console.log(res)
+      this.cycleVideo()
+    })
+
   }
 
   ngOnInit() {
