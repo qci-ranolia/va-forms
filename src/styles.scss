@@ -42,7 +42,9 @@ main {
 .list-group-item {
   @extend %box-shadow;
 }
-.change-password{font-size:16px;}
+.change-password {
+  font-size: 16px;
+}
 .seperate {
   width: 50%;
   float: left;
@@ -51,7 +53,7 @@ main {
 .list-group {
   margin: 15px 0 0;
 }
-.list-group.padding15{
+.list-group.padding15 {
   padding: 0 15px;
 }
 .card {
@@ -479,4 +481,37 @@ angular material css
     0 0 0 0 rgba(0, 0, 0, 0.12);
   background: transparent;
   border-radius: 0;
+}
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #53bca6;
+}
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #53bca6;
+}
+.mat-form-field-type-mat-native-select.mat-focused:not(.mat-form-field-invalid)
+  .mat-form-field-infix::after {
+  color: #53bca6;
+}
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #53bca6;
+}
+.mat-icon.mat-primary {
+  color: #53bca6;
+}
+.mat-input-element {
+  caret-color: #53bca6;
+}
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #53bca6;
+}
+.mat-radio-button.mat-primary .mat-radio-inner-circle,
+.mat-radio-button.mat-primary
+  .mat-radio-ripple
+  .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-primary:active .mat-radio-persistent-ripple {
+  background-color: #53bca6;
+}
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #53bca6;
 }
