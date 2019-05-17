@@ -23,8 +23,8 @@ export class APIService {
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
   // localURL2: string = 'https://13.234.223.215';
-  // localURL2: string = 'https://assessment.qcin.org';
-  localURL2: string = 'http://192.168.15.146:5000';
+  localURL2: string = 'https://assessment.qcin.org';
+  // localURL2: string = 'http://192.168.15.146:5000';
   current_URL : string = this.localURL;
 
   Header: any;
