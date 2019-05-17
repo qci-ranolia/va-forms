@@ -40,6 +40,10 @@ export class PublisherComponent implements AfterViewInit {
     }
   }
 
+  cycleVideo() {
+    this.publisher.cycleVideo();
+  }
+
   publish() {
     this.session.publish(this.publisher, (err) => {
       if (err) {

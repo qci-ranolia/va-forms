@@ -41,6 +41,8 @@ export class DialComponent implements OnInit {
     }
   }
 
+  
+
   ngOnInit() {
     console.log(this.alreadyPublishing);
     console.log(this.session);
