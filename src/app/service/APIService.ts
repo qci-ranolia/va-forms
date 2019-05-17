@@ -22,8 +22,9 @@ export class APIService {
   projectURL: string = '../assets/APIData/';
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
-  localURL2: string = 'http://192.168.15.161:5000';
-  // localURL2: string = 'http://13.233.138.181:5000';
+  // localURL2: string = 'http://192.168.15.161:5000';
+  // localURL2: string = 'https://13.234.223.215';
+  localURL2: string = 'https://assessment.qcin.org';
   current_URL : string = this.localURL;
 
   Header: any;
@@ -77,18 +78,16 @@ export class APIService {
 
   GetLiveAssesment(data) {
     this.setHeader()
-    const request = new HttpRequest('POST', "http://192.168.15.146:5000/opentok/filleddetails", data, { reportProgress: true, headers: this.appHeader })
+    const request = new HttpRequest('POST', this.localURL2+"/opentok/filleddetails", data, { reportProgress: true, headers: this.appHeader })
     console.log(this.http.request(request))
     return this.http.request(request)
   }
 
   Get_Admin_UI(){
-    const request = new HttpRequest('GET', "http://192.168.15.146:5000/opentok/getform", { reportProgress: true })//, headers: this.appHeader
-    // "http://192.168.15.146:5000/opentok/getform"
-    // http://192.168.15.214:4200/assets/fields.json
-    // console.log(this.http.request(request))
+    const request = new HttpRequest('GET', this.localURL2+"/opentok/getform", { reportProgress: true })//, headers: this.appHeader
     return this.http.request(request)
   }
+
   updateParameterResponse(data:any){
     const request = new HttpRequest('POST', "API", JSON.stringify(data), { reportProgress: true, headers: this.appHeader })
     return this.http.request(request)
@@ -97,7 +96,7 @@ export class APIService {
   postFormDetails(data:any){
     // console.log(data)
     this.setHeader()
-    const request = new HttpRequest('POST', "http://192.168.15.146:5000/opentok/submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
+    const request = new HttpRequest('POST', this.localURL2+"/opentok/submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     console.log(this.http.request(request))
     return this.http.request(request)
   }

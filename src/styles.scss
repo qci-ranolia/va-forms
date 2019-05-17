@@ -112,6 +112,8 @@ main {
   border-radius: 40px;
   text-align: center;
   @extend %box-shadow;
+  margin-right: 36px !important;
+  margin-top: 20px !important;
 }
 .conToggle {
   transition: all 0.5s ease-in-out;
@@ -123,9 +125,6 @@ main {
 }
 .bodyActive .conToggle {
   transform: translateY(-24px);
-}
-.btn-danger {
-  margin-right: 15px;
 }
 
 .OT_publisher,
