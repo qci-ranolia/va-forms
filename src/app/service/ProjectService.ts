@@ -98,7 +98,7 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if( response ){
         // localStorage.setItem(response.question_id, response.data_id)
-        this.emitVendorDetails.emit(response.data)
+        this.emitVendorDetails.emit(response)
       } else {
         // alert("Try again later")
         // Some info to user;
@@ -181,6 +181,11 @@ export class ProjectService {
 
     if(localStorage.getItem('token'))
     this.router.navigate(['/']);
+  }
+
+  checkFormStatus() {
+
+    return localStorage.getItem('form_status')
   }
 
   getChatUsers() {

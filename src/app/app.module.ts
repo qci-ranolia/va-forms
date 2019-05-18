@@ -50,6 +50,8 @@ import { RdevComponent } from './home/rdev/rdev.component';
 import { SafetyComponent } from './home/safety/safety.component';
 import { SupplierComponent } from './home/supplier/supplier.component';
 import { TranspComponent } from './home/transp/transp.component';
+import { SubmitComponent } from './home/submit/submit.component';
+import {DcustomdialogComponent  } from './home/dcustomdialog/dcustomdialog.component';
 
 
 @NgModule({
@@ -79,9 +81,11 @@ import { TranspComponent } from './home/transp/transp.component';
     RdevComponent,
     SafetyComponent,
     SupplierComponent,
-    TranspComponent
+    TranspComponent,
+    SubmitComponent,
+    DcustomdialogComponent
   ],
-  entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent],
+  entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent],
   imports: [
     HttpClientModule,
     MatTabsModule,

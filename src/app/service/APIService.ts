@@ -20,7 +20,7 @@ export class APIService {
   opts: any;
   request: any;
   projectURL: string = '../assets/fields.json';
-  projectURL2: string = "http://192.168.15.146:5000/opentok/";
+  projectURL2: string = "https://assessment.qcin.org/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
   localURL2: string = 'http://192.168.15.161:5000';
@@ -111,7 +111,7 @@ export class APIService {
   }
   submitResponse(data:any){
     this.setHeader()
-    const request = new HttpRequest('POST', "http://13.234.223.215:5000/opentok/submit", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
+    const request = new HttpRequest('POST', this.projectURL2+"submit", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     console.log(this.http.request(request))
     return this.http.request(request)
   }

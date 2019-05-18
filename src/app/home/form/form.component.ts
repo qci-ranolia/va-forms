@@ -46,18 +46,36 @@ export class FormComponent implements OnInit {
   form_response:any
   form_response_array:any
   response_subquestions:any
+  route_names : any =       {'/form/BasicInformation': "Basic Information",
+                      '/form/PhysicalLocation': 'Physical Location',
+                      '/form/Processcapability': "Process capability",
+                      '/form/ProductionCapacity': 'Production Capacity',
+                      '/form/Research&Development': 'Research & Development', 
+                      '/form/Safety': 'Safety',
+                      '/form/Suppliers': 'Suppliers',
+                      '/form/Transportation': 'Transportation'}
 
-  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
+ // @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
   
   constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
     
     this.ProjectService.emitVendorDetails.subscribe(el=>{
       this.form_response = el
       this.form_response_array = Object.keys(el)
-      this.storeVendorDetail(el)
+      this.storeFormStatatus(el.form_status)
+      this.storeVendorDetail(el.data)
     })
 
-    // this.para_array = ["physical_location", "basic_information", "process_capability", "suppliers","production_capability", "research_and_development"]
+    //Experimental feature to set tab name
+    //   this.router.events.subscribe(value => {
+  //     console.log('current route: ', this.router.url.toString());
+  //     let route_name : string = this.router.url.toString() 
+  //     console.log("This is the route name", this.route_names[route_name])
+  //     this.parameter = this.route_names[route_name]
+  // });
+
+
+  // this.para_array = ["physical_location", "basic_information", "process_capability", "suppliers","production_capability", "research_and_development"]
     // this.subquestions = [
     //   {
     //     "research_and_development":[
@@ -82,9 +100,13 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(){
+
+
+
     this.ProjectService.emitQuestions.subscribe(res => {
       this.response = res
       this.para_array = Object.keys(res)
+      this.para_array.push("Submit")
       console.log(this.response)// this.form_id
       if (this.response["Physical Location "]){
         this.physical_location_question_id = this.response["Physical Location "][0].id 
@@ -98,14 +120,24 @@ export class FormComponent implements OnInit {
 
     this.ProjectService.get_admin_ui()
     this.form_id = localStorage.getItem('form_id')
+    console.log("This is the form id", this.form_id)
     // let physical_location_question_id = localStorage.getItem('question_id')
     
     if (this.form_id){
       this.local_form_id = true
       this.ProjectService.vendorDetails({form_id:this.form_id})//"this.form_id"
     } else {
+      console.error("Form id couldnt be found")
       this.local_form_id = false
     }
+  }
+
+  //Meant to check status of the form, if its  false, Edits can be made else all will be disabled
+  storeFormStatatus(form_status){
+    console.log("Form status for this form is is ", form_status)
+    localStorage.setItem("form_status", form_status)
+
+
   }
 
   storeVendorDetail(data){
@@ -113,6 +145,9 @@ export class FormComponent implements OnInit {
     // console.log("Data is ", data["Physical Location "][0].question_id)
     let subSectionKeys :any = Object.keys(data)
     let subSectionData :any
+    let all_question_ids = [] //it will hold question_ids of all questions
+
+
     for (let i = 0; i < subSectionKeys.length; i++){
       let name = subSectionKeys[i]
       // console.log("sasasa", data[name])
@@ -123,20 +158,28 @@ export class FormComponent implements OnInit {
         console.log(pLData.question_id, pLData.data )
         // stroring data for each question id in localstorage
         localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
-
+        all_question_ids.push(pLData.question_id)
       }
       // localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
       localStorage.setItem(name, JSON.stringify(x))
-
-      console.log(name, x)
+      //console.log(name, x)
       
     }
     
-
+    console.log("All question ids", all_question_ids)
+     
     this.storePhysicalLocation(data["Physical Location "])
     this.storeBasicInfo(data["Basic Information"])
-
+    this.storeQuestionIds(all_question_ids)
   }
+
+  storeQuestionIds(question_ids){
+    //THe purpose is to store all question ids in the localstorage, 
+    // so when the user is about to submit the all details, 
+    //we will check if data for every question id is not null 
+      localStorage.setItem("questionIds", JSON.stringify(question_ids))
+  }
+
 
   storePhysicalLocation(physicalLocationData){
     for ( let data in physicalLocationData){
@@ -152,26 +195,26 @@ export class FormComponent implements OnInit {
       localStorage.setItem(bIData.question_id, JSON.stringify(bIData.data))
     }
   }
-  addComponent(id, src){
-    console.log(src)
-    //check and resolve the component
-    var comp = this._cfr.resolveComponentFactory(ImagesComponent);
-    //Create component inside container
-    var expComponent:ComponentRef<ImagesComponent> = this.container.createComponent(comp);
-    //see explanations
-    expComponent.instance.question_id = id;
-    expComponent.instance.src = src;
+  // addComponent(id, src){
+  //   console.log(src)
+  //   //check and resolve the component
+  //   var comp = this._cfr.resolveComponentFactory(ImagesComponent);
+  //   //Create component inside container
+  //   var expComponent:ComponentRef<ImagesComponent> = this.container.createComponent(comp);
+  //   //see explanations
+  //   expComponent.instance.question_id = id;
+  //   expComponent.instance.src = src;
 
-    expComponent.instance._ref = expComponent;
-  }
+  //   expComponent.instance._ref = expComponent;
+  // }
   
-  preFilledData(){
-    let storedData : any = JSON.parse(localStorage.getItem(this.physical_location_question_id))
-    // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
-    // this.presentData = storedData
-    if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+  // preFilledData(){
+  //   let storedData : any = JSON.parse(localStorage.getItem(this.physical_location_question_id))
+  //   // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+  //   // this.presentData = storedData
+  //   if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
 
-  }
+  // }
 
 
   checkAndUpdate(i){
@@ -208,43 +251,43 @@ export class FormComponent implements OnInit {
     }
   }
 
-  submitResponse(){
-    var temp = {
-      assessor_id:'assessor_id_01',
-      assessor_name:'assessor_name_01',
-      vendor_id:'vendor_id_01',
-      vendor_name:'vendor_name_01',
-      form_id:this.form_id,
-      is_submit:true
-    }
-    this.ProjectService.submitResponse(temp)
-  }
+  // submitResponse(){
+  //   var temp = {
+  //     assessor_id:'assessor_id_01',
+  //     assessor_name:'assessor_name_01',
+  //     vendor_id:'vendor_id_01',
+  //     vendor_name:'vendor_name_01',
+  //     form_id:this.form_id,
+  //     is_submit:true
+  //   }
+  //   this.ProjectService.submitResponse(temp)
+  // }
 
-  saveRadioWithSubQues( id, event:MatRadioChange ) {
-    let data_id : any = localStorage.getItem(id)
-    console.log(data_id)
-    var temp = {
-      form_id: this.form_id,
-      question_id: id,
-      file_data: event.value,
-      is_submit:false,
-      data_id:data_id
-    }
-    this.ProjectService.postFormDetails(temp)
-    return this.subquestions
-    // this.sync = true
-  }
+  // saveRadioWithSubQues( id, event:MatRadioChange ) {
+  //   let data_id : any = localStorage.getItem(id)
+  //   console.log(data_id)
+  //   var temp = {
+  //     form_id: this.form_id,
+  //     question_id: id,
+  //     file_data: event.value,
+  //     is_submit:false,
+  //     data_id:data_id
+  //   }
+  //   this.ProjectService.postFormDetails(temp)
+  //   return this.subquestions
+  //   // this.sync = true
+  // }
 
-  textDetails(id, $event){
-    let data_id : any = localStorage.getItem(id)  
-    var temp = {
-      form_id: this.form_id,
-      question_id: id,
-      file_data: $event.target.value,
-      is_submit : false,
-      data_id: data_id
-    }
-    this.ProjectService.postFormDetails(temp)
-  }
+  // textDetails(id, $event){
+  //   let data_id : any = localStorage.getItem(id)  
+  //   var temp = {
+  //     form_id: this.form_id,
+  //     question_id: id,
+  //     file_data: $event.target.value,
+  //     is_submit : false,
+  //     data_id: data_id
+  //   }
+  //   this.ProjectService.postFormDetails(temp)
+  // }
 
 }

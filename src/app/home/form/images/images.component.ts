@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from '../../../service/ProjectService';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-images',
@@ -13,12 +14,16 @@ export class ImagesComponent implements OnInit {
   // imageName:string
   @Input() data_id:any
   @Input() question_id:any
-  
+  show: any
   constructor(private ProjectService: ProjectService ) {
+    this.show = localStorage.getItem("form_status")
+    console.log("Form status is ", this.show)
 
     // console.log(this.question_id)  
   }
-  
+  ngOnInit() {
+   
+  }
   removeObject(){
     var temp = {
       form_id:localStorage.getItem('form_id'),
@@ -97,7 +102,6 @@ export class ImagesComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
+
 
 }

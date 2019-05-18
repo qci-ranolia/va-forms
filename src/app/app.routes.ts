@@ -16,6 +16,7 @@ import { RdevComponent } from './home/rdev/rdev.component';
 import { SafetyComponent } from './home/safety/safety.component';
 import { SupplierComponent } from './home/supplier/supplier.component';
 import { TranspComponent } from './home/transp/transp.component';
+import { SubmitComponent } from './home/submit/submit.component';
 
 export const routes: Routes = [
 
@@ -32,7 +33,8 @@ export const routes: Routes = [
       {path:'Research&Development', component:RdevComponent},
       {path:'Safety', component:SafetyComponent},
       {path:'Suppliers', component:SupplierComponent},
-      {path:'Transportation', component:TranspComponent}
+      {path:'Transportation', component:TranspComponent},
+      {path:'Submit', component: SubmitComponent}
     ]},
     {path:'backup', component:BackupcomponentComponent}    
   ]},
