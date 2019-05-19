@@ -52,6 +52,8 @@ import { SupplierComponent } from './home/supplier/supplier.component';
 import { TranspComponent } from './home/transp/transp.component';
 import { SubmitComponent } from './home/submit/submit.component';
 import {DcustomdialogComponent  } from './home/dcustomdialog/dcustomdialog.component';
+import { AnymoredocComponent } from './home/anymoredoc/anymoredoc.component';
+import { AnymoreimagComponent } from './home/anymoreimag/anymoreimag.component';
 
 
 @NgModule({
@@ -83,7 +85,9 @@ import {DcustomdialogComponent  } from './home/dcustomdialog/dcustomdialog.compo
     SupplierComponent,
     TranspComponent,
     SubmitComponent,
-    DcustomdialogComponent
+    DcustomdialogComponent,
+    AnymoredocComponent,
+    AnymoreimagComponent
   ],
   entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent],
   imports: [

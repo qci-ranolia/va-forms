@@ -17,7 +17,8 @@ import { SafetyComponent } from './home/safety/safety.component';
 import { SupplierComponent } from './home/supplier/supplier.component';
 import { TranspComponent } from './home/transp/transp.component';
 import { SubmitComponent } from './home/submit/submit.component';
-
+import { AnymoredocComponent } from './home/anymoredoc/anymoredoc.component';
+import { AnymoreimagComponent } from './home/anymoreimag/anymoreimag.component';
 export const routes: Routes = [
 
   {path:'', component: HomeComponent, children: [
@@ -34,7 +35,10 @@ export const routes: Routes = [
       {path:'Safety', component:SafetyComponent},
       {path:'Suppliers', component:SupplierComponent},
       {path:'Transportation', component:TranspComponent},
-      {path:'Submit', component: SubmitComponent}
+      {path:'MoreImg', component: AnymoreimagComponent}, 
+      {path:'MoreDoc', component: AnymoredocComponent}, 
+      {path:'Submit', component: SubmitComponent}, 
+      
     ]},
     {path:'backup', component:BackupcomponentComponent}    
   ]},

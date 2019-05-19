@@ -2,6 +2,8 @@
   <img class="col-7 pl-0" src={{src}} alt="" height="200px" width="200px" /><br />
   <!-- <button mat-raised-button (click)="upload()">Upload</button>
   <p>{{imageName}}</p> -->
+  <div *ngIf="show == 'false'">
   <input  id="{{question_id}}" class="col-7 pl-0 mt-3" type="file" accept="image/*;capture=camera" (change)="browseImages($event)" /><br />
   <button class="text-white bg-danger mt-3" mat-raised-button (click)="removeObject()">Delete</button>
+</div>
 </div>

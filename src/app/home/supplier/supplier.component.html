@@ -1,6 +1,6 @@
 <mat-card class="mb-2">
   <label class="col-sm-12 p-0 mb-3"><strong>1</strong>.&nbsp;What key aspects are focussed while selecting suppliers?</label>
   <mat-form-field class="example-full-width col-sm-6 p-0">
-    <input matInput #message placeholder="Enter details here..." (change)="clickKeyAspects($event)" [(ngModel)]="keyAspects.src" value="" />
+    <input [disabled]="show=='true'" matInput #message placeholder="Enter details here..." (change)="clickKeyAspects($event)" [(ngModel)]="keyAspects.src" value="" />
   </mat-form-field>
 </mat-card>

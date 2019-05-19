@@ -9,12 +9,14 @@ import { ImagesComponent } from '../form/images/images.component'
 export class TranspComponent implements OnInit {
 
   questionId : any = "0e9b0637d28ce98c81558082eef18179"
-
+  show: any;
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
   
   constructor(private _cfr: ComponentFactoryResolver  ) { }
 
   ngOnInit() {
+    this.show = localStorage.getItem("form_status")
+
     this.preFilledData()
   }
 

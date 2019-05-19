@@ -9,12 +9,13 @@ import { ImagesComponent } from '../form/images/images.component'
 export class ProccapabComponent implements OnInit {
 
   questionId : any = "037891c729514fc530b74b2a71891c00"
-
+  show: any
   @ViewChild('parent2', { read: ViewContainerRef }) container: ViewContainerRef; 
   
   constructor(private _cfr: ComponentFactoryResolver  ) { }
 
   ngOnInit() {
+    this.show = localStorage.getItem("form_status")
     this.preFilledData()
   }
 

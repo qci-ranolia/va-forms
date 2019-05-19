@@ -12,7 +12,7 @@ export class SupplierComponent implements OnInit {
   keyAspects:any
   form_id:any
   keyAspectsQuesID:any="aebffe1bc78f7a0914779688e9868040"
-  
+  show: any  
   componentName:any ="Suppliers"
 
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
@@ -27,6 +27,8 @@ export class SupplierComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.show = localStorage.getItem("form_status")
+
     this.keyAspects = this.storedQuestionId(this.keyAspectsQuesID)[0]
     
   }

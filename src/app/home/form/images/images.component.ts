@@ -14,7 +14,7 @@ export class ImagesComponent implements OnInit {
   // imageName:string
   @Input() data_id:any
   @Input() question_id:any
-  show: any
+  show: string
   constructor(private ProjectService: ProjectService ) {
     this.show = localStorage.getItem("form_status")
     console.log("Form status is ", this.show)

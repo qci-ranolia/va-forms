@@ -3,6 +3,7 @@ import { MatRadioChange } from '@angular/material';
 import { ProjectService } from '../../service/ProjectService';
 import { ImagesComponent } from './images/images.component' 
 import { Router, ActivatedRoute } from '@angular/router';
+import { componentNeedsResolution } from '@angular/core/src/metadata/resource_loading';
 
 
 @Component({
@@ -106,7 +107,18 @@ export class FormComponent implements OnInit {
     this.ProjectService.emitQuestions.subscribe(res => {
       this.response = res
       this.para_array = Object.keys(res)
+
+      
+      //Warning remove this , when backend will give you actual question ids
+      this.para_array.push("MoreImg")
+      this.para_array.push("MoreDoc")
+
+      
+      //this was aded to make space for submit component
+      // Where actual form submission happens
       this.para_array.push("Submit")
+
+      
       console.log(this.response)// this.form_id
       if (this.response["Physical Location "]){
         this.physical_location_question_id = this.response["Physical Location "][0].id 

@@ -10,7 +10,7 @@ export class RdevComponent implements OnInit {
   protoQuesId: any = "fcd78c9801b9adaf9ff9052f66980b54"
   processQuesId: any = "0e5a8c50bc4caae87205619ff21f79cb"
   facilityQuesId: any = "7688840f61caa4597471ce0b019302d3"
-
+  show: any;
   @ViewChild('parent3', { read: ViewContainerRef }) container3: ViewContainerRef; 
   @ViewChild('parent4', { read: ViewContainerRef }) container4: ViewContainerRef; 
   @ViewChild('parent5', { read: ViewContainerRef }) container5: ViewContainerRef; 
@@ -18,6 +18,7 @@ export class RdevComponent implements OnInit {
   constructor(private _cfr: ComponentFactoryResolver  ) { }
 
   ngOnInit() {
+    this.show = localStorage.getItem("form_status")
     this.preFilledData3()
     this.preFilledData4()
     this.preFilledData5()
