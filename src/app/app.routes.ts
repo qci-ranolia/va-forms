@@ -35,8 +35,8 @@ export const routes: Routes = [
       {path:'Safety', component:SafetyComponent},
       {path:'Suppliers', component:SupplierComponent},
       {path:'Transportation', component:TranspComponent},
-      {path:'MoreImg', component: AnymoreimagComponent}, 
-      {path:'MoreDoc', component: AnymoredocComponent}, 
+      {path:'AddtionalImages', component: AnymoreimagComponent}, 
+      {path:'AddtionalDocuments', component: AnymoredocComponent}, 
       {path:'Submit', component: SubmitComponent}, 
       
     ]},

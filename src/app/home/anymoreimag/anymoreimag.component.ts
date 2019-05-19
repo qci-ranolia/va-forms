@@ -10,7 +10,7 @@ import { ImagesComponent } from '../form/images/images.component'
 export class AnymoreimagComponent implements OnInit {
 
   //this needs to be changed based on the backend question_id
-  questionId : any =  "2ef7297b877806af06cafdc6d61c9001"
+  questionId : any =  "c56c9c6ad0f0cb452aa764d6946f2cc5"
   show: any;
 
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
@@ -37,11 +37,11 @@ export class AnymoreimagComponent implements OnInit {
 
   preFilledData(){
 
-  //   let storedData : any = JSON.parse(localStorage.getItem(this.questionId))
-  //   console.log("storedata is ", storedData)
-  //   // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
-  //   // this.presentData = storedData
-  //   if (storedData) storedData.filter(el=> this.addComponent(this.questionId, el.data_id, el.src) )
-  // 
+  let storedData : any = JSON.parse(localStorage.getItem(this.questionId))
+  console.log("storedata is ", storedData)
+    // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+    // this.presentData = storedData
+    if (storedData) storedData.filter(el=> this.addComponent(this.questionId, el.data_id, el.src) )
+  
 }
 }

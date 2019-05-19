@@ -110,8 +110,8 @@ export class FormComponent implements OnInit {
 
       
       //Warning remove this , when backend will give you actual question ids
-      this.para_array.push("MoreImg")
-      this.para_array.push("MoreDoc")
+      //this.para_array.push("MoreImg")
+      //this.para_array.push("MoreDoc")
 
       
       //this was aded to make space for submit component
