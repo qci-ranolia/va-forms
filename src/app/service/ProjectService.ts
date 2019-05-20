@@ -82,6 +82,7 @@ export class ProjectService {
         console.log(response)
         if(response.success){
           localStorage.setItem("token", response.token+"")
+          localStorage.setItem("role", response.role+"")
           localStorage.setItem("email", data.user_name+"")
           this.emitUserLogin.emit({login:'true'});
         }
