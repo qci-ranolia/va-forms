@@ -19,13 +19,17 @@ export class ProjectService {
   storeCopyOfSession : any;
   sessionConnected = false;
   emitUI : EventEmitter<any> = new EventEmitter<any>();
+  emitData_id : EventEmitter<any> = new EventEmitter<any>();
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();
   emitUserLogin : EventEmitter<any> = new EventEmitter<any>();
   emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
+  emitLiveResponse : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
   emitVendorDetails : EventEmitter<any> = new EventEmitter<any>();
   emitImageData_Id : EventEmitter<any> = new EventEmitter<any>();
+  emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
+
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
 
   HttpEventResponse(event) {
@@ -41,7 +45,7 @@ export class ProjectService {
         return event.body;
     }
   }
-    
+
   get_admin_ui(){
     this.APIService.Get_Admin_UI().subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
@@ -58,23 +62,6 @@ export class ProjectService {
       // Some info to users;
     })
   }
-    
-  // updateParameterResponse(temp){
-  //   // console.log(temp)
-  //   this.APIService.updateParameterResponse(temp).subscribe((event: HttpEvent<any>) =>{
-  //     let response = this.HttpEventResponse(event)
-  //     if(response){
-  //       console.log("updateParameterResponse suc ",response)
-  //       //this.emitUI.emit(response)
-  //     } else {
-  //       console.log("updateParameterResponse else err ",response)
-  //       // Some info to user;
-  //     }
-  //   }, (err) => {
-  //       console.log("updateParameterResponse err ", err)
-  //       // Some info to users;
-  //   })
-  // }
 
   postFormDetails(temp){
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
@@ -168,6 +155,7 @@ export class ProjectService {
         console.log(response)
         if(response.success){
           localStorage.setItem("token", response.token+"")
+          localStorage.setItem("role", response.role+"")
           localStorage.setItem("email", data.user_name+"")
           this.emitUserLogin.emit({login:'true'});
         }
@@ -194,6 +182,7 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response) {
         console.log(response)
+
         this.emitChatUsers.emit({
           chatUsers: response,
           dialUser: this.dialUser
@@ -201,26 +190,28 @@ export class ProjectService {
       }
     })
   }
-  
+
   emitUserDial(flag) {
     this.dialUser = flag;
     this.emitDialUser.emit(
       {dialUser : this.dialUser}
     )
   }
-  
+
   emitDialUserDetailsTOComponent(user) {
     this.userToBeDialed = user
     this.emitDialUserDetails.emit({
       user: this.userToBeDialed
     })
   }
-  
+
   startArchive(data) {
     this.APIService.StartArchive(data).subscribe((event: HttpEvent<any>)=>{
       let response = this.HttpEventResponse(event)
-      if(response)
-      console.log(response)
+      if(response){
+        console.log("Archive video")
+        console.log(response)
+      }
     })
   }
 
@@ -236,19 +227,15 @@ export class ProjectService {
           this.setOpenTokCredentials(response)
           this.emitDismissPopupFunction()
           let archiveData = {
-            chat_id: data.chat_id,
-            chat_name: data.chat_name,
             session_id: response.session_id,
+            form_id: response.form_id,
             has_video: true,
             has_audio: true
           }
-          // this.startArchive(archiveData).subscribe((event: HttpEvent<any>)=>{
-          //   let response = this.HttpEventResponse(event)
-          //   if(response) {
-          //     console.log("Video Archive")
-          //     console.log(response)
-          //   }
-          // })
+
+          setTimeout(()=>{
+          //  this.startArchive(archiveData)
+          }, 4000)
         }
       }
     })
@@ -281,6 +268,31 @@ export class ProjectService {
     }, (err:HttpErrorResponse)=>{
       console.log(err)
     });
+  }
+
+  emitLiveResponseFun(response){
+    this.emitLiveResponse.emit({
+      response: response
+    })
+  }
+
+  getLiveAssesment(data) {
+    this.APIService.GetLiveAssesment(data).subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+        // console.log(response)
+        this.emitLiveResponseFun(response)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
+  }
+
+  getCycleVideo() {
+    this.emitCycleVideo.emit({
+      cycle: "video"
+    })
   }
 
 }

@@ -10,14 +10,13 @@ import { ProfileComponent } from "./profile/profile.component";
 })
 export class HomeComponent implements OnInit {
   isEmail : boolean = false
-  
+
   email: any = "";
+  user_role:any = "";
 
   constructor(private router: Router, private bottomSheet: MatBottomSheet) {}
 
   profileComponent() {
-    // localStorage.clear();
-    // this.router.navigate(["/login"]);
     this.bottomSheet.open(ProfileComponent);
   }
 
@@ -25,5 +24,10 @@ export class HomeComponent implements OnInit {
     this.email = localStorage.getItem("email") + "";
     if (this.email == null || this.email == 'null' ) this.isEmail = false
     else this.isEmail = true
+
+    if(localStorage.getItem("role")) {
+      this.user_role = localStorage.getItem("role")+""
+      console.log(this.user_role)
+    }
   }
 }

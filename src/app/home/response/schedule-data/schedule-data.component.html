@@ -3,7 +3,7 @@
 
   <div class="boxContainer">
     <div *ngFor="let sData of scheduledData" class="box1 col-lg-4 col">
-      <div *ngIf="sData.status === 'online'" class="onlineBox1">
+      <mat-card *ngIf="sData.status === 'online'" class="onlineBox1">
         <span class="time">{{ sData.time }}</span>
 
         <span class="date">{{ sData.date }}</span>
@@ -22,9 +22,9 @@
             </div>
           </div>
         </span>
-      </div>
+      </mat-card>
 
-      <div *ngIf="sData.status === 'offline'" class="offlineBox1">
+      <mat-card *ngIf="sData.status === 'offline'" class="offlineBox1">
         <span class="time">{{ sData.time }}</span>
 
         <span class="date">{{ sData.date }}</span>
@@ -43,7 +43,7 @@
             </div>
           </div>
         </span>
-      </div>
+      </mat-card>
     </div>
   </div>
 </div>

@@ -13,40 +13,6 @@
         <div class="">
           <router-outlet></router-outlet>
         </div>
-
-
-
-
-
-
-
-        <!-- <div class="" *ngIf="showSubQuestions">
-
-          <mat-card class="mb-2" *ngFor="let subques of subquestions; let i = index">
-            <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>{{i+1}}</strong>.&nbsp;{{subques.question}}</label>
-          
-            <div *ngIf="subques.options == 'Yes/No'">
-              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
-                <mat-radio-button class="example-radio-button mr-3 ml-3" *ngFor="let condition of conditions" [value]="condition" (change)="saveRadioWithSubQues(subques.id, $event, index)">
-                  {{condition}}
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div *ngIf="subques.options == 'photo'">
-              <button mat-raised-button (click)="addComponent(subques.id, null)">Add Images</button>
-              <div #parent></div>
-            </div>
-            
-            </mat-card>
-          <button mat-raised-button *ngIf="!showFreeze" (click)="submitResponse()">Submit</button>
-          <strong class="d-block text-center mt-3">Change parameters to save/sync this data</strong>
-        </div>
-      </div> -->
-      <!-- <div class="col-sm-12 p-2" *ngIf="!showSubQuestions">
-        <mat-card>
-          <h5 class="p-5 text-muted">No parameters is selected. Please select parameter from above options.</h5>
-        </mat-card>
-      </div> -->
     </div>
   </div>
 </div>

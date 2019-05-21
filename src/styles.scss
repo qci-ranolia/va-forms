@@ -13,13 +13,32 @@ $active-theme-color: #ffd600;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
 }
 
-*{
+* {
   outline: none !important;
-  &:focus{
+  &:focus {
     outline: none !important;
   }
 }
 
+main {
+  overflow-y: auto;
+  position: relative;
+  top: 113px;
+  height: calc(100vh - 113px);
+}
+.webcam-wrapper {
+  height: 350px !important;
+  width: 100% !important;
+}
+.navBar {
+  background: $default-theme-color;
+  position: fixed;
+  width: 100%;
+  padding: 0 15px;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
 .mat-tab-label {
   display: flex !important;
   min-width: 33.33% !important;
@@ -27,12 +46,19 @@ $active-theme-color: #ffd600;
 .list-group-item {
   @extend %box-shadow;
 }
+.change-password {
+  font-size: 16px;
+}
 .seperate {
   width: 50%;
   float: left;
+  padding: 0;
 }
 .list-group {
   margin: 15px 0 0;
+}
+.list-group.padding15 {
+  padding: 0 15px;
 }
 .card {
   margin: 15px 0;
@@ -92,6 +118,8 @@ $active-theme-color: #ffd600;
   border-radius: 40px;
   text-align: center;
   @extend %box-shadow;
+  margin-right: 20px !important;
+  margin-top: 40px !important;
 }
 .conToggle {
   transition: all 0.5s ease-in-out;
@@ -103,9 +131,6 @@ $active-theme-color: #ffd600;
 }
 .bodyActive .conToggle {
   transform: translateY(-24px);
-}
-.btn-danger {
-  margin-right: 15px;
 }
 
 .OT_publisher,
@@ -160,10 +185,26 @@ video {
   color: $default-theme-color;
   border: transparent;
 }
+.mat-fab.mat-accent,
+.mat-flat-button.mat-accent,
+.mat-mini-fab.mat-accent,
+.mat-raised-button.mat-accent {
+  background-color: $text-default-color;
+  color: $default-theme-color;
+  width: 41px;
+  height: 41px;
+}
+.mat-fab .mat-button-wrapper {
+  padding: 0 !important;
+}
 .logout,
 .logout:active,
 .logout:focus,
-.logout:hover {
+.logout:hover,
+.admin,
+.admin:active,
+.admin:focus,
+.admin:hover {
   width: 41px;
   height: 41px;
   border-radius: 50%;
@@ -296,6 +337,34 @@ vedio {
   position: relative;
   text-align: center;
 }
+.profilePopup {
+  margin-top: 10px;
+  position: relative;
+  .logout {
+    position: absolute;
+    right: 50px;
+    top: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    color: $text-default-color;
+    background: $default-theme-color;
+  }
+  .cross {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    color: $text-default-color;
+    background: $default-theme-color;
+  }
+  .admin {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    margin: 0 0 10px;
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+  }
+}
+
 @-webkit-keyframes pulse {
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -392,4 +461,64 @@ vedio {
   .session-summary {
     margin: 0 auto;
   }
+  .OT_publisher,
+  .OT_subscriber {
+    height: 350px !important;
+  }
+}
+/*
+angular material css
+*/
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+  display: block;
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: $default-theme-color;
+}
+.mat-flat-button.col:not([class*="mat-elevation-z"]),
+.mat-stroked-button.col:not([class*="mat-elevation-z"]) {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.14),
+    0 0 0 0 rgba(0, 0, 0, 0.12);
+  background: transparent;
+  border-radius: 0;
+}
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #53bca6;
+}
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #53bca6;
+}
+.mat-form-field-type-mat-native-select.mat-focused:not(.mat-form-field-invalid)
+  .mat-form-field-infix::after {
+  color: #53bca6;
+}
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #53bca6;
+}
+.mat-icon.mat-primary {
+  color: #53bca6;
+}
+.mat-input-element {
+  caret-color: #53bca6;
+}
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #53bca6;
+}
+.mat-radio-button.mat-primary .mat-radio-inner-circle,
+.mat-radio-button.mat-primary
+  .mat-radio-ripple
+  .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-primary:active .mat-radio-persistent-ripple {
+  background-color: #53bca6;
+}
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #53bca6;
 }

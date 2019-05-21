@@ -23,8 +23,10 @@ export class APIService {
   projectURL2: string = "https://assessment.qcin.org/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
-  localURL2: string = 'http://192.168.15.161:5000';
-  // localURL2: string = 'http://13.233.138.181:5000';
+  // localURL2: string = 'https://13.234.223.215';
+  localURL2: string = 'https://assessment.qcin.org';
+  // localURL2: string = 'http://192.168.15.146:5000';
+  // localURL2: string = 'http://192.168.15.161:5000';
   current_URL : string = this.localURL;
 
   Header: any;
@@ -32,7 +34,7 @@ export class APIService {
 
   // UI_JSON: string = '../assets/';
   api_url: "http://192.168.15.146:5000/"
-  
+
   constructor(private http: HttpClient) {}
 
   setHeader() {
@@ -75,23 +77,20 @@ export class APIService {
     );
     return this.http.request(request);
   }
-  
+
+  GetLiveAssesment(data) {
+    this.setHeader()
+    const request = new HttpRequest('POST', this.localURL2+"/opentok/filleddetails", data, { reportProgress: true, headers: this.appHeader })
+    console.log(this.http.request(request))
+    return this.http.request(request)
+  }
+
   Get_Admin_UI(){
     this.setHeader()
     const request = new HttpRequest('GET', this.projectURL+"getform", { reportProgress: true, headers: this.appHeader  }) 
     return this.http.request(request)
   }
-
-  // JSON_IU(){
-  //   const request = new HttpRequest('GET', this.projectURL, { reportProgress: true}) 
-  //   return this.http.request(request)
-  // }
   
-  // updateParameterResponse(data:any){
-  //   const request = new HttpRequest('POST', "API", JSON.stringify(data), { reportProgress: true, headers: this.appHeader })
-  //   return this.http.request(request)
-  // }
-
   postFormDetails(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
@@ -134,4 +133,5 @@ export class APIService {
     );
     return this.http.request(request);
   }
+
 }

@@ -41,6 +41,10 @@ export class DialComponent implements OnInit {
     }
   }
 
+  cycleVideo() {
+    this.projectService.getCycleVideo()
+  }
+
   ngOnInit() {
     console.log(this.alreadyPublishing);
     console.log(this.session);
@@ -84,11 +88,15 @@ export class DialComponent implements OnInit {
     let tabElements1 = document.getElementsByClassName(
       "OT_subscriber"
     )[0] as HTMLElement;
+
+    if(tabElements1)
     tabElements1.style.display = "block";
 
     let tabElements2 = document.getElementsByClassName(
       "OT_publisher"
     )[0] as HTMLElement;
+
+    if(tabElements2)
     tabElements2.style.display = "block";
   }
 
@@ -120,6 +128,12 @@ export class DialComponent implements OnInit {
       this.alreadyPublishing = false;
       this.projectService.storeCopyOfSession = null;
       this.projectService.endSession(data);
+      let creds = {
+        api_key : "",
+        session_id : "",
+        token : "",
+      }
+      this.projectService.setOpenTokCredentials(creds)
     }, 600);
   }
 }

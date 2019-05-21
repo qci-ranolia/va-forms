@@ -22,7 +22,8 @@ import { AnymoreimagComponent } from './home/anymoreimag/anymoreimag.component';
 export const routes: Routes = [
 
   {path:'', component: HomeComponent, children: [
-    {path:'', component:ResponseComponent},
+    {path:'', component:ChatComponent},
+    {path:'form', component:FormComponent},
     {path:'chat', component:ChatComponent},
     {path:'graphic', component:GraphicComponent},
     {path:'response', component:ResponseComponent},
