@@ -9,8 +9,8 @@ import { ImagesComponent } from '../form/images/images.component'
 })
 export class AnymoreimagComponent implements OnInit {
 
-  //this needs to be changed based on the backend question_id
-  questionId : any =  "c56c9c6ad0f0cb452aa764d6946f2cc5"
+  // this needs to be changed based on the backend question_id
+  questionId : any = "6fb7d835b1433cb8a8b69b8a616950af"
   show: any;
 
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 

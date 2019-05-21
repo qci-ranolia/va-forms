@@ -54,7 +54,9 @@ import { SubmitComponent } from './home/submit/submit.component';
 import {DcustomdialogComponent  } from './home/dcustomdialog/dcustomdialog.component';
 import { AnymoredocComponent } from './home/anymoredoc/anymoredoc.component';
 import { AnymoreimagComponent } from './home/anymoreimag/anymoreimag.component';
+import { FilesComponent } from './home/form/files/files.component';
 
+import { ImageCompressService,ResizeOptions,ImageUtilityService } from 'ng2-image-compress';
 
 @NgModule({
   declarations: [
@@ -87,9 +89,10 @@ import { AnymoreimagComponent } from './home/anymoreimag/anymoreimag.component';
     SubmitComponent,
     DcustomdialogComponent,
     AnymoredocComponent,
-    AnymoreimagComponent
+    AnymoreimagComponent,
+    FilesComponent
   ],
-  entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent],
+  entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent, FilesComponent],
   imports: [
     HttpClientModule,
     MatTabsModule,
@@ -124,7 +127,9 @@ import { AnymoreimagComponent } from './home/anymoreimag/anymoreimag.component';
   providers: [
     APIService,
     ProjectService,
-    OpentokService
+    OpentokService,
+    ImageCompressService,
+    ResizeOptions
   ],
   bootstrap: [AppComponent]
 })

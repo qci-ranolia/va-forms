@@ -31,6 +31,7 @@ export class SafetyComponent implements OnInit {
 
   ngOnInit() {
     this.form_id = localStorage.getItem('form_id')
+    console.log(this.form_id)
     let firstCondData = this.storedQuestionId(this.safetyQuestionId)[0]
     this.firstCond = firstCondData.src 
     this.firstCondDataId = firstCondData.data_id

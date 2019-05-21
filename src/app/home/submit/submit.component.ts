@@ -64,6 +64,7 @@ export class SubmitComponent implements OnInit {
     this.service.submitResponse({"form_id": form_id}).subscribe((event: HttpEvent<any>) =>{
       let response = this.ProjectService.HttpEventResponse(event)
       if(response){
+        localStorage.removeItem('form_id')
         if(!response.success){
           console.error(response)
         }

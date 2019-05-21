@@ -7,7 +7,7 @@
           <mat-label class="">Select parameter</mat-label>
           <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter)">
             <mat-option>None</mat-option>
-            <mat-option *ngFor="let parameter of para_array; let i = index" value="{{parameter}}"><strong>{{i+1}}.&nbsp;</strong>{{parameter}}</mat-option>
+            <mat-option class="text-capitalize" *ngFor="let parameter of para_array;let i = index" value="{{parameter}}"><strong>{{i+1}}.&nbsp;</strong>{{parameter.replace('_', ' ')}}</mat-option>
           </mat-select>
         </mat-form-field>
         <div class="">

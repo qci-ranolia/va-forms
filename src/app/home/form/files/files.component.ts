@@ -1,14 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from '../../../service/ProjectService';
-import { ImageCompressService, ResizeOptions, ImageUtilityService, IImage, SourceImage } from  'ng2-image-compress';
 
 @Component({
-  selector: 'app-images',
-  templateUrl: './images.component.html',
-  styleUrls: ['./images.component.scss']
+  selector: 'app-files',
+  templateUrl: './files.component.html',
+  styleUrls: ['./files.component.scss']
 })
-
-export class ImagesComponent implements OnInit {
+export class FilesComponent implements OnInit {
   _ref:any;
   images:any;
   @Input() src:any
@@ -16,48 +14,14 @@ export class ImagesComponent implements OnInit {
   @Input() data_id:any
   @Input() question_id:any
   show: string
-  
-  processedImages:any
-  showTitle:any
-
-  constructor(private ProjectService: ProjectService, private imgCompressService: ImageCompressService ) {
+  constructor(private ProjectService: ProjectService ) {
     this.show = localStorage.getItem("form_status")
     console.log("Form status is ", this.show)
 
     // console.log(this.question_id)  
   }
-
-  // onChange(fileInput: any) {
-  //   let fileList: FileList;
-  //   let images: Array<IImage> = [];
-  //   ImageCompressService.filesToCompressedImageSource(fileInput.target.files).then(observableImages => {
-  //     observableImages.subscribe((image) => {
-  //       images.push(image);
-  //     }, (error) => {
-  //       console.log("Error while converting");
-  //     }, () => {
-  //       this.processedImages = images;
-  //       this.showTitle = true;
-  //     });
-  //   });
-  //   // or you can pass File[] 
-  //   let files = Array.from(fileInput.target.files);
-  //   console.log(typeof(files))
-  //   // ImageCompressService.filesArrayToCompressedImageSource(files).then(observableImages => {
-  //   //   observableImages.subscribe((image) => {
-  //   //     images.push(image);
-  //   //   }, (error) => {
-  //   //     console.log("Error while converting");
-  //   //   }, () => {
-  //   //     this.processedImages = images;
-  //   //     this.showTitle = true;
-  //   //   });
-  //   // });
-  // }
-
-  ngOnInit() {
-   
-  }
+  ngOnInit() {}
+  
   removeObject(){
     var temp = {
       form_id:localStorage.getItem('form_id'),
@@ -79,7 +43,7 @@ export class ImagesComponent implements OnInit {
   //   element.click()
   // }
 
-  browseImages($event){
+  browsePdfs($event){
     let files = $event.target.files || $event.srcElement.files
     // let data_id : any = localStorage.getItem(this.question_id)
     // this.imageName = $event.target.value
@@ -87,6 +51,7 @@ export class ImagesComponent implements OnInit {
     let reader = new FileReader()
     reader.readAsDataURL(files[0])
     reader.onload = (event:any) => {
+      // console.log(this.src)
       this.src = reader.result
       // error while 
       var temp = {
@@ -96,7 +61,6 @@ export class ImagesComponent implements OnInit {
         is_submit : false,
         data_id : this.data_id
       }
-      // console.log(temp)
       // this.ProjectService.postFormDetails(temp)
       this.ProjectService.imageArray(temp)
       this.ProjectService.emitImageData_Id.subscribe(el=>{
@@ -135,7 +99,5 @@ export class ImagesComponent implements OnInit {
       localStorage.setItem(this.question_id, JSON.stringify(v))
     }
   }
-
-
 
 }

@@ -17,7 +17,7 @@ export class BasicinfoComponent implements OnInit {
   isDisabled: any
   
   questionIds:any= new Array()
-  componentName:any ="Basic Information"
+  componentName:any ="basicinformation"
   
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
     // this.questionIds = this.valueStored()

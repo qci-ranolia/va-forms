@@ -13,7 +13,7 @@ export class SupplierComponent implements OnInit {
   form_id:any
   keyAspectsQuesID:any="aebffe1bc78f7a0914779688e9868040"
   show: any  
-  componentName:any ="Suppliers"
+  componentName:any ="suppliers"
 
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
     // this.questionIds = this.valueStored()

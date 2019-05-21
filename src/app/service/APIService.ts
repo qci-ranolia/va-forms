@@ -19,7 +19,7 @@ export class APIService {
   headers: any;
   opts: any;
   request: any;
-  projectURL: string = '../assets/fields.json';
+  projectURL: string = 'http://192.168.15.146:5000/opentok/'; // ../assets/fields.json
   projectURL2: string = "https://assessment.qcin.org/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
@@ -78,14 +78,14 @@ export class APIService {
   
   Get_Admin_UI(){
     this.setHeader()
-    const request = new HttpRequest('GET', this.projectURL2+"getform", { reportProgress: true, headers: this.appHeader  }) 
+    const request = new HttpRequest('GET', this.projectURL+"getform", { reportProgress: true, headers: this.appHeader  }) 
     return this.http.request(request)
   }
 
-  JSON_IU(){
-    const request = new HttpRequest('GET', this.projectURL, { reportProgress: true}) 
-    return this.http.request(request)
-  }
+  // JSON_IU(){
+  //   const request = new HttpRequest('GET', this.projectURL, { reportProgress: true}) 
+  //   return this.http.request(request)
+  // }
   
   // updateParameterResponse(data:any){
   //   const request = new HttpRequest('POST', "API", JSON.stringify(data), { reportProgress: true, headers: this.appHeader })
@@ -94,25 +94,23 @@ export class APIService {
 
   postFormDetails(data:any){
     this.setHeader()
-    const request = new HttpRequest('POST', this.projectURL2+"submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
+    const request = new HttpRequest('POST', this.projectURL+"submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
   vendorDetails(data:any){
     this.setHeader()
-    const request = new HttpRequest('POST', this.projectURL2+"vendordetails", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
+    const request = new HttpRequest('POST', this.projectURL+"vendordetails", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
 
   }
   deleteImage(data:any){
     this.setHeader()
-    const request = new HttpRequest('POST', this.projectURL2+"deleteimage", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
-    console.log(this.http.request(request))
+    const request = new HttpRequest('POST', this.projectURL+"deleteimage", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
   submitResponse(data:any){
     this.setHeader()
-    const request = new HttpRequest('POST', this.projectURL2+"submit", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
-    console.log(this.http.request(request))
+    const request = new HttpRequest('POST', this.projectURL+"submit", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
   InitiateSession(data) {

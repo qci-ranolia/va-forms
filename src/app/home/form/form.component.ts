@@ -1,10 +1,6 @@
-import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
-import { MatRadioChange } from '@angular/material';
+import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ProjectService } from '../../service/ProjectService';
-import { ImagesComponent } from './images/images.component' 
-import { Router, ActivatedRoute } from '@angular/router';
-import { componentNeedsResolution } from '@angular/core/src/metadata/resource_loading';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -41,20 +37,22 @@ export class FormComponent implements OnInit {
 
   presentData:any
 
-
   index: number = 0;
 
   form_response:any
   form_response_array:any
   response_subquestions:any
-  route_names : any =       {'/form/BasicInformation': "Basic Information",
-                      '/form/PhysicalLocation': 'Physical Location',
-                      '/form/Processcapability': "Process capability",
-                      '/form/ProductionCapacity': 'Production Capacity',
-                      '/form/Research&Development': 'Research & Development', 
-                      '/form/Safety': 'Safety',
-                      '/form/Suppliers': 'Suppliers',
-                      '/form/Transportation': 'Transportation'}
+  route_names : any =       {
+                      '/form/additionaldocuments': "additional_documents",
+                      '/form/additionalimages': 'additional_images',
+                      '/form/basicinformation': "basic_information",
+                      '/form/physicallocation': 'physical_location',
+                      '/form/processcapability': "process_capability",
+                      '/form/productioncapacity': 'production_capacity',
+                      '/form/researchanddevelopment': 'research_and_development', 
+                      '/form/safety': 'safety',
+                      '/form/suppliers': 'suppliers',
+                      '/form/transportation': 'transportation'}
 
  // @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
   
@@ -102,13 +100,10 @@ export class FormComponent implements OnInit {
 
   ngOnInit(){
 
-
-
     this.ProjectService.emitQuestions.subscribe(res => {
       this.response = res
       this.para_array = Object.keys(res)
-
-      
+     
       //Warning remove this , when backend will give you actual question ids
       //this.para_array.push("MoreImg")
       //this.para_array.push("MoreDoc")
@@ -120,14 +115,14 @@ export class FormComponent implements OnInit {
 
       
       console.log(this.response)// this.form_id
-      if (this.response["Physical Location "]){
-        this.physical_location_question_id = this.response["Physical Location "][0].id 
+      if (this.response["physical_location"]){
+        this.physical_location_question_id = this.response["physical_location"][0].id 
       }
       console.log("physical id is ", this.physical_location_question_id)
       // localStorage.setItem(this.physical_location_question_id, JSON.stringify([]))
 
       // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
-        
+
       })
 
     this.ProjectService.get_admin_ui()
@@ -148,8 +143,6 @@ export class FormComponent implements OnInit {
   storeFormStatatus(form_status){
     console.log("Form status for this form is is ", form_status)
     localStorage.setItem("form_status", form_status)
-
-
   }
 
   storeVendorDetail(data){
@@ -180,8 +173,8 @@ export class FormComponent implements OnInit {
     
     console.log("All question ids", all_question_ids)
      
-    this.storePhysicalLocation(data["Physical Location "])
-    this.storeBasicInfo(data["Basic Information"])
+    this.storePhysicalLocation(data["physical_location"])
+    this.storeBasicInfo(data["basic_information"])
     this.storeQuestionIds(all_question_ids)
   }
 
@@ -239,7 +232,7 @@ export class FormComponent implements OnInit {
       //   console.log("this.response_subquestions is ", this.response_subquestions)
       // }
       if ( i == this.para_array[j] ) {
-        let routeName = i.replace(/ +/g, "")
+        let routeName = i.replace(/_/g, "")
         this.router.navigate(['/form/'+routeName])
 
         if ( j+1 == this.para_array.length ) this.showFreeze = false
