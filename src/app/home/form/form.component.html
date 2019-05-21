@@ -9,18 +9,18 @@
             <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter)">
               <mat-option>None</mat-option>
               <mat-option class="text-capitalize" *ngFor="let parameter of para_array;let i = index" value="{{parameter}}">
-                <strong>{{i+1}}.&nbsp;</strong>{{parameter}}
+                <strong>{{i+1}}.&nbsp;</strong>{{parameter.replace("_"," ")}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <div class="">
             <router-outlet></router-outlet>
           </div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- <div class="p-5">
+    <!-- <div class="p-5">
     <h5>Please start video chat first</h5>
   </div> -->
-  </div>
 </main>
