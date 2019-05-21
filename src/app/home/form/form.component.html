@@ -1,21 +1,26 @@
 <!-- <mat-progress-bar mode="buffer" *ngIf="!sync"></mat-progress-bar> -->
-<div class="pl-2 pr-2">
-  <div class="row mt-2">
-    <div class="col">
-      <div class="col-sm-12 p-2 rounded-top">     
-        <mat-form-field class="col-sm-5 mt-2">
-          <mat-label class="">Select parameter</mat-label>
-          <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter)">
-            <mat-option>None</mat-option>
-            <mat-option class="text-capitalize" *ngFor="let parameter of para_array;let i = index" value="{{parameter}}"><strong>{{i+1}}.&nbsp;</strong>{{parameter.replace('_', ' ')}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="">
-          <router-outlet></router-outlet>
-        </div>
+<main>
+  <div class="pl-2 pr-2">
+    <div class="row mt-2">
+      <div class="col">
+        <div class="col-sm-12 p-2 rounded-top">     
+          <mat-form-field class="col-sm-5 mt-2">
+            <mat-label class="">Select parameter</mat-label>
+            <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter)">
+              <mat-option>None</mat-option>
+              <mat-option class="text-capitalize" *ngFor="let parameter of para_array;let i = index" value="{{parameter}}">
+                <strong>{{i+1}}.&nbsp;</strong>{{parameter}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="">
+            <router-outlet></router-outlet>
+          </div>
+      </div>
     </div>
   </div>
-</div>
-<!-- <div class="p-5">
-  <h5>Please start video chat first</h5>
-</div> -->
+  <!-- <div class="p-5">
+    <h5>Please start video chat first</h5>
+  </div> -->
+  </div>
+</main>

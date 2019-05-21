@@ -99,31 +99,23 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(){
-
     this.ProjectService.emitQuestions.subscribe(res => {
       this.response = res
       this.para_array = Object.keys(res)
-     
       //Warning remove this , when backend will give you actual question ids
       //this.para_array.push("MoreImg")
       //this.para_array.push("MoreDoc")
-
       
-      //this was aded to make space for submit component
+      // this was aded to make space for submit component
       // Where actual form submission happens
       this.para_array.push("Submit")
-
       
-      console.log(this.response)// this.form_id
+      console.log("getforms is  ", this.response)// this.form_id
       if (this.response["physical_location"]){
         this.physical_location_question_id = this.response["physical_location"][0].id 
       }
       console.log("physical id is ", this.physical_location_question_id)
-      // localStorage.setItem(this.physical_location_question_id, JSON.stringify([]))
-
-      // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
-
-      })
+    })
 
     this.ProjectService.get_admin_ui()
     this.form_id = localStorage.getItem('form_id')
@@ -134,7 +126,7 @@ export class FormComponent implements OnInit {
       this.local_form_id = true
       this.ProjectService.vendorDetails({form_id:this.form_id})//"this.form_id"
     } else {
-      console.error("Form id couldnt be found")
+      console.error("%c Form id couldnt be found","color: #f44'")
       this.local_form_id = false
     }
   }

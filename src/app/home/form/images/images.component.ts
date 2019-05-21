@@ -27,33 +27,33 @@ export class ImagesComponent implements OnInit {
     // console.log(this.question_id)  
   }
 
-  // onChange(fileInput: any) {
-  //   let fileList: FileList;
-  //   let images: Array<IImage> = [];
-  //   ImageCompressService.filesToCompressedImageSource(fileInput.target.files).then(observableImages => {
-  //     observableImages.subscribe((image) => {
-  //       images.push(image);
-  //     }, (error) => {
-  //       console.log("Error while converting");
-  //     }, () => {
-  //       this.processedImages = images;
-  //       this.showTitle = true;
-  //     });
-  //   });
-  //   // or you can pass File[] 
-  //   let files = Array.from(fileInput.target.files);
-  //   console.log(typeof(files))
-  //   // ImageCompressService.filesArrayToCompressedImageSource(files).then(observableImages => {
-  //   //   observableImages.subscribe((image) => {
-  //   //     images.push(image);
-  //   //   }, (error) => {
-  //   //     console.log("Error while converting");
-  //   //   }, () => {
-  //   //     this.processedImages = images;
-  //   //     this.showTitle = true;
-  //   //   });
-  //   // });
-  // }
+  onChange(fileInput: any) {
+    let fileList: FileList;
+    let images: Array<IImage> = [];
+    ImageCompressService.filesToCompressedImageSource(fileInput.target.files).then(observableImages => {
+      observableImages.subscribe((image) => {
+        images.push(image);
+      }, (error) => {
+        console.log("Error while converting");
+      }, () => {
+        this.processedImages = images;
+        this.showTitle = true;
+      });
+    });
+    // or you can pass File[] 
+    let files = Array.from(fileInput.target.files);
+    console.log(typeof(files))
+    // ImageCompressService.filesArrayToCompressedImageSource(files).then(observableImages => {
+    //   observableImages.subscribe((image) => {
+    //     images.push(image);
+    //   }, (error) => {
+    //     console.log("Error while converting");
+    //   }, () => {
+    //     this.processedImages = images;
+    //     this.showTitle = true;
+    //   });
+    // });
+  }
 
   ngOnInit() {
    
