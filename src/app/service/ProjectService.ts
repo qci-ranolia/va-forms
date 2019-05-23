@@ -103,10 +103,9 @@ export class ProjectService {
       if(response){
         let x = {
           data_id:response.data_id,
-          
         }
         // localStorage.setItem(response.question_id, response.data_id)
-        this.emitImageData_Id.emit(response.data_id)
+        this.emitImageData_Id.emit(response)
       } else {
         // alert("Try again later")
         // Some info to user;

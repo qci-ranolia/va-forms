@@ -1,5 +1,6 @@
 import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
 import { FilesComponent } from '../form/files/files.component'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-anymoredoc',
@@ -10,8 +11,13 @@ export class AnymoredocComponent implements OnInit {
   questionId:any = "6bf7aaf92d848eaf25689fc1b2dca435"
   show: any;
 
+  urlParaName:any
+
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
-  constructor(private _cfr: ComponentFactoryResolver, ) { }
+  constructor(private route: ActivatedRoute, private _cfr: ComponentFactoryResolver, ) {
+    this.urlParaName = this.route.snapshot.paramMap    
+    console.log(this.urlParaName)    
+  }
 
   ngOnInit() {
     console.log(this.questionId)

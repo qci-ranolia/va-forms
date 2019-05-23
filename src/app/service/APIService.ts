@@ -91,6 +91,10 @@ export class APIService {
     return this.http.request(request)
   }
   
+  async questionIdLocalStorage(questionId){
+    let localData = await localStorage.getItem(questionId)
+    return localData
+  }
   postFormDetails(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
+import { RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
@@ -12,6 +12,7 @@ import { OpentokService } from "./service/Opentok.service";
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { FormComponent } from "./home/form/form.component";
+import { FormResolver } from "./home/form/form-resolver.service";
 import { FormBuilderComponent } from "./home/form/form-builder/form-builder.component";
 import { ChatComponent } from "./home/chat/chat.component";
 import { GraphicComponent } from "./home/graphic/graphic.component";
@@ -156,6 +157,15 @@ import { environment } from "../environments/environment";
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    // RouterModule.forRoot([
+    //   {
+    //     path: 'form/safety',
+    //     component: SafetyComponent,
+    //     resolve: {
+    //       team: 'formResolver'
+    //     }
+    //   }
+    // ]),
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
@@ -164,7 +174,12 @@ import { environment } from "../environments/environment";
     ProjectService,
     OpentokService,
     ImageCompressService,
-    ResizeOptions
+    ResizeOptions,
+    FormResolver,
+    {
+      provide: 'FormResolver',
+      useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => 'form'
+    }
   ],
   bootstrap: [AppComponent]
 })

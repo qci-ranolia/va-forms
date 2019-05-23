@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { ImagesComponent } from '../form/images/images.component' 
 
 @Component({
@@ -11,7 +11,7 @@ export class PhyslocComponent implements OnInit {
   questionId : any =  "2ef7297b877806af06cafdc6d61c9001"
   show : any
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
-  constructor(private _cfr: ComponentFactoryResolver, ) { }
+  constructor(private _cfr: ComponentFactoryResolver ) { }
 
   ngOnInit() {
     this.show = localStorage.getItem("form_status")

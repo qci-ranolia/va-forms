@@ -1,6 +1,6 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ProjectService } from '../../service/ProjectService';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -56,8 +56,10 @@ export class FormComponent implements OnInit {
 
  // @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
   
-  constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
-    
+  urlParaName:any
+  constructor(private route: ActivatedRoute, private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
+    // this.urlParaName = this.route.snapshot.paramMap    
+    // console.log(this.urlParaName)
     this.ProjectService.emitVendorDetails.subscribe(el=>{
       this.form_response = el
       this.form_response_array = Object.keys(el)

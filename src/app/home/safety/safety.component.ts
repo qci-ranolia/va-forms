@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 import { APIService } from '../../service/APIService';
 import { ProjectService } from '../../service/ProjectService';
 import { HttpEvent } from '@angular/common/http';
+import { ImagesComponent } from '../form/images/images.component'
 
 @Component({
   selector: 'app-safety',
@@ -16,89 +17,188 @@ export class SafetyComponent implements OnInit {
 
   isDisabled: boolean = false
 
-  firstCondDataId: any
-  secondCondDataId:any 
-  safetyQuestionId:any="ecaa9527b69d881f6a6aa0c4e3659b15"
-  extnQuestionId:any="3fa8e450cbb4de5a877d15948f4470b1"
+  safetyQuestionId:any = "ecaa9527b69d881f6a6aa0c4e3659b15"
+  extnQuestionId:any = "3fa8e450cbb4de5a877d15948f4470b1"
   
   form_id:any
-  constructor( private ProjectService: ProjectService, private APIService: APIService ) { 
+
+  show:any
+  acSafe:any
+  acExtn:any
 
 
+  safetyDataIdKey:any
+  safetyDataId:any
+  extnDataIdKey:any
+  extnDataId:any
+  firstCondDataId:any
+  @ViewChild('parentSafe', { read: ViewContainerRef }) containerSafe: ViewContainerRef;
+  @ViewChild('parentExtn', { read: ViewContainerRef }) containerExtn: ViewContainerRef;
 
-
-  }
-
+  constructor( private ProjectService: ProjectService, private APIService: APIService, private _cfr: ComponentFactoryResolver ) { }
+  
   ngOnInit() {
-    this.form_id = localStorage.getItem('form_id')
-    console.log(this.form_id)
-    let firstCondData = this.storedQuestionId(this.safetyQuestionId)[0]
-    this.firstCond = firstCondData.src 
-    this.firstCondDataId = firstCondData.data_id
+      this.show = localStorage.getItem("form_status")
+      this.form_id = localStorage.getItem('form_id')
+      // console.log(this.form_id)
+      
+      // let firstCondData = this.storedSafetyQuestionId(this.safetyQuestionId)
+      
+      this.storedSafetyQuestionId()
+      this.storedExtnQuestionId()
 
-    let secondCondData = this.storedQuestionId(this.extnQuestionId)[0]
-    
-    this.secondCond = secondCondData.src 
-    this.secondCondDataId = secondCondData.data_id
+      // this.firstCond = firstCondData.src 
+      this.safetyDataIdKey = this.safetyQuestionId+'data_id'
+      this.safetyDataId = this.getDataId(this.safetyDataIdKey)
+      // this.firstCondDataId = firstCondData.data_id
 
+      this.extnDataIdKey = this.extnQuestionId+'data_id'
+      this.extnDataId = this.getDataId(this.extnDataIdKey)
 
-    console.log(this.firstCond)
-    console.log(this.secondCond)
+      this.APIService.questionIdLocalStorage(this.safetyQuestionId)
   }
 
-  storedQuestionId(questionId){
-    let storedData : any = JSON.parse(localStorage.getItem(questionId))
-
-    if (storedData.length != 0){
-      console.log("questionidis for ", questionId)      
-      console.log("storedData is for ", storedData)
-      return storedData
-    } 
-    return [{"src":null,"data_id":null }]
+  getDataId(dataIdKey){
+    return localStorage.getItem(dataIdKey)
+  }
+  storedSafetyQuestionId():any{
+    this.APIService.questionIdLocalStorage(this.safetyQuestionId).then((el:any)=>{
+      let storedData = JSON.parse(el)
+      console.log(storedData)
+      if (storedData.length != 0){
+        this.firstCond = 'true'
+        this.acSafe = true
+        console.log("storedData is for ", storedData)
+        this.preFilledDataSafe(storedData)
+        return //storedData
+      } 
+      this.firstCond = 'false'
+      this.acSafe = false
+      // return [{"src":null,"data_id":null }]
+    })
+    // this.firstCondDataId = firstCondData.data_id
+    // let storedData : any = JSON.parse(localStorage.getItem(questionId))
+  }
+  storedExtnQuestionId():any{
+    this.APIService.questionIdLocalStorage(this.extnQuestionId).then((el:any)=>{
+      let storedData = JSON.parse(el)
+      console.log(storedData)
+      if (storedData.length != 0){
+        this.secondCond = 'true'
+        this.acExtn = true
+        console.log("storedData is for ", storedData)
+        this.preFilledDataExtn(storedData)
+        return // storedData
+      }
+      this.secondCond = 'false'
+      this.acExtn = false 
+      // return [{"src":null,"data_id":null }]
+    })
+    // this.secondCond = secondCondData.src
+    // this.secondCondDataId = secondCondData.data_id
+    // let storedData : any = JSON.parse(localStorage.getItem(questionId))
   }
 
   clickSafety(event:MatRadioChange ) {
-    //let data : any = localStorage.getItem(this.safetyQuestionId)
-    console.log("Click safety clicked")
+    let event_value:any
+    if (event.value === 'true') {
+      this.acSafe = true
+      event_value = true
+    } else {
+      this.acSafe = false
+      event_value = false
+    }
     var temp = {
       form_id: this.form_id,
       question_id: this.safetyQuestionId,
-      file_data:event.value,
+      file_data:event_value,
       is_submit:false,
-      data_id: this.firstCondDataId
+      data_id: this.safetyDataId
     }
-    this.postRequest(temp)
-    // return this.subquestions
+    this.safetyDataId = this.postRequest(temp)
+    console.log("safetyDataId ", this.safetyDataId)
+    // this.postRequest(temp)
   }
 
-  clickExtn(event:MatRadioChange ) {
-    console.log("Click ext clicked clicked")
 
-    //let data: any = localStorage.getItem(this.extnQuestionId)
+  clickExtn(event:MatRadioChange ) {
+    let event_value:any
+    if (event.value === 'true') {
+      this.acExtn = true
+      event_value = true
+    } else {
+      this.acExtn = false
+      event_value = false
+    }
     var temp = {
       form_id: this.form_id,
       question_id: this.extnQuestionId,
-      file_data: event.value,
-      is_submit:false,
-      data_id: this.secondCondDataId
+      file_data: event_value,
+      is_submit: false,
+      data_id: this.extnDataId
     }
-    this.postRequest(temp)
-    // return this.subquestions
+    this.extnDataId = this.postRequest(temp)
+    console.log("extnDataId ", this.extnDataId)
+    // this.postRequest(temp)
   }
 
   postRequest(temp){
-    console.log(temp)
-
-      this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
+    console.log("request data", temp)
+    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.ProjectService.HttpEventResponse(event)
-      if(response){
+      if(response) {
         console.log(response)
-        localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id" : response.data_id}))
-
-      } 
+        // localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id" : response.data_id}))
+        return response.data_id
+      }
     }, (err) => {
       console.log("err is ", err)
     })
   }
 
+
+  addCompoSafe(questionId, dataId, src){
+    // Check and resolve the component
+    var comp = this._cfr.resolveComponentFactory(ImagesComponent);
+    console.log(comp)
+    // Create component inside container
+    var expComponent:ComponentRef<ImagesComponent> = this.containerSafe.createComponent(comp);
+    // See explanations
+    expComponent.instance.question_id = questionId
+    expComponent.instance.data_id = dataId
+    expComponent.instance.src = src;
+
+    expComponent.instance._ref = expComponent;
+  }
+
+  addCompoExtn(questionId, dataId, src){
+    // Check and resolve the component
+    var comp = this._cfr.resolveComponentFactory(ImagesComponent);
+    console.log(comp)
+    // Create component inside container
+    var expComponent:ComponentRef<ImagesComponent> = this.containerExtn.createComponent(comp);
+    // See explanations
+    expComponent.instance.question_id = questionId
+    expComponent.instance.data_id = dataId
+    expComponent.instance.src = src;
+
+    expComponent.instance._ref = expComponent;
+  }
+
+  preFilledDataSafe(storedData){
+    // let storedData : any = JSON.parse(localStorage.getItem(this.safetyQuestionId))
+    console.log("storedata is ", storedData)
+    // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+    // this.presentData = storedData
+    if (storedData) storedData.filter(el=> this.addCompoSafe(this.safetyQuestionId, el.data_id, el.src))
+  }
+
+  preFilledDataExtn(storedData){
+    // let storedData : any = JSON.parse(localStorage.getItem(this.extnQuestionId))
+    console.log("storedata is ", storedData)
+    // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
+    // this.presentData = storedData
+    if (storedData) storedData.filter(el=> this.addCompoExtn(this.extnQuestionId, el.data_id, el.src))
+  }
+  
 }

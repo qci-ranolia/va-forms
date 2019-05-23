@@ -1,34 +1,30 @@
 <mat-card class="mb-2">
-    <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>1</strong>.&nbsp;Are there any effective signs and labels for safety?</label>
-    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
-      <mat-radio-button
-      class="example-radio-button mr-3 ml-3"
-      value="true"
-      [checked]="firstCond == 'true'"
-      [disabled]="isDisabled"
-      (change)="clickSafety($event)">Yes</mat-radio-button>
-        <mat-radio-button
-      class="example-radio-button mr-3 ml-3"
-      value="false"
-      [checked]="firstCond == 'false'"
-      [disabled]="isDisabled"
-      (change)="clickSafety($event)">No</mat-radio-button>
-    </mat-radio-group>
+  <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>1</strong>.&nbsp;Are there any effective signs and labels for safety?</label>
+  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+    <mat-radio-button class="example-radio-button mr-3 ml-3" value="true" [checked]="firstCond == 'true'"
+    [disabled]="isDisabled" (change)="clickSafety($event)">Yes</mat-radio-button>
+    <mat-radio-button class="example-radio-button mr-3 ml-3" value="false" [checked]="firstCond == 'false'"
+    [disabled]="isDisabled" (change)="clickSafety($event)">No</mat-radio-button>
+  </mat-radio-group>
+  <br />
+  <br />
+  <button *ngIf="acSafe" mat-raised-button (click)="addCompoSafe(safetyQuestionId,null,null)">Add Images</button>
+  <div *ngIf="acSafe">
+    <div #parentSafe></div>
+  </div>
 </mat-card>
 <mat-card class="mb-2">
   <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>2</strong>.&nbsp;Are there any fire extinguisher and other safety equipment in sight?</label>
   <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
-    <mat-radio-button
-    class="example-radio-button mr-3 ml-3"
-    value="true"
-    [checked]="secondCond == 'true'"
-    [disabled]="isDisabled"
-    (change)="clickExtn($event)">Yes</mat-radio-button>
-    <mat-radio-button
-    class="example-radio-button mr-3 ml-3"
-    value="false"
-    [checked]="secondCond =='false'"
-    [disabled]="isDisabled"
-    (change)="clickExtn($event)">No</mat-radio-button>
+    <mat-radio-button class="example-radio-button mr-3 ml-3" value="true" [checked]="secondCond == 'true'"
+    [disabled]="isDisabled" (change)="clickExtn($event)">Yes</mat-radio-button>
+    <mat-radio-button class="example-radio-button mr-3 ml-3" value="false" [checked]="secondCond =='false'"
+    [disabled]="isDisabled" (change)="clickExtn($event)">No</mat-radio-button>
   </mat-radio-group>
+  <br />
+  <br />
+  <button *ngIf="acExtn" mat-raised-button (click)="addCompoExtn(extnQuestionId,null,null)">Add Images</button>
+  <div *ngIf="acExtn">
+    <div #parentExtn></div>
+  </div>
 </mat-card>
