@@ -2,15 +2,14 @@ import { HttpEvent, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+// import { catchError, map } from 'rxjs/operators';
 import { APIService } from '../../service/APIService';
 import { ProjectService } from '../../service/ProjectService';
-// import { HttpEvent, HttpEventType, HttpClient, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class FormResolver implements Resolve<any> {
 
-  constructor(private http: HttpClient, private ProjectService: ProjectService, private APIService: APIService) { }
+  constructor( private http: HttpClient, private ProjectService: ProjectService, private APIService: APIService) { }
 
   resolve(): Observable<any> {
     

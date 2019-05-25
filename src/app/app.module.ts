@@ -82,6 +82,7 @@ import { LiveAssesmentComponent } from "./home/response/live-assesment/live-asse
 import { ProfileComponent } from "./home/profile/profile.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
+import { QualityComponent } from './home/quality/quality.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { environment } from "../environments/environment";
     DcustomdialogComponent,
     AnymoredocComponent,
     AnymoreimagComponent,
-    FilesComponent
+    FilesComponent,
+    QualityComponent
   ],
   entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent, FilesComponent],
   imports: [
@@ -162,7 +164,7 @@ import { environment } from "../environments/environment";
     //     path: 'form/safety',
     //     component: SafetyComponent,
     //     resolve: {
-    //       team: 'formResolver'
+    //       form: 'formResolver'
     //     }
     //   }
     // ]),
@@ -170,12 +172,12 @@ import { environment } from "../environments/environment";
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
+    FormResolver,
     APIService,
     ProjectService,
     OpentokService,
     ImageCompressService,
     ResizeOptions,
-    FormResolver,
     {
       provide: 'FormResolver',
       useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => 'form'

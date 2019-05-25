@@ -1,6 +1,6 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ProjectService } from '../../service/ProjectService';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -57,7 +57,9 @@ export class FormComponent implements OnInit {
  // @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
   
   urlParaName:any
-  constructor(private route: ActivatedRoute, private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
+  
+  constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
+    
     // this.urlParaName = this.route.snapshot.paramMap    
     // console.log(this.urlParaName)
     this.ProjectService.emitVendorDetails.subscribe(el=>{
@@ -67,37 +69,13 @@ export class FormComponent implements OnInit {
       this.storeVendorDetail(el.data)
     })
 
-    //Experimental feature to set tab name
+    // Experimental feature to set tab name
     //   this.router.events.subscribe(value => {
-  //     console.log('current route: ', this.router.url.toString());
-  //     let route_name : string = this.router.url.toString() 
-  //     console.log("This is the route name", this.route_names[route_name])
-  //     this.parameter = this.route_names[route_name]
-  // });
-
-
-  // this.para_array = ["physical_location", "basic_information", "process_capability", "suppliers","production_capability", "research_and_development"]
-    // this.subquestions = [
-    //   {
-    //     "research_and_development":[
-    //         {
-    //             "id":"fddfahjdashj",
-    //             "question":"Show the R&D facility.",
-    //             "options":"photo"
-    //         },
-    //         {
-    //             "id":"bmbahjdashj",
-    //             "question":"Show the products/processes for which patents have been obtained.",
-    //             "options":"photo"
-    //         },
-    //         {
-    //             "id":"zxczahjdashj",
-    //             "question":"Show prototype if any.",
-    //             "options":"photo"
-    //         }
-    //     ]
-    //   }
-    // ]
+    //     console.log('current route: ', this.router.url.toString());
+    //     let route_name : string = this.router.url.toString() 
+    //     console.log("This is the route name", this.route_names[route_name])
+    //     this.parameter = this.route_names[route_name]
+    // });
   }
 
   ngOnInit(){

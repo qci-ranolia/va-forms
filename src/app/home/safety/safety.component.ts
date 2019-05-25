@@ -5,6 +5,7 @@ import { ProjectService } from '../../service/ProjectService';
 import { HttpEvent } from '@angular/common/http';
 import { ImagesComponent } from '../form/images/images.component'
 
+
 @Component({
   selector: 'app-safety',
   templateUrl: './safety.component.html',
@@ -26,7 +27,6 @@ export class SafetyComponent implements OnInit {
   acSafe:any
   acExtn:any
 
-
   safetyDataIdKey:any
   safetyDataId:any
   extnDataIdKey:any
@@ -38,24 +38,25 @@ export class SafetyComponent implements OnInit {
   constructor( private ProjectService: ProjectService, private APIService: APIService, private _cfr: ComponentFactoryResolver ) { }
   
   ngOnInit() {
-      this.show = localStorage.getItem("form_status")
-      this.form_id = localStorage.getItem('form_id')
-      // console.log(this.form_id)
-      
-      // let firstCondData = this.storedSafetyQuestionId(this.safetyQuestionId)
-      
+    this.show = localStorage.getItem("form_status")
+    this.form_id = localStorage.getItem('form_id')
+    // console.log(this.form_id)
+    
+    // let firstCondData = this.storedSafetyQuestionId(this.safetyQuestionId)
+    
       this.storedSafetyQuestionId()
       this.storedExtnQuestionId()
-
+  
       // this.firstCond = firstCondData.src 
       this.safetyDataIdKey = this.safetyQuestionId+'data_id'
       this.safetyDataId = this.getDataId(this.safetyDataIdKey)
       // this.firstCondDataId = firstCondData.data_id
-
+  
       this.extnDataIdKey = this.extnQuestionId+'data_id'
       this.extnDataId = this.getDataId(this.extnDataIdKey)
+  
+      this.APIService.questionIdLocalStorage(this.safetyQuestionId)      
 
-      this.APIService.questionIdLocalStorage(this.safetyQuestionId)
   }
 
   getDataId(dataIdKey){
