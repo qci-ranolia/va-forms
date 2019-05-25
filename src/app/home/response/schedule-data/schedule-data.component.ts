@@ -25,7 +25,7 @@ export class ScheduleDataComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

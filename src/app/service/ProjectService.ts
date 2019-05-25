@@ -166,7 +166,7 @@ export class ProjectService {
           }
 
           setTimeout(()=>{
-          //  this.startArchive(archiveData)
+           this.startArchive(archiveData)
           }, 4000)
         }
       }
@@ -210,6 +210,38 @@ export class ProjectService {
 
   getLiveAssesment(data) {
     this.APIService.GetLiveAssesment(data).subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+        // console.log(response)
+        this.emitLiveResponseFun(response)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
+  }
+
+  // emitLiveResponseFun(response){
+  //   this.emitLiveResponse.emit({
+  //     response: response
+  //   })
+  // }
+
+  // getSessionScheduleData(data) {
+  //   this.APIService.GetAssesmentDataForGem(data).subscribe((event: HttpEvent<any>) => {
+  //
+  //     let response = this.HttpEventResponse(event)
+  //     if(response){
+  //       console.log(response)
+  //       // this.emitgetSessionScheduleData(response)
+  //     }
+  //   }, (err:HttpErrorResponse)=>{
+  //     console.log(err)
+  //   });
+  // }
+
+  getAssesmentDataForGem() {
+    this.APIService.GetAssesmentDataForGem().subscribe((event: HttpEvent<any>) => {
 
       let response = this.HttpEventResponse(event)
       if(response){
