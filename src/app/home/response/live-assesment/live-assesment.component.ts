@@ -16,6 +16,8 @@ export class LiveAssesmentComponent implements OnInit {
 
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableHeader  = [
+  //   { colspan:"1", data:"Assessor" },
+  //   { colspan:"1", data:"Vendor" },
   //   { colspan:"1", data:"Physical Location" },
   //   { colspan:"2", data: "Basic Information" },
   //   { colspan:"1", data: "Process capability" },
@@ -24,12 +26,16 @@ export class LiveAssesmentComponent implements OnInit {
   //   { colspan:"1", data: "Transportation" },
   //   { colspan:"2", data: "Safety" },
   //   { colspan:"3", data: "Research & Development" }
+  //   { colspan:"1", data:"Video link" }
+
   // ]
   //  +++++++++++++++original++++++++++++++++++++++++
 
 
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableSubHeaders= [
+  //   {name:"Geotagged Assessor"},
+  //   {name:"Geotagged Vendor"},
   //   {name:"Geotagged Assessment"},
   //   {name:"What is the name of the official taking part in the assessment"},
   //   {name:"Designation of the official in the firm"},
@@ -42,6 +48,7 @@ export class LiveAssesmentComponent implements OnInit {
   //   {name:"Show the R&D facility"},
   //   {name:"Show the products/processes for which patents have been obtained"},
   //   {name:"Show prototype if any"}
+  //   {name:"Video link"}
   // ]
   //  +++++++++++++++original++++++++++++++++++++++++
 
@@ -50,6 +57,16 @@ export class LiveAssesmentComponent implements OnInit {
   // tableResponse=[
   //   {
   //     responseData : [
+  //     {
+  //         data : [
+  //           {type:"text", value:"Assessor_NAme"},
+  //         ]
+  //       },
+  //     {
+  //         data : [
+  //           {type:"text", value:"Vendor_NAme"},
+  //         ]
+  //       },
   //       {
   //         data : [
   //           {type:"image", src:"assets/images/1.jpg", id:""},
@@ -130,6 +147,14 @@ export class LiveAssesmentComponent implements OnInit {
   //           {type:"image", src:"assets/images/9.jpg"},
   //           {type:"image", src:"assets/images/10.jpg"}
   //         ]
+  //       },
+  //       {
+  //         data : [
+  //           {type:"Video", src:"assets/images/21.jpg"},
+  //           {type:"video", src:"assets/images/8.jpg"},
+  //           {type:"video", src:"assets/images/9.jpg"},
+  //           {type:"video", src:"assets/images/10.jpg"}
+  //         ]
   //       }
   //
   //     ]
@@ -162,8 +187,8 @@ export class LiveAssesmentComponent implements OnInit {
     if(localStorage.getItem("form_id")){
       let form_id = localStorage.getItem("form_id");
       this.data = {
-        // form_id: form_id
-        form_id: "form_id_01"
+        form_id: form_id
+        // form_id: "form_id_01"
       }
       this.projectService.getLiveAssesment(this.data)
     }

@@ -3,9 +3,19 @@ import { HttpEvent, HttpEventType, HttpClient, HttpRequest, HttpErrorResponse } 
 import { APIService } from './APIService';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+// import { Socket } from 'ngx-socket-io';
+// import { map } from 'rxjs/operators';
+// import { Observable, throwError } from "rxjs";
 
 @Injectable()
 export class ProjectService {
+
+  // documents  = this.socket.fromEvent<any>('documents');
+  //
+  // getChat(id: string) {
+  //   this.socket.emit('getDoc', id);
+  // }
+
   res:any
   emitResponses: EventEmitter<any> = new EventEmitter<any>();
   emitQuestions: EventEmitter<any> = new EventEmitter<any>();
@@ -29,7 +39,7 @@ export class ProjectService {
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
   emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
+  constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
 
   HttpEventResponse(event) {
     switch (event.type) {
