@@ -309,7 +309,7 @@ export class LiveAssesmentComponent implements OnInit {
   }
 
   trimTableHeader(header) {
-    return (header.substring(14,0)+"...");
+    return (header.substring(400,0)+"");
   }
 
   refreshData() {

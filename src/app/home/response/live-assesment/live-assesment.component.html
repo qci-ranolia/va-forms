@@ -30,22 +30,22 @@
   </div>
 
   <div class="tableContainer table-responsive">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" style="width:100%">
       <thead>
         <tr>
-          <th *ngFor="let head of tableHeader" [attr.colspan]="head.colspan">
+          <th  width="190px" *ngFor="let head of tableHeader" [attr.colspan]="head.colspan">
             {{ head.data }}
           </th>
         </tr>
 
         <tr>
-          <th *ngFor="let header of tableSubHeaders" title="{{ header.name }}">
+          <th width="90px" *ngFor="let header of tableSubHeaders" title="{{ header.name }}">
             {{ trimTableHeader(header.name) }}
           </th>
         </tr>
 
         <tr *ngFor="let rd of tableResponse">
-          <td *ngFor="let response of rd.responseData">
+          <td  width="90px" *ngFor="let response of rd.responseData">
             <span *ngFor="let data of response.data">
               <span *ngIf="data.type === 'text'">
                 {{ data.value }}
@@ -53,7 +53,7 @@
 
               <span *ngIf="data.type === 'image'">
                 <div style="margin:2px; margin-right:0px; margin-left:0px">
-                  <img src="{{ data.src }}" alt="" width="80px" height="100px" />
+                  <img  class="zoom" src="{{ data.src }}" alt="" width="80px" height="100px" />
                 </div>
               </span>
             </span>
