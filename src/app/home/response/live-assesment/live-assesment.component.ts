@@ -314,6 +314,11 @@ export class LiveAssesmentComponent implements OnInit {
 
   refreshData() {
     this.projectService.getLiveAssesment(this.data)
+
+      let vendorFeed = document.getElementsByClassName(
+        "OT_subscriber"
+      )[0] as HTMLElement;
+      if (vendorFeed) vendorFeed.style.display = "block";
   }
 
   getVendorFeed() {
