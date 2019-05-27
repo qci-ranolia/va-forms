@@ -55,8 +55,7 @@ export class SafetyComponent implements OnInit {
       this.extnDataIdKey = this.extnQuestionId+'data_id'
       this.extnDataId = this.getDataId(this.extnDataIdKey)
   
-      this.APIService.questionIdLocalStorage(this.safetyQuestionId)      
-
+      this.APIService.questionIdLocalStorage(this.safetyQuestionId)
   }
 
   getDataId(dataIdKey){
@@ -107,6 +106,7 @@ export class SafetyComponent implements OnInit {
       event_value = true
     } else {
       this.acSafe = false
+      console.log()
       event_value = false
     }
     var temp = {

@@ -9,7 +9,9 @@
   <br />
   <br />
   <button mat-raised-button (click)="addCompoSafe(safetyQuestionId,null,null)" [disabled]=!acSafe>Add Images</button>
-  <div #parentSafe></div>
+  <div id="safety" [class.active]="firstCond">
+    <div #parentSafe></div>
+  </div>
 </mat-card>
 <mat-card class="mb-2">
   <label id="example-radio-group-label" class="col-sm-12 p-0 mb-3"><strong>2</strong>.&nbsp;Are there any fire extinguisher and other safety equipment in sight?</label>
@@ -22,5 +24,7 @@
   <br />
   <br />
   <button mat-raised-button (click)="addCompoExtn(extnQuestionId,null,null)" [disabled]=!acExtn>Add Images</button>
-  <div #parentExtn></div>
+  <div id="extension" [class.active]="secondCond">
+    <div #parentExtn></div>
+  </div>
 </mat-card>
