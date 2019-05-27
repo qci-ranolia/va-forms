@@ -286,7 +286,6 @@ export class LiveAssesmentComponent implements OnInit {
         this.displayLiveAssesment = true
 
       }
-
     })
   }
 
