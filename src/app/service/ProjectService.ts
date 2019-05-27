@@ -34,10 +34,11 @@ export class ProjectService {
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();
   emitUserLogin : EventEmitter<any> = new EventEmitter<any>();
   emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
+  emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
   emitLiveResponse : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
-  emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
+  emitSessionScheduleData : EventEmitter<any> = new EventEmitter<any>();
 
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
 
@@ -221,31 +222,31 @@ export class ProjectService {
     });
   }
 
-  // emitLiveResponseFun(response){
-  //   this.emitLiveResponse.emit({
-  //     response: response
-  //   })
-  // }
+  getSessionScheduleData() {
+    this.APIService.GetSessionScheduleData().subscribe((event: HttpEvent<any>) => {
 
-  // getSessionScheduleData(data) {
-  //   this.APIService.GetAssesmentDataForGem(data).subscribe((event: HttpEvent<any>) => {
-  //
-  //     let response = this.HttpEventResponse(event)
-  //     if(response){
-  //       console.log(response)
-  //       // this.emitgetSessionScheduleData(response)
-  //     }
-  //   }, (err:HttpErrorResponse)=>{
-  //     console.log(err)
-  //   });
-  // }
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log(response)
+        // this.emitgetSessionScheduleDataFun(response)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
+  }
+
+  emitgetSessionScheduleDataFun(response){
+    this.emitSessionScheduleData.emit({
+      response: response
+    })
+  }
 
   getAssesmentDataForGem() {
     this.APIService.GetAssesmentDataForGem().subscribe((event: HttpEvent<any>) => {
 
       let response = this.HttpEventResponse(event)
       if(response){
-        // console.log(response)
+        console.log(response)
         this.emitLiveResponseFun(response)
       }
     }, (err:HttpErrorResponse)=>{
