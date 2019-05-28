@@ -9,7 +9,7 @@
   <br />
   <br />
   <button mat-raised-button (click)="addCompoSafe(safetyQuestionId,null,null)" [disabled]=!acSafe>Add Images</button>
-  <div id="safety" [class.active]="firstCond">
+  <div id="safety" #safety>
     <div #parentSafe></div>
   </div>
 </mat-card>
@@ -24,7 +24,7 @@
   <br />
   <br />
   <button mat-raised-button (click)="addCompoExtn(extnQuestionId,null,null)" [disabled]=!acExtn>Add Images</button>
-  <div id="extension" [class.active]="secondCond">
+  <div id="extension" #extension>
     <div #parentExtn></div>
   </div>
 </mat-card>

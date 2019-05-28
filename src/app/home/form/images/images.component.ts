@@ -18,7 +18,7 @@ export class ImagesComponent implements OnInit {
   
   processedImages:any
   showTitle:any
-
+  
   constructor(private ProjectService: ProjectService, private imgCompressService: ImageCompressService ) {
     this.show = localStorage.getItem("form_status")
   }

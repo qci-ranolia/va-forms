@@ -98,12 +98,8 @@ export class ProjectService {
 
   imageArray(temp){
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
-      let response = this.HttpEventResponse(event)
-      
+      let response = this.HttpEventResponse(event)      
       if(response){
-        let x = {
-          data_id:response.data_id,
-        }
         // localStorage.setItem(response.question_id, response.data_id)
         this.emitImageData_Id.emit(response)
       } else {
@@ -112,7 +108,7 @@ export class ProjectService {
       }
     }, (err) => {
       // alert("Try again later.")
-        // Some info to users;
+      // Some info to users;
     })
   }
 

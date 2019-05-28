@@ -38,10 +38,10 @@ export const routes: Routes = [
         { path:'processcapability', component:ProccapabComponent },
         { path:'productioncapacity', component:ProdcapacComponent },
         { path:'researchanddevelopment', component:RdevComponent },
-        { path:'safety', component: SafetyComponent,
+        { path:'safety', component: SafetyComponent/* ,
           resolve: {
             form: FormResolver
-          }
+          } */
         },
         { path:'quality', component:QualityComponent },
         { path:'suppliers', component:SupplierComponent },

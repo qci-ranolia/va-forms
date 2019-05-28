@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ComponentRef, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 import { APIService } from '../../service/APIService';
 import { ProjectService } from '../../service/ProjectService';
@@ -11,7 +11,7 @@ import { ImagesComponent } from '../form/images/images.component'
   templateUrl: './safety.component.html',
   styleUrls: ['./safety.component.scss']
 })
-export class SafetyComponent implements OnInit {
+export class SafetyComponent implements OnInit/* , AfterViewInit */  {
   conditions : string[] = ["Yes", "No"];
   firstCond: any = false
   secondCond:any = false
@@ -32,8 +32,11 @@ export class SafetyComponent implements OnInit {
   extnDataIdKey:any
   extnDataId:any
   firstCondDataId:any
+  
   @ViewChild('parentSafe', { read: ViewContainerRef }) containerSafe: ViewContainerRef;
   @ViewChild('parentExtn', { read: ViewContainerRef }) containerExtn: ViewContainerRef;
+  @ViewChild("safety") elSafety: ElementRef;
+  @ViewChild("extension") elExtension: ElementRef;
 
   constructor( private ProjectService: ProjectService, private APIService: APIService, private _cfr: ComponentFactoryResolver ) { }
   
@@ -102,12 +105,14 @@ export class SafetyComponent implements OnInit {
   clickSafety(event:MatRadioChange ) {
     let event_value:any
     if (event.value === 'true') {
+      this.elSafety.nativeElement.style.display = "block"
       this.acSafe = true
       event_value = true
     } else {
+      this.elSafety.nativeElement.style.display = "none"
       this.acSafe = false
-      console.log()
       event_value = false
+      console.log(this.safetyQuestionId)
     }
     var temp = {
       form_id: this.form_id,
@@ -125,9 +130,11 @@ export class SafetyComponent implements OnInit {
   clickExtn(event:MatRadioChange ) {
     let event_value:any
     if (event.value === 'true') {
+      this.elExtension.nativeElement.style.display = "block"
       this.acExtn = true
       event_value = true
     } else {
+      this.elExtension.nativeElement.style.display = "none"
       this.acExtn = false
       event_value = false
     }

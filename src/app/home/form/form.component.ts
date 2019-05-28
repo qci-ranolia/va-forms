@@ -1,6 +1,7 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ProjectService } from '../../service/ProjectService';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form',
@@ -55,13 +56,14 @@ export class FormComponent implements OnInit {
                       '/form/transportation': 'transportation'}
 
  // @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
-  
+  Select_parameter = "Select parameter"
   urlParaName:any
   
-  constructor( private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
+  constructor( private route: ActivatedRoute, private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
+    var x = this.router.url.split('/')[2]
+    this.Select_parameter = x
+    console.log(this.Select_parameter)
     
-    // this.urlParaName = this.route.snapshot.paramMap    
-    // console.log(this.urlParaName)
     this.ProjectService.emitVendorDetails.subscribe(el=>{
       this.form_response = el
       this.form_response_array = Object.keys(el)

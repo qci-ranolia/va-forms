@@ -177,11 +177,11 @@ import { QualityComponent } from './home/quality/quality.component';
     ProjectService,
     OpentokService,
     ImageCompressService,
-    ResizeOptions,
+    ResizeOptions/* ,
     {
       provide: 'FormResolver',
       useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => 'form'
-    }
+    } */
   ],
   bootstrap: [AppComponent]
 })
