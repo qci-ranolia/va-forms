@@ -1,20 +1,18 @@
-import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
-import { ImagesComponent } from '../form/images/images.component' 
-
+import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { ImagesComponent } from '../images/images.component' 
 
 @Component({
-  selector: 'app-anymoreimag',
-  templateUrl: './anymoreimag.component.html',
-  styleUrls: ['./anymoreimag.component.scss']
+  selector: 'app-transp',
+  templateUrl: './transp.component.html',
+  styleUrls: ['./transp.component.scss']
 })
-export class AnymoreimagComponent implements OnInit {
+export class TranspComponent implements OnInit {
 
-  // this needs to be changed based on the backend question_id
-  questionId : any = "6fb7d835b1433cb8a8b69b8a616950af"
+  questionId : any = "0e9b0637d28ce98c81558082eef18179"
   show: any;
-
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
-  constructor(private _cfr: ComponentFactoryResolver, ) { }
+  
+  constructor(private _cfr: ComponentFactoryResolver  ) { }
 
   ngOnInit() {
     this.show = localStorage.getItem("form_status")
@@ -22,7 +20,7 @@ export class AnymoreimagComponent implements OnInit {
     this.preFilledData()
   }
 
-  addComponent(questionId, dataId, src){
+  addComponent(questionId, dataId,src){
     // Check and resolve the component
     var comp = this._cfr.resolveComponentFactory(ImagesComponent);
     // Create component inside container
@@ -36,12 +34,10 @@ export class AnymoreimagComponent implements OnInit {
   }
 
   preFilledData(){
-
-  let storedData : any = JSON.parse(localStorage.getItem(this.questionId))
-  console.log("storedata is ", storedData)
+    let storedData : any = JSON.parse(localStorage.getItem(this.questionId))
+    // console.log("storedata is ", storedData)
     // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
     // this.presentData = storedData
     if (storedData) storedData.filter(el=> this.addComponent(this.questionId, el.data_id, el.src) )
-  
-}
+  }
 }

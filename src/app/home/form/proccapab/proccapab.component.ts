@@ -1,22 +1,21 @@
 import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { ImagesComponent } from '../form/images/images.component' 
+import { ImagesComponent } from '../images/images.component' 
 
 @Component({
-  selector: 'app-transp',
-  templateUrl: './transp.component.html',
-  styleUrls: ['./transp.component.scss']
+  selector: 'app-proccapab',
+  templateUrl: './proccapab.component.html',
+  styleUrls: ['./proccapab.component.scss']
 })
-export class TranspComponent implements OnInit {
+export class ProccapabComponent implements OnInit {
 
-  questionId : any = "0e9b0637d28ce98c81558082eef18179"
-  show: any;
-  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
+  questionId : any = "037891c729514fc530b74b2a71891c00"
+  show: any
+  @ViewChild('parent2', { read: ViewContainerRef }) container: ViewContainerRef; 
   
   constructor(private _cfr: ComponentFactoryResolver  ) { }
 
   ngOnInit() {
     this.show = localStorage.getItem("form_status")
-
     this.preFilledData()
   }
 
@@ -40,4 +39,6 @@ export class TranspComponent implements OnInit {
     // this.presentData = storedData
     if (storedData) storedData.filter(el=> this.addComponent(this.questionId, el.data_id, el.src) )
   }
+
+
 }

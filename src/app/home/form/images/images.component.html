@@ -1,7 +1,7 @@
 <div class="justify-content-center mt-3 mb-3 p-2 border">
-  <img class="col-7 pl-0" src={{src}} alt="" height="200px" width="200px" /><br />
+  <img class="col-12 pl-0" src={{src}} alt="" style="max-height:450px;max-width:450px;" /><br />
   <div *ngIf="show == 'false'">
-    <input id="{{question_id}}" class="col-7 pl-0 mt-3" type="file" accept="jpg,jpeg,png" (change)="browseImages($event)" /><br />
+    <input class="col-7 pl-0 mt-3" type="file" accept="jpg,jpeg,png" (change)="browseImages($event)" /><br />
     <button class="text-white bg-danger mt-3" mat-raised-button (click)="removeObject()">Delete</button>
   </div>
 </div>

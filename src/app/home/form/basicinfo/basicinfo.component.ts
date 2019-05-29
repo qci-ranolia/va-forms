@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../service/ProjectService';
-import { APIService } from '../../service/APIService';
+import { ProjectService } from '../../../service/ProjectService';
+import { APIService } from '../../../service/APIService';
 import { HttpEvent } from '@angular/common/http';
 
 @Component({
-  selector: 'app-supplier',
-  templateUrl: './supplier.component.html',
-  styleUrls: ['./supplier.component.scss']
+  selector: 'app-basicinfo',
+  templateUrl: './basicinfo.component.html',
+  styleUrls: ['./basicinfo.component.scss']
 })
-export class SupplierComponent implements OnInit {
-  keyAspects:any
+export class BasicinfoComponent implements OnInit {
+  officialDesignation:any
+  officialName:any
   form_id:any
-  keyAspectsQuesID:any="aebffe1bc78f7a0914779688e9868040"
-  show: any  
-  componentName:any ="suppliers"
-
+  officialDesignationQuesID:any="4f7414dcea7d5e61ee08e4ddf238a04f"
+  officialNameQuesID:any="4367252b9f222177ac5134c1b84d6341"
+  isDisabled: any
+  
+  questionIds:any= new Array()
+  componentName:any ="basicinformation"
+  
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
     // this.questionIds = this.valueStored()
     // this.APIService.JSON_IU().subscribe(el=>{
@@ -27,10 +31,13 @@ export class SupplierComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.show = localStorage.getItem("form_status")
+    this.isDisabled = localStorage.getItem("form_status")
 
-    this.keyAspects = this.storedQuestionId(this.keyAspectsQuesID)[0]
-    
+    this.officialDesignation = this.storedQuestionId(this.officialDesignationQuesID)[0]
+    this.officialName = this.storedQuestionId(this.officialNameQuesID)[0]
+
+    console.log(this.officialDesignation)
+    console.log(this.officialName)
   }
 
   valueStored(){
@@ -48,15 +55,25 @@ export class SupplierComponent implements OnInit {
     return [{"src":null,"data_id":null }]
   }
 
-  clickKeyAspects(e){
+  clickOfficialName(e){
     var temp = {
       form_id: this.form_id,
-      question_id: this.keyAspectsQuesID,
+      question_id: this.officialNameQuesID,
       file_data: e.target.value,
       is_submit : false,
-      data_id:  this.keyAspects.data_id
+      data_id:  this.officialName.data_id
     }
     this.postRequest(temp)       
+  }
+  clickOfficialDesignation(e){
+    var temp = {
+      form_id: this.form_id,
+      question_id: this.officialDesignationQuesID,
+      file_data: e.target.value,
+      is_submit : false,
+      data_id:  this.officialDesignation.data_id
+    }
+    this.postRequest(temp)
   }
 
   postRequest(temp){

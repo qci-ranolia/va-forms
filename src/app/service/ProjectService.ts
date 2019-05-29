@@ -1,8 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpEvent, HttpEventType, HttpClient, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { APIService } from './APIService';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class ProjectService {
@@ -30,7 +30,12 @@ export class ProjectService {
   emitImageData_Id : EventEmitter<any> = new EventEmitter<any>();
   emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
+  constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router, private _errMsg: MatSnackBar ) {}
+  openErrMsgBar(message: string, action: string) {
+    this._errMsg.open(message, action, {
+      duration: 3400,
+    })
+  }
 
   HttpEventResponse(event) {
     switch (event.type) {
@@ -50,16 +55,13 @@ export class ProjectService {
     this.APIService.Get_Admin_UI().subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
       if(response){
+        // Synced Area
         this.emitQuestions.emit(response.data)
       } else {
-        // alert("Try again later")
-        // alert('else tru while emitQuestions')
-        // Some info to user;
+        // this.openErrMsgBar("Please try again.", "Could not retrieved!")
       }
     }, (err) => {
-        // alert("Try again later.")      
-      // alert('err tru while emitQuestions')
-      // Some info to users;
+        // this.openErrMsgBar("Please try again.", "Could not retrieved!")
     })
   }
 
@@ -67,15 +69,15 @@ export class ProjectService {
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
       if(response){
+        this.openErrMsgBar("Data Saved", "Successfully")
+        // Synced Area
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
       } else {
-        // alert("Try again later")
-        // Some info to user;
+        this.openErrMsgBar("Please try again.", "Data not synced!")
       }
     }, (err) => {
-      // alert("Try again later.")
-        // Some info to users;
+        this.openErrMsgBar("Please try again.", "Data not synced!")
     })
   }
 
@@ -87,12 +89,10 @@ export class ProjectService {
         // localStorage.setItem(response.question_id, response.data_id)
         this.emitVendorDetails.emit(response)
       } else {
-        // alert("Try again later")
-        // Some info to user;
+        // this.openErrMsgBar("Forms will not be initialised", "Start Video Assessment")
       }
     }, (err) => {
-      // alert("Try again later.")
-        // Some info to users;
+      // this.openErrMsgBar("Forms will not be initialised", "Start Video Assessment")
     })
   }
 
@@ -100,15 +100,15 @@ export class ProjectService {
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)      
       if(response){
+        this.openErrMsgBar("Data Saved", "Successfully")
+        // Synced Area
         // localStorage.setItem(response.question_id, response.data_id)
         this.emitImageData_Id.emit(response)
       } else {
-        // alert("Try again later")
-        // Some info to user;
+        this.openErrMsgBar("Please try again.", "Data not synced!")        
       }
     }, (err) => {
-      // alert("Try again later.")
-      // Some info to users;
+        this.openErrMsgBar("Please try again.", "Data not synced!")
     })
   }
 
@@ -116,30 +116,29 @@ export class ProjectService {
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
       if(response){
+        this.openErrMsgBar("Data Saved", "Successfully")
+        // Synced Area
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
       } else {
-        // alert("Try again later")
-        // Some info to user;
+        this.openErrMsgBar("Please try again.", "Data not synced!")
       }
     }, (err) => {
-      // alert("Try again later.")
-        // Some info to users;
+        this.openErrMsgBar("Please try again.", "Data not synced!")
     })
   }
   deleteImage(temp){
     this.APIService.deleteImage(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
       if(response){
+        this.openErrMsgBar("Images Deleted.", "Successfully!")
         localStorage.removeItem("form_id")
         // this.emitData_id.emit(response)
       } else {
-        // alert("Try again later")
-        // Some info to user;
+        this.openErrMsgBar("Images not deleted.", "Please try again!")
       }
     }, (err) => {
-      // alert("Try again later.")
-        // Some info to users;
+        this.openErrMsgBar("Images not deleted.", "Please try again!")
     })
   }
 
@@ -161,13 +160,11 @@ export class ProjectService {
   }
 
   checkLogin() {
-
     if(localStorage.getItem('token'))
     this.router.navigate(['/']);
   }
 
   checkFormStatus() {
-
     return localStorage.getItem('form_status')
   }
 

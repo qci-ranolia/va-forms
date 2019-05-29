@@ -58,18 +58,18 @@ import { ResponseComponent } from "./home/response/response.component";
 import { BackupcomponentComponent } from "./home/backupcomponent/backupcomponent.component";
 
 import { ImagesComponent } from './home/form/images/images.component';
-import { BasicinfoComponent } from './home/basicinfo/basicinfo.component';
-import { PhyslocComponent } from './home/physloc/physloc.component';
-import { ProccapabComponent } from './home/proccapab/proccapab.component';
-import { ProdcapacComponent } from './home/prodcapac/prodcapac.component';
-import { RdevComponent } from './home/rdev/rdev.component';
-import { SafetyComponent } from './home/safety/safety.component';
-import { SupplierComponent } from './home/supplier/supplier.component';
-import { TranspComponent } from './home/transp/transp.component';
-import { SubmitComponent } from './home/submit/submit.component';
-import {DcustomdialogComponent  } from './home/dcustomdialog/dcustomdialog.component';
-import { AnymoredocComponent } from './home/anymoredoc/anymoredoc.component';
-import { AnymoreimagComponent } from './home/anymoreimag/anymoreimag.component';
+import { BasicinfoComponent } from './home/form/basicinfo/basicinfo.component';
+import { PhyslocComponent } from './home/form/physloc/physloc.component';
+import { ProccapabComponent } from './home/form/proccapab/proccapab.component';
+import { ProdcapacComponent } from './home/form/prodcapac/prodcapac.component';
+import { RdevComponent } from './home/form/rdev/rdev.component';
+import { SafetyComponent } from './home/form/safety/safety.component';
+import { SupplierComponent } from './home/form/supplier/supplier.component';
+import { TranspComponent } from './home/form/transp/transp.component';
+import { SubmitComponent } from './home/form/submit/submit.component';
+import {DcustomdialogComponent  } from './home/form/dcustomdialog/dcustomdialog.component';
+import { AnymoredocComponent } from './home/form/anymoredoc/anymoredoc.component';
+import { AnymoreimagComponent } from './home/form/anymoreimag/anymoreimag.component';
 import { FilesComponent } from './home/form/files/files.component';
 
 import { ImageCompressService,ResizeOptions, ImageUtilityService } from 'ng2-image-compress';
@@ -82,7 +82,7 @@ import { LiveAssesmentComponent } from "./home/response/live-assesment/live-asse
 import { ProfileComponent } from "./home/profile/profile.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
-import { QualityComponent } from './home/quality/quality.component';
+import { QualityComponent } from './home/form/quality/quality.component';
 
 @NgModule({
   declarations: [

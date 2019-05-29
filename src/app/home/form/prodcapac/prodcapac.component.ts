@@ -1,5 +1,5 @@
 import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { ImagesComponent } from '../form/images/images.component'
+import { ImagesComponent } from '../images/images.component'
 
 @Component({
   selector: 'app-prodcapac',

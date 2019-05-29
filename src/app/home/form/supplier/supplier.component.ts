@@ -1,24 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../service/ProjectService';
-import { APIService } from '../../service/APIService';
+import { ProjectService } from '../../../service/ProjectService';
+import { APIService } from '../../../service/APIService';
 import { HttpEvent } from '@angular/common/http';
 
 @Component({
-  selector: 'app-basicinfo',
-  templateUrl: './basicinfo.component.html',
-  styleUrls: ['./basicinfo.component.scss']
+  selector: 'app-supplier',
+  templateUrl: './supplier.component.html',
+  styleUrls: ['./supplier.component.scss']
 })
-export class BasicinfoComponent implements OnInit {
-  officialDesignation:any
-  officialName:any
+export class SupplierComponent implements OnInit {
+  keyAspects:any
   form_id:any
-  officialDesignationQuesID:any="4f7414dcea7d5e61ee08e4ddf238a04f"
-  officialNameQuesID:any="4367252b9f222177ac5134c1b84d6341"
-  isDisabled: any
-  
-  questionIds:any= new Array()
-  componentName:any ="basicinformation"
-  
+  keyAspectsQuesID:any="aebffe1bc78f7a0914779688e9868040"
+  show: any  
+  componentName:any ="suppliers"
+
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
     // this.questionIds = this.valueStored()
     // this.APIService.JSON_IU().subscribe(el=>{
@@ -31,13 +27,10 @@ export class BasicinfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isDisabled = localStorage.getItem("form_status")
+    this.show = localStorage.getItem("form_status")
 
-    this.officialDesignation = this.storedQuestionId(this.officialDesignationQuesID)[0]
-    this.officialName = this.storedQuestionId(this.officialNameQuesID)[0]
-
-    console.log(this.officialDesignation)
-    console.log(this.officialName)
+    this.keyAspects = this.storedQuestionId(this.keyAspectsQuesID)[0]
+    
   }
 
   valueStored(){
@@ -55,25 +48,15 @@ export class BasicinfoComponent implements OnInit {
     return [{"src":null,"data_id":null }]
   }
 
-  clickOfficialName(e){
+  clickKeyAspects(e){
     var temp = {
       form_id: this.form_id,
-      question_id: this.officialNameQuesID,
+      question_id: this.keyAspectsQuesID,
       file_data: e.target.value,
       is_submit : false,
-      data_id:  this.officialName.data_id
+      data_id:  this.keyAspects.data_id
     }
     this.postRequest(temp)       
-  }
-  clickOfficialDesignation(e){
-    var temp = {
-      form_id: this.form_id,
-      question_id: this.officialDesignationQuesID,
-      file_data: e.target.value,
-      is_submit : false,
-      data_id:  this.officialDesignation.data_id
-    }
-    this.postRequest(temp)
   }
 
   postRequest(temp){

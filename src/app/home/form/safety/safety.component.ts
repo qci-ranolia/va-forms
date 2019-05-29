@@ -1,9 +1,9 @@
 import { Component, OnInit, ComponentRef, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
-import { APIService } from '../../service/APIService';
-import { ProjectService } from '../../service/ProjectService';
+import { APIService } from '../../../service/APIService';
+import { ProjectService } from '../../../service/ProjectService';
 import { HttpEvent } from '@angular/common/http';
-import { ImagesComponent } from '../form/images/images.component'
+import { ImagesComponent } from '../images/images.component'
 
 
 @Component({

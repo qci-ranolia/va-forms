@@ -29,12 +29,16 @@ export class FilesComponent implements OnInit {
       data_id:this.data_id
     }
     // console.log(temp)
-    this.ProjectService.deleteImage(temp)
-    let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
+    this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+    setTimeout(()=>{      
+      this.ProjectService.deleteImage(temp)
+      let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
 
-    let v = storedData.filter(item => item.data_id !== this.data_id);
+      let v = storedData.filter(item => item.data_id !== this.data_id);
+      
+      localStorage.setItem(this.question_id, JSON.stringify(v))
+    }, 1500);
     
-    localStorage.setItem(this.question_id, JSON.stringify(v))
     this._ref.destroy();
   }
 
@@ -62,12 +66,16 @@ export class FilesComponent implements OnInit {
         data_id : this.data_id
       }
       // this.ProjectService.postFormDetails(temp)
-      this.ProjectService.imageArray(temp)
-      this.ProjectService.emitImageData_Id.subscribe(el=>{
-        this.data_id = el
-        // console.log("el is ", el)
-        this.storedData()
-      })
+      this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+      setTimeout(()=>{      
+        this.ProjectService.imageArray(temp)
+        this.ProjectService.emitImageData_Id.subscribe(el=>{
+          this.data_id = el
+          console.log("el is ", el)
+          this.storedData()
+        })
+      }, 1500);
+
     }
 
 
@@ -86,9 +94,7 @@ export class FilesComponent implements OnInit {
       data_id:this.data_id,
       src:this.src
     }
-
     if (x.length == 0 ){
-
       storedData.push(newItem)
       console.log("new stored data", storedData)
       localStorage.setItem(this.question_id, JSON.stringify(storedData))

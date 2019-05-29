@@ -1,7 +1,6 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ProjectService } from '../../service/ProjectService';
-import { Router, ActivatedRoute, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -53,21 +52,23 @@ export class FormComponent implements OnInit {
                       '/form/researchanddevelopment': 'research_and_development', 
                       '/form/safety': 'safety',
                       '/form/suppliers': 'suppliers',
-                      '/form/transportation': 'transportation'}
+                      '/form/transportation': 'transportation'
+                    }
 
  // @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
   Select_parameter = "Select parameter"
   urlParaName:any
+
+  routeData:any=[]
   
-  constructor( private route: ActivatedRoute, private _cfr: ComponentFactoryResolver, private ProjectService: ProjectService, private router: Router ){
-    var x = this.router.url.split('/')[2]
-    this.Select_parameter = x
-    console.log(this.Select_parameter)
+  constructor( private ProjectService: ProjectService, private router: Router ){
+    // var x = this.router.url.split('/')[2]
+    // this.Select_parameter = x
     
     this.ProjectService.emitVendorDetails.subscribe(el=>{
       this.form_response = el
       this.form_response_array = Object.keys(el)
-      this.storeFormStatatus(el.form_status)
+      this.storeFormStatus(el.form_status)
       this.storeVendorDetail(el.data)
     })
 
@@ -92,16 +93,16 @@ export class FormComponent implements OnInit {
       // Where actual form submission happens
       this.para_array.push("Submit")
       
-      console.log("getforms is  ", this.response) // this.form_id
+      // console.log("getforms is  ", this.response) // this.form_id
       if (this.response["physical_location"]){
         this.physical_location_question_id = this.response["physical_location"][0].id 
       }
-      console.log("physical id is ", this.physical_location_question_id)
+      // console.log("physical id is ", this.physical_location_question_id)
     })
 
     this.ProjectService.get_admin_ui()
     this.form_id = localStorage.getItem('form_id')
-    console.log("This is the form id", this.form_id)
+    // console.log("This is the form id", this.form_id)
     // let physical_location_question_id = localStorage.getItem('question_id')
     
     if (this.form_id){
@@ -114,8 +115,8 @@ export class FormComponent implements OnInit {
   }
 
   // Meant to check status of the form, if its  false, Edits can be made else all will be disabled
-  storeFormStatatus(form_status){
-    console.log("Form status for this form is is ", form_status)
+  storeFormStatus(form_status){
+    // console.log("Form status for this form is is ", form_status)
     localStorage.setItem("form_status", form_status)
   }
 
@@ -128,7 +129,7 @@ export class FormComponent implements OnInit {
 
     for (let i = 0; i < subSectionKeys.length; i++){
       let name = subSectionKeys[i]
-      // console.log("sasasa", data[name])
+      console.log("sasasa", data[name])
       let x = []
       for ( let datas in data[name]){
         let pLData:any =  data[name][datas]
@@ -140,7 +141,7 @@ export class FormComponent implements OnInit {
       }
       // localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
       localStorage.setItem(name, JSON.stringify(x))
-      //console.log(name, x) 
+      console.log(name, x) 
     }
     console.log("All question ids", all_question_ids)
      
@@ -172,31 +173,25 @@ export class FormComponent implements OnInit {
   }
   
   checkAndUpdate(i){
-    // let storedData : any = JSON.parse(localStorage.getItem(this.physical_location_question_id))
-    // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
     this.images = ''
     for ( let j = 0; j < this.para_array.length; j++ ) {
-      // if (i == this.form_response_array[j] ){
-      //   this.response_subquestions = this.form_response[j]
-      //   console.log("this.response_subquestions is ", this.response_subquestions)
-      // }
       if ( i == this.para_array[j] ) {
         let routeName = i.replace(/_/g, "")
         this.router.navigate(['/form/'+routeName])
-
+        let newRoutes:any = {
+          route:i,
+          synced:null
+        }
+        this.routeData.push(newRoutes)
+        localStorage.setItem("routeSyncedInfo",JSON.stringify(this.routeData))
         if ( j+1 == this.para_array.length ) this.showFreeze = false
         else this.showFreeze = true
-        // this.router.navigate(['/form/transp']);
         
         // this.param_id = set it to a value
         this.showSubQuestions = true
         this.subquestions = this.response[i]
         
         this.param_name = i
-        // console.log(this.subquestions)
-        setTimeout(()=>{
-          //  this.preFilledData()
-        }, 1000);        
         return this.subquestions
       } else {
         this.param_name = null
@@ -206,3 +201,4 @@ export class FormComponent implements OnInit {
   }
   
 }
+

@@ -10,6 +10,14 @@
               <mat-option>None</mat-option>
               <mat-option class="text-capitalize" *ngFor="let parameter of para_array;let i = index" value="{{parameter}}">
                 <strong>{{i+1}}.&nbsp;</strong>{{parameter.replace("_"," ")}}
+                <i class="fa fa-exclamation float-right text-primary pt-3" *ngIf="i == 2" aria-hidden="true">&nbsp;Partial</i>
+                <i class="fa fa-exclamation float-right text-danger pt-3" *ngIf="i == 4" aria-hidden="true">&nbsp;Not Synced</i>
+                <i class="fa fa-exclamation float-right text-success pt-3" *ngIf="i == 7" aria-hidden="true">&nbsp;Synced</i>
+                <!-- <i class="fa fa-exclamation" aria-hidden="true"></i>
+                <i class="fa fa-exclamation" aria-hidden="true"></i> -->
+                <!-- <button mat-raised-button color="primary" *ngIf="partial" class="float-right">Partially Synced</button>
+                <button mat-raised-button color="warn" *ngIf="not synced" class="d-none float-right">Not Synced</button>
+                <button mat-raised-button disabled *ngIf="synced" class="d-none float-right">Synced</button> -->
               </mat-option>
             </mat-select>
           </mat-form-field>

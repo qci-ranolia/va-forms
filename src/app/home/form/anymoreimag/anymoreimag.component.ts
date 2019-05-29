@@ -1,20 +1,24 @@
-import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { ImagesComponent } from '../form/images/images.component' 
+import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
+import { ImagesComponent } from '../images/images.component' 
+
 
 @Component({
-  selector: 'app-physloc',
-  templateUrl: './physloc.component.html',
-  styleUrls: ['./physloc.component.scss']
+  selector: 'app-anymoreimag',
+  templateUrl: './anymoreimag.component.html',
+  styleUrls: ['./anymoreimag.component.scss']
 })
-export class PhyslocComponent implements OnInit {
+export class AnymoreimagComponent implements OnInit {
 
-  questionId : any =  "2ef7297b877806af06cafdc6d61c9001"
-  show : any
+  // this needs to be changed based on the backend question_id
+  questionId : any = "6fb7d835b1433cb8a8b69b8a616950af"
+  show: any;
+
   @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
-  constructor(private _cfr: ComponentFactoryResolver ) { }
+  constructor(private _cfr: ComponentFactoryResolver, ) { }
 
   ngOnInit() {
     this.show = localStorage.getItem("form_status")
+
     this.preFilledData()
   }
 
@@ -32,11 +36,12 @@ export class PhyslocComponent implements OnInit {
   }
 
   preFilledData(){
-    let storedData : any = JSON.parse(localStorage.getItem(this.questionId))
-    console.log("storedata is ", storedData)
+
+  let storedData : any = JSON.parse(localStorage.getItem(this.questionId))
+  console.log("storedata is ", storedData)
     // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
     // this.presentData = storedData
     if (storedData) storedData.filter(el=> this.addComponent(this.questionId, el.data_id, el.src) )
-  }
-
+  
+}
 }

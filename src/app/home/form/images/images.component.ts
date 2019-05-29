@@ -32,12 +32,16 @@ export class ImagesComponent implements OnInit {
       data_id:this.data_id
     }
     // console.log(temp)
-    this.ProjectService.deleteImage(temp)
-    let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
+    this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+    setTimeout(()=> {
+      this.ProjectService.deleteImage(temp)
+      let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
 
-    let v = storedData.filter(item => item.data_id !== this.data_id);
-    
-    localStorage.setItem(this.question_id, JSON.stringify(v))
+      let v = storedData.filter(item => item.data_id !== this.data_id);
+      
+      localStorage.setItem(this.question_id, JSON.stringify(v))
+    }, 1500);
+
     this._ref.destroy();
   }
   
@@ -65,12 +69,15 @@ export class ImagesComponent implements OnInit {
           data_id : this.data_id
         }
         // this.ProjectService.postFormDetails(temp)
-        this.ProjectService.imageArray(temp)
-        this.ProjectService.emitImageData_Id.subscribe(el=>{
-          this.data_id = el.data_id
-          this.src = el.source
-          this.storedData()
-        })
+        this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+        setTimeout(()=>{
+          this.ProjectService.imageArray(temp)
+          this.ProjectService.emitImageData_Id.subscribe(el=>{
+            this.data_id = el.data_id
+            this.src = el.source
+            this.storedData()
+          })
+        }, 1500);
       });
     });
   }

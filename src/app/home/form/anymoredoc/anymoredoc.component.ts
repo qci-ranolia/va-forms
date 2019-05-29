@@ -1,5 +1,5 @@
 import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
-import { FilesComponent } from '../form/files/files.component'
+import { FilesComponent } from '../files/files.component'
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

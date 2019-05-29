@@ -19,8 +19,8 @@ export class APIService {
   headers: any;
   opts: any;
   request: any;
-  projectURL: string = 'http://192.168.15.146:5000/opentok/'; // ../assets/fields.json
-  projectURL2: string = "https://assessment.qcin.org/opentok/";
+  projectURL: string = 'http://192.168.30.148:5000/opentok/'; // ../assets/fields.json
+  projectURL2: string = "https://assessment.qcin.org" //"https://assessment.qcin.org/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
   // localURL2: string = 'https://13.234.223.215';
@@ -46,7 +46,6 @@ export class APIService {
   }
 
   Login(data) {
-    console.log('s')
     data = JSON.stringify(data);
     const request = new HttpRequest(
       "POST",
@@ -81,13 +80,12 @@ export class APIService {
   GetLiveAssesment(data) {
     this.setHeader()
     const request = new HttpRequest('POST', this.localURL2+"/opentok/filleddetails", data, { reportProgress: true, headers: this.appHeader })
-    console.log(this.http.request(request))
     return this.http.request(request)
   }
 
   Get_Admin_UI(){
     this.setHeader()
-    const request = new HttpRequest('GET', this.projectURL+"getform", { reportProgress: true, headers: this.appHeader  }) 
+    const request = new HttpRequest('GET', this.projectURL+"getform", { reportProgress: true, headers: this.appHeader }) 
     return this.http.request(request)
   }
   
@@ -95,27 +93,31 @@ export class APIService {
     let localData = await localStorage.getItem(questionId)
     return localData
   }
+  
   postFormDetails(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
+  
   vendorDetails(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"vendordetails", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
-
   }
+  
   deleteImage(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"deleteimage", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
+  
   submitResponse(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"submit", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
+  
   InitiateSession(data) {
     this.setHeader();
     const request = new HttpRequest(
