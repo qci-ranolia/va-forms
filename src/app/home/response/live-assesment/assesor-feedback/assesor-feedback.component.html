@@ -1,0 +1,45 @@
+<div style="height:70vh" >
+
+  <h4> Submit assessment report </h4>
+  <hr/>
+  Feedback:
+  <p></p>
+
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      placeholder="Feedback"
+      id="feedback"
+      [(ngModel)]="feedback"
+    />
+  </mat-form-field>
+
+  <mat-label class="">Recommendation on the basis of assessment:</mat-label>
+  <br>
+  <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+  >
+    <mat-radio-button
+      class="example-radio-button mr-3 ml-3"
+      *ngFor="let parameter of parameters"
+      [value]="parameter"
+      (change)="selectedParameter(parameter)"
+    >
+      {{ parameter }}
+      <br/>
+    </mat-radio-button>
+    <br/>
+  </mat-radio-group>
+  <br>
+
+  <button class="btn btn-primary"
+    (click)="acceptFeedback()">
+    Submit Feedback
+    <i
+    class="fa fa-check"
+    aria-hidden="true"
+    ></i>
+  </button>
+
+</div>
