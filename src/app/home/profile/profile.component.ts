@@ -8,15 +8,13 @@ import { MatBottomSheet } from "@angular/material";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
   user_name : any = ""
 
   constructor(private router: Router, private bottomSheet: MatBottomSheet) {
     this.user_name = localStorage.getItem("email");
   }
 
-  ngOnInit() {
-  }
+  ngOnInit(){}
 
   logout() {
     localStorage.clear();
@@ -28,6 +26,5 @@ export class ProfileComponent implements OnInit {
   dismiss() {
     this.bottomSheet.dismiss()
   }
-
 
 }

@@ -73,9 +73,10 @@ export class ImagesComponent implements OnInit {
         setTimeout(()=>{
           this.ProjectService.imageArray(temp)
           this.ProjectService.emitImageData_Id.subscribe(el=>{
-            this.data_id = el.data_id
-            this.src = el.source
-            this.storedData()
+            console.log(el)
+            // this.data_id = el.data_id
+            // this.src = el.source
+            // this.storedData()
           })
         }, 1500);
       });

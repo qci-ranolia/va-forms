@@ -173,7 +173,7 @@ export class FormComponent implements OnInit {
   }
   
   checkAndUpdate(i){
-    this.images = ''
+    // this.images = ''
     for ( let j = 0; j < this.para_array.length; j++ ) {
       if ( i == this.para_array[j] ) {
         let routeName = i.replace(/_/g, "")
@@ -184,18 +184,18 @@ export class FormComponent implements OnInit {
         }
         this.routeData.push(newRoutes)
         localStorage.setItem("routeSyncedInfo",JSON.stringify(this.routeData))
-        if ( j+1 == this.para_array.length ) this.showFreeze = false
-        else this.showFreeze = true
+        return
+        // if ( j+1 == this.para_array.length ) this.showFreeze = false
+        // else this.showFreeze = true
         
         // this.param_id = set it to a value
-        this.showSubQuestions = true
-        this.subquestions = this.response[i]
-        
-        this.param_name = i
-        return this.subquestions
+        // this.showSubQuestions = true
+        // this.subquestions = this.response[i]
+        // this.param_name = i
+        // return this.subquestions
       } else {
-        this.param_name = null
-        this.showSubQuestions = false
+        // this.param_name = null
+        // this.showSubQuestions = false
       }
     }
   }

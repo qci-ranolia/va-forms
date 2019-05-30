@@ -5,16 +5,16 @@ import { ProjectService } from '../../../service/ProjectService';
 import { HttpEvent } from '@angular/common/http';
 import { ImagesComponent } from '../images/images.component'
 
-
 @Component({
   selector: 'app-safety',
   templateUrl: './safety.component.html',
   styleUrls: ['./safety.component.scss']
 })
+
 export class SafetyComponent implements OnInit/* , AfterViewInit */  {
   conditions : string[] = ["Yes", "No"];
-  firstCond: any = false
-  secondCond:any = false
+  firstCond: any
+  secondCond:any
 
   isDisabled: boolean = false
 
@@ -46,7 +46,7 @@ export class SafetyComponent implements OnInit/* , AfterViewInit */  {
     // console.log(this.form_id)
     
     // let firstCondData = this.storedSafetyQuestionId(this.safetyQuestionId)
-    
+      
       this.storedSafetyQuestionId()
       this.storedExtnQuestionId()
   

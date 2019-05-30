@@ -100,10 +100,13 @@ export class ProjectService {
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)      
       if(response){
+        console.log(response)
         this.openErrMsgBar("Data Saved", "Successfully")
         // Synced Area
         // localStorage.setItem(response.question_id, response.data_id)
-        this.emitImageData_Id.emit(response)
+        // this.emitImageData_Id.emit(response)
+        // localStorage.setItem(response.question_id, response.data_id)
+        this.emitImageData_Id.emit(localStorage.getItem(response.question_id))
       } else {
         this.openErrMsgBar("Please try again.", "Data not synced!")        
       }
