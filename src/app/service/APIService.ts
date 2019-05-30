@@ -140,4 +140,14 @@ export class APIService {
     return this.http.request(request);
   }
 
+  UploadAssesorFeedback(data) {
+    this.setHeader();
+    const request = new HttpRequest(
+      "POST",
+      this.localURL2 + "/opentok/uploadAssesorFeedback", data, 
+      { reportProgress: true, headers: this.appHeader }
+    );
+    return this.http.request(request);
+  }
+
 }

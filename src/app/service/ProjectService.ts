@@ -261,7 +261,27 @@ export class ProjectService {
   }
 
   uploadAssesorFeedback(data) {
-    
+
+    this.APIService.UploadAssesorFeedback(data).subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+
+        if(response.success) {
+
+          // Get live preview after form submit assesor feedback
+          if (localStorage.getItem("form_id")) {
+            let form_id = localStorage.getItem("form_id");
+            let data = {
+              form_id: form_id
+            }
+            this.getLiveAssesment(data)
+          }
+        }
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
   }
 
 }
