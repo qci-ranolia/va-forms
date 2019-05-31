@@ -19,7 +19,8 @@
         routerLinkActive="active"
         mat-flat-button
       >
-        Chat
+        Chat &nbsp;
+        <i *ngIf="calling" class="fa fa-bell" aria-hidden="true"></i>
       </a>
       <a
         [routerLink]="['/response']"
@@ -49,7 +50,8 @@
         routerLinkActive="active"
         mat-flat-button
       >
-        Chat
+        Chat &nbsp;
+        <i  *ngIf="calling"  class="fa fa-bell" aria-hidden="true"></i>
       </a>
     </div>
 

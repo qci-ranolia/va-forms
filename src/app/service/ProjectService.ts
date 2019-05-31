@@ -29,7 +29,9 @@ export class ProjectService {
   }
   storeCopyOfSession : any;
   sessionConnected = false;
+  calling = false;
   emitUI : EventEmitter<any> = new EventEmitter<any>();
+  emitCalling : EventEmitter<any> = new EventEmitter<any>();
   emitData_id : EventEmitter<any> = new EventEmitter<any>();
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();
   emitUserLogin : EventEmitter<any> = new EventEmitter<any>();
@@ -105,8 +107,11 @@ export class ProjectService {
 
   checkLogin() {
 
-    if(localStorage.getItem('token'))
-    this.router.navigate(['/']);
+    if(localStorage.getItem('token')) {
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   getChatUsers() {
@@ -115,6 +120,10 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response) {
         console.log(response)
+
+        if(!response.success){
+          this.router.navigate(['/login']);
+        }
 
         this.emitChatUsers.emit({
           chatUsers: response,
@@ -282,6 +291,17 @@ export class ProjectService {
     }, (err:HttpErrorResponse)=>{
       console.log(err)
     });
+  }
+
+  userCalling(bool) {
+    this.calling = bool;
+    this.emitUserCalling()
+  }
+
+  emitUserCalling() {
+    this.emitCalling.emit({
+      calling: this.calling
+    })
   }
 
 }

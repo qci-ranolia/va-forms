@@ -26,9 +26,11 @@ export class ChatComponent implements OnInit {
       this.dialUser = res.dialUser
       console.log(res)
 
-      // check for any call
-      if(res.chatUsers.all_user_data.length > 0)
+      if(res.chatUsers) {
+        // check for any call
+        if(res.chatUsers.all_user_data.length > 0)
         this.checkForCall()
+      }
     })
 
     this.projectService.emitDialUser.subscribe(res=>{
@@ -45,7 +47,8 @@ export class ChatComponent implements OnInit {
     })
   }
 
-  ngOnInit() { 
+  ngOnInit() {
+
     this.projectService.getChatUsers()
   }
 
@@ -71,13 +74,16 @@ export class ChatComponent implements OnInit {
 
     if(callingFlag) {
 
-      this.ringtone = new Howl({
-          src: ['./assets/ringtone/ring1.ogg'],
-          autoplay: !this.dialUser,
-          loop: true
-        });
-        this.ringtone.play()
+      this.projectService.userCalling(true)
+
+      // this.ringtone = new Howl({
+      //     src: ['./assets/ringtone/ring1.ogg'],
+      //     autoplay: true,
+      //     loop: true
+      //   });
+      //   this.ringtone.play()
     } else{
+      this.projectService.userCalling(false)
     }
 
   }
@@ -115,10 +121,11 @@ export class ChatComponent implements OnInit {
   }
 
   receiveCall(user) {
-    this.ringtone.unload()
+    // this.ringtone.unload()
     this.projectService.setOpenTokCredentials(user)
     this.projectService.emitUserDial(true)
     this.projectService.emitDialUserDetailsTOComponent(user)
+    this.projectService.userCalling(false)
 
   }
 
