@@ -75,7 +75,7 @@ export class FormComponent implements OnInit {
   checkAndUpdate(i){
     // Hit api
     var temp = {
-      "form_id":"something",
+      form_id: localStorage.getItem('form_id')+"",
       "parameter_id":"something",
       "question_id":"something",
       "response":"something"
@@ -114,7 +114,7 @@ export class FormComponent implements OnInit {
     // this.sync = false
       // this.param_ques_index = id
     var temp = {
-      form_id: 'form_id_01',
+      form_id: localStorage.getItem('form_id')+"",
       question_id: id,
       file_data: event.value,
       is_submit:false,
@@ -127,7 +127,7 @@ export class FormComponent implements OnInit {
 
   textDetails(id, $event){
     var temp = {
-      form_id: 'form_id_01',
+      form_id: localStorage.getItem('form_id')+"",
       question_id: id,
       file_data: $event.target.value,
       is_submit:false,
@@ -150,7 +150,7 @@ export class FormComponent implements OnInit {
       this.images = reader.result
       this.subquestions[pos].src = reader.result
       var temp = {
-        form_id: 'form_id_01',
+        form_id: localStorage.getItem('form_id')+"",
         question_id: id,
         file_data: this.images,
         is_submit:false,

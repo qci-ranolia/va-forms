@@ -1,4 +1,5 @@
 <div class="container-fluid navBar text-center">
+
   <div class="row align-items-center">
     <div class="col-8 float-left text-left top-m">
       <strong class="email" *ngIf="isEmail">{{ email }}</strong>
@@ -9,43 +10,66 @@
       </button>
     </div>
   </div>
-  <div class="row">
-    <a
-      [routerLink]="['/form']"
-      class="col"
-      routerLinkActive="active"
-      mat-flat-button
-    >
-      Form
-    </a>
-    <a
-      [routerLink]="['/chat']"
-      class="col"
-      routerLinkActive="active"
-      mat-flat-button
-    >
-      Chat
-    </a>
-    <a
-      [routerLink]="['/response']"
-      class="col"
-      routerLinkActive="active"
-      mat-flat-button
-    >
-      Response
-    </a>
-    <a
-      [routerLink]="['/graphic']"
-      class="col"
-      routerLinkActive="active"
-      mat-flat-button
-    >
-      Graphic
-    </a>
+
+  <div *ngIf="user_role==='assessor'" >
+    <div class="row">
+      <a
+        [routerLink]="['/chat']"
+        class="col"
+        routerLinkActive="active"
+        mat-flat-button
+      >
+        Chat &nbsp;
+        <i *ngIf="calling" class="fa fa-bell" aria-hidden="true"></i>
+      </a>
+      <a
+        [routerLink]="['/response']"
+        class="col"
+        routerLinkActive="active"
+        mat-flat-button
+      >
+        Response
+      </a>
+    </div>
+
   </div>
-  <!-- <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/form']" routerLinkActive="active">Forms</button>
-  <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/chat']" routerLinkActive="active">Chat</button>
-  <button class="col-4 rounded-0" mat-stroked-button [routerLink]="['/response']" routerLinkActive="active">Response</button>
-  <button class="col-sm-4 rounded-0" mat-stroked-button [routerLink]="['/graphic']">nav name</button> -->
+
+  <div *ngIf="user_role==='vendor'" >
+    <div class="row">
+      <a
+        [routerLink]="['/form']"
+        class="col"
+        routerLinkActive="active"
+        mat-flat-button
+      >
+        Form
+      </a>
+      <a
+        [routerLink]="['/chat']"
+        class="col"
+        routerLinkActive="active"
+        mat-flat-button
+      >
+        Chat &nbsp;
+        <i  *ngIf="calling"  class="fa fa-bell" aria-hidden="true"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <div *ngIf="user_role==='gem'" >
+    <div class="row">
+      <a
+        [routerLink]="['/form/response']"
+        class="col"
+        routerLinkActive="active"
+        mat-flat-button
+      >
+        Dashboard
+      </a>
+    </div>
+  </div>
+
 </div>
+
 <router-outlet></router-outlet>

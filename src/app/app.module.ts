@@ -18,7 +18,7 @@ import { GraphicComponent } from "./home/graphic/graphic.component";
 
 import { APIService } from "./service/APIService";
 import { ProjectService } from "./service/ProjectService";
-//import { MatFileUploadModule } from 'angular-material-fileupload';
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -64,6 +64,7 @@ import { LiveAssesmentComponent } from "./home/response/live-assesment/live-asse
 import { ProfileComponent } from "./home/profile/profile.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
+import { AssesorFeedbackComponent } from './home/response/live-assesment/assesor-feedback/assesor-feedback.component';
 
 @NgModule({
   declarations: [
@@ -83,9 +84,10 @@ import { environment } from "../environments/environment";
     ScheduleGraphComponent,
     ScheduleDataComponent,
     LiveAssesmentComponent,
-    ProfileComponent
+    ProfileComponent,
+    AssesorFeedbackComponent,
   ],
-  entryComponents: [PopUpComponent, ProfileComponent],
+  entryComponents: [PopUpComponent, ProfileComponent, AssesorFeedbackComponent],
   imports: [
     HttpClientModule,
     MatTabsModule,

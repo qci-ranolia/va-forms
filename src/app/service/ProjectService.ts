@@ -3,9 +3,19 @@ import { HttpEvent, HttpEventType, HttpClient, HttpRequest, HttpErrorResponse } 
 import { APIService } from './APIService';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+// import { Socket } from 'ngx-socket-io';
+// import { map } from 'rxjs/operators';
+// import { Observable, throwError } from "rxjs";
 
 @Injectable()
 export class ProjectService {
+
+  // documents  = this.socket.fromEvent<any>('documents');
+  //
+  // getChat(id: string) {
+  //   this.socket.emit('getDoc', id);
+  // }
+
   res:any
   emitResponses: EventEmitter<any> = new EventEmitter<any>();
   emitQuestions: EventEmitter<any> = new EventEmitter<any>();
@@ -19,17 +29,20 @@ export class ProjectService {
   }
   storeCopyOfSession : any;
   sessionConnected = false;
+  calling = false;
   emitUI : EventEmitter<any> = new EventEmitter<any>();
+  emitCalling : EventEmitter<any> = new EventEmitter<any>();
   emitData_id : EventEmitter<any> = new EventEmitter<any>();
   emitDialUser : EventEmitter<any> = new EventEmitter<any>();
   emitUserLogin : EventEmitter<any> = new EventEmitter<any>();
   emitChatUsers : EventEmitter<any> = new EventEmitter<any>();
+  emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
   emitLiveResponse : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
   emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
-  emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
+  emitSessionScheduleData : EventEmitter<any> = new EventEmitter<any>();
 
-  constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router ) {}
+  constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router) {}
 
   HttpEventResponse(event) {
     switch (event.type) {
@@ -82,6 +95,7 @@ export class ProjectService {
         console.log(response)
         if(response.success){
           localStorage.setItem("token", response.token+"")
+          localStorage.setItem("role", response.role+"")
           localStorage.setItem("email", data.user_name+"")
           this.emitUserLogin.emit({login:'true'});
         }
@@ -93,8 +107,11 @@ export class ProjectService {
 
   checkLogin() {
 
-    if(localStorage.getItem('token'))
-    this.router.navigate(['/']);
+    if(localStorage.getItem('token')) {
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   getChatUsers() {
@@ -103,6 +120,10 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response) {
         console.log(response)
+
+        if(!response.success){
+          this.router.navigate(['/login']);
+        }
 
         this.emitChatUsers.emit({
           chatUsers: response,
@@ -155,7 +176,7 @@ export class ProjectService {
           }
 
           setTimeout(()=>{
-          //  this.startArchive(archiveData)
+           this.startArchive(archiveData)
           }, 4000)
         }
       }
@@ -210,9 +231,76 @@ export class ProjectService {
     });
   }
 
+  getSessionScheduleData() {
+    this.APIService.GetSessionScheduleData().subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log(response)
+        // this.emitgetSessionScheduleDataFun(response)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
+  }
+
+  emitgetSessionScheduleDataFun(response){
+    this.emitSessionScheduleData.emit({
+      response: response
+    })
+  }
+
+  getAssesmentDataForGem() {
+    this.APIService.GetAssesmentDataForGem().subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log(response)
+        this.emitLiveResponseFun(response)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
+  }
+
   getCycleVideo() {
     this.emitCycleVideo.emit({
       cycle: "video"
+    })
+  }
+
+  uploadAssesorFeedback(data) {
+
+    this.APIService.UploadAssesorFeedback(data).subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+
+        if(response.success) {
+
+          // Get live preview after form submit assesor feedback
+          if (localStorage.getItem("form_id")) {
+            let form_id = localStorage.getItem("form_id");
+            let data = {
+              form_id: form_id
+            }
+            this.getLiveAssesment(data)
+          }
+        }
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
+  }
+
+  userCalling(bool) {
+    this.calling = bool;
+    this.emitUserCalling()
+  }
+
+  emitUserCalling() {
+    this.emitCalling.emit({
+      calling: this.calling
     })
   }
 

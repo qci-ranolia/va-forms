@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectService } from "../../../service/ProjectService";
 
 @Component({
   selector: 'app-schedule-data',
@@ -25,9 +26,16 @@ export class ScheduleDataComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private projectService: ProjectService) {
+
+    this.projectService.emitSessionScheduleData.subscribe(res=>{
+
+    })
+
+  }
 
   ngOnInit() {
+    this.projectService.getSessionScheduleData()
   }
 
 }
