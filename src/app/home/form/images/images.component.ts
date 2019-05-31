@@ -76,7 +76,7 @@ export class ImagesComponent implements OnInit {
             console.log(el)
             // this.data_id = el.data_id
             // this.src = el.source
-            // this.storedData()
+            this.storedData()
           })
         }, 1500);
       });

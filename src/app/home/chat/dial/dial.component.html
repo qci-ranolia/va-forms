@@ -1,9 +1,9 @@
-<p *ngIf="!connected">Dailling {{ userToBeDialed.name }}</p>
+<p *ngIf="!connected">Connecting {{ userToBeDialed.name }}</p>
 
 <div *ngIf="connected" class="conToggle">
-  <p class="alert-success text-left">
+  <!-- <p class="alert-success text-left">
     Call is now connected with {{ userToBeDialed.user_name }}
-  </p>
+  </p> -->
 
   <button (click)="endSession()" class="btn btn-danger" >
     <i aria-hidden="true" class="fa fa-phone " ></i>

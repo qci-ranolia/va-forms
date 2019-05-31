@@ -24,8 +24,13 @@ main {
   overflow-y: auto;
   position: relative;
   top: 113px;
-  height: calc(100vh - 113px);
+  height: 100%;
 }
+.OT_subscriber {
+    top: 116px;
+
+}
+
 .webcam-wrapper {
   height: 350px !important;
   width: 100% !important;
@@ -153,7 +158,7 @@ main {
 }
 .OT_publisher,
 .OT_subscriber {
-  height: 350px !important;
+  // height: 350px !important;
 }
 .OT_publisher .OT_video-element,
 .OT_subscriber .OT_video-element {
@@ -524,7 +529,17 @@ angular material css
 }
 
 
-.forms .mat-select-value{
-  text-indent: -93px;
-  text-transform: capitalize;
+// .forms .mat-select-value{
+//   text-indent: -93px;
+//   text-transform: capitalize;
+// }
+
+.zoom {
+  transition: .2s;
+}
+
+.zoom:hover {
+  -ms-transform: scale(5.5); /* IE 9 */
+  -webkit-transform: scale(5.5); /* Safari 3-8 */
+  transform: scale(5.5); 
 }

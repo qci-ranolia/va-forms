@@ -9,10 +9,10 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.c93601db54b0ba61deb4.js",
+        "/main.3160fdaa6faefb1ccbb9.js",
         "/polyfills.9d3a8743be9f041e6ba8.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
-        "/styles.bc96a3cd666dc62fba2a.css"
+        "/styles.3c312db6778fd6eed4a3.css"
       ],
       "patterns": []
     },
@@ -55,7 +55,8 @@
         "/assets/images/6.jpg",
         "/assets/images/7.jpg",
         "/assets/images/8.jpg",
-        "/assets/images/9.jpg"
+        "/assets/images/9.jpg",
+        "/assets/ringtone/ring1.ogg"
       ],
       "patterns": []
     }
@@ -97,12 +98,13 @@
     "/assets/images/7.jpg": "6f85a42f700fce2680fae9b9cb19be65e9ce1969",
     "/assets/images/8.jpg": "a4f8b933b80194d0b71cbfe96e97477618fce5d7",
     "/assets/images/9.jpg": "b33ca20fd3e889e5704ac74f92b2a5f2b556fb39",
+    "/assets/ringtone/ring1.ogg": "868c27fbf54695d752e0f5d98af8614275d07c90",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "132b265821946fe7446621f9ec620534070f58e1",
-    "/main.c93601db54b0ba61deb4.js": "5e608516280948df3985de61ae84007caedce243",
+    "/index.html": "78cf0904506886c41694a6a60446857849b5f649",
+    "/main.3160fdaa6faefb1ccbb9.js": "879c6dbf544178227e6343fe31325a157ae9c19e",
     "/polyfills.9d3a8743be9f041e6ba8.js": "6946e10a03311677a01490b8e91741668e64e17e",
     "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
-    "/styles.bc96a3cd666dc62fba2a.css": "b388513d2b5b001e0da12b66efc05808f7287aa8"
+    "/styles.3c312db6778fd6eed4a3.css": "4e1fea34d7869d10049a4eaaa046d27d58919921"
   },
   "navigationUrls": [
     {

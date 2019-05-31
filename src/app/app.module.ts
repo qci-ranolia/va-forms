@@ -19,7 +19,7 @@ import { GraphicComponent } from "./home/graphic/graphic.component";
 
 import { APIService } from "./service/APIService";
 import { ProjectService } from "./service/ProjectService";
-//import { MatFileUploadModule } from 'angular-material-fileupload';
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -67,7 +67,7 @@ import { SafetyComponent } from './home/form/safety/safety.component';
 import { SupplierComponent } from './home/form/supplier/supplier.component';
 import { TranspComponent } from './home/form/transp/transp.component';
 import { SubmitComponent } from './home/form/submit/submit.component';
-import {DcustomdialogComponent  } from './home/form/dcustomdialog/dcustomdialog.component';
+import { DcustomdialogComponent } from './home/form/dcustomdialog/dcustomdialog.component';
 import { AnymoredocComponent } from './home/form/anymoredoc/anymoredoc.component';
 import { AnymoreimagComponent } from './home/form/anymoreimag/anymoreimag.component';
 import { FilesComponent } from './home/form/files/files.component';
@@ -83,6 +83,7 @@ import { ProfileComponent } from "./home/profile/profile.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
 import { QualityComponent } from './home/form/quality/quality.component';
+import { AssesorFeedbackComponent } from './home/response/live-assesment/assesor-feedback/assesor-feedback.component';
 
 @NgModule({
   declarations: [
@@ -117,9 +118,10 @@ import { QualityComponent } from './home/form/quality/quality.component';
     AnymoredocComponent,
     AnymoreimagComponent,
     FilesComponent,
-    QualityComponent
+    QualityComponent,
+    AssesorFeedbackComponent
   ],
-  entryComponents: [PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent, FilesComponent],
+  entryComponents: [ PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent, FilesComponent, AssesorFeedbackComponent ],
   imports: [
     HttpClientModule,
     MatTabsModule,

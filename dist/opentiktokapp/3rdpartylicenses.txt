@@ -382,11 +382,11 @@ MIT
 
 @angular/material/card
 
+ng2-image-compress
+
 @angular/material/radio
 
 @angular/material/checkbox
-
-ng2-image-compress
 
 @angular/service-worker
 MIT

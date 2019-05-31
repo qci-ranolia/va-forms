@@ -9,10 +9,16 @@
             <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter)">
               <mat-option>None</mat-option>
               <mat-option class="text-capitalize" *ngFor="let parameter of para_array;let i = index" [value]="parameter">
-                <i class="material-icons float-right text-primary pt-2" *ngIf="i == 2">error_outline</i>
-                <i class="material-icons float-right text-danger pt-2" *ngIf="i == 4 || i == 1">error_outline</i>
-                <i class="material-icons float-right text-success pt-2" *ngIf="i == 7 || i == 0 || i == 3">error_outline</i>
-                <i class="material-icons float-right text-white pt-2" *ngIf="i == 5 || i == 6 || i > 7">error_outline</i>
+                
+                <!-- ----  X  ---  X  ---- -->
+                <!-- upcoming sync feature -->
+                <!-- ----  X  ---  X  ---- -->
+                <!--
+                  <i class="material-icons float-right text-primary pt-2" *ngIf="i == 2">error_outline</i>
+                  <i class="material-icons float-right text-danger pt-2" *ngIf="i == 4 || i == 1">error_outline</i>
+                  <i class="material-icons float-right text-success pt-2" *ngIf="i == 7 || i == 0 || i == 3">error_outline</i>
+                  <i class="material-icons float-right text-white pt-2" *ngIf="i == 5 || i == 6 || i > 7">error_outline</i>
+                -->
                 {{parameter.replace("_"," ")}}
               </mat-option>
             </mat-select>
