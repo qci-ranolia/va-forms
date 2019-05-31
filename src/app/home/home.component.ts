@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
 
     let checkForCall = setInterval(()=>{
       console.log("chat")
-      // this.projectService.getChatUsers()
+      this.projectService.getChatUsers()
     }, 6000)
   }
 
