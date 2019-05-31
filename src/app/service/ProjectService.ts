@@ -237,7 +237,7 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response){
         console.log(response)
-        // this.emitgetSessionScheduleDataFun(response)
+        this.emitgetSessionScheduleDataFun(response)
       }
     }, (err:HttpErrorResponse)=>{
       console.log(err)

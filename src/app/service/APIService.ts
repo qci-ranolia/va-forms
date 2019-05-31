@@ -22,10 +22,9 @@ export class APIService {
   projectURL: string = '../assets/APIData/';
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
-  localURL2: string = 'https://assessment.qcin.org';
-  // localURL2: string = 'http://192.168.15.146:5000';
+  // localURL2: string = 'https://assessment.qcin.org';
+  localURL2: string = 'http://192.168.30.151:5000';
   // localURL2: string = 'http://192.168.30.148:5000';
-  //  localURL2: string = 'http://192.168.15.221:5000';
   current_URL : string = this.localURL;
 
   Header: any;
@@ -134,7 +133,7 @@ export class APIService {
     this.setHeader();
     const request = new HttpRequest(
       "GET",
-      this.localURL2 + "/opentok/getSessionScheduleData",
+      this.localURL2 + "/opentok/scheduledData",
       { reportProgress: true, headers: this.appHeader }
     );
     return this.http.request(request);
@@ -144,7 +143,7 @@ export class APIService {
     this.setHeader();
     const request = new HttpRequest(
       "POST",
-      this.localURL2 + "/opentok/uploadAssesorFeedback", data, 
+      this.localURL2 + "/opentok/submitfeedback", data,
       { reportProgress: true, headers: this.appHeader }
     );
     return this.http.request(request);
