@@ -29,11 +29,6 @@ export class HomeComponent implements OnInit {
         this.checkForRingtone(this.calling)
       }
     })
-
-    let checkForCall = setInterval(()=>{
-      console.log("chat")
-      this.projectService.getChatUsers()
-    }, 6000)
   }
 
   checkForRingtone(calling) {
@@ -62,6 +57,18 @@ export class HomeComponent implements OnInit {
     if(localStorage.getItem("role")) {
       this.user_role = localStorage.getItem("role")+""
       console.log(this.user_role)
+
+      if(this.user_role ==="gem"){
+
+      } else {
+
+        let checkForCall = setInterval(()=>{
+          console.log("chat")
+          this.projectService.getChatUsers()
+        }, 6000)
+
+      }
+
     }
 
   }

@@ -15,9 +15,7 @@ export class ChatComponent implements OnInit {
   dialUser: boolean = false;
   contactUser: any = {}
   chatUser: any = {}
-
   ringtone: any;
-
 
   constructor(private projectService: ProjectService, private bottomSheet: MatBottomSheet) {
 
@@ -26,7 +24,7 @@ export class ChatComponent implements OnInit {
       this.dialUser = res.dialUser
       console.log(res)
 
-      if(res.chatUsers) {
+      if(res.chatUsers && res.chatUsers.all_user_data) {
         // check for any call
         if(res.chatUsers.all_user_data.length > 0)
         this.checkForCall()
