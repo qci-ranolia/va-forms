@@ -9,7 +9,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.1ca915597cea800178e3.js",
+        "/main.ecd7776c7582f9f90cd6.js",
         "/polyfills.9d3a8743be9f041e6ba8.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
         "/styles.3c312db6778fd6eed4a3.css"
@@ -51,6 +51,9 @@
         "/assets/images/7.jpg",
         "/assets/images/8.jpg",
         "/assets/images/9.jpg",
+        "/assets/ringtone/ring.mp3",
+        "/assets/ringtone/ring1.m4r",
+        "/assets/ringtone/ring1.mp3",
         "/assets/ringtone/ring1.ogg"
       ],
       "patterns": []
@@ -88,10 +91,13 @@
     "/assets/images/7.jpg": "6f85a42f700fce2680fae9b9cb19be65e9ce1969",
     "/assets/images/8.jpg": "a4f8b933b80194d0b71cbfe96e97477618fce5d7",
     "/assets/images/9.jpg": "b33ca20fd3e889e5704ac74f92b2a5f2b556fb39",
+    "/assets/ringtone/ring.mp3": "bec229bf043ca1d1d22d986615f45547a35fce19",
+    "/assets/ringtone/ring1.m4r": "f858fc198b81d3e0c93ef5669a8054294143c8ee",
+    "/assets/ringtone/ring1.mp3": "204fe1450069880b6b24b660de3ce70cf7c5e725",
     "/assets/ringtone/ring1.ogg": "868c27fbf54695d752e0f5d98af8614275d07c90",
     "/favicon.ico": "62fae5bf4cf6a1297de625279a656f0ff97928d7",
-    "/index.html": "48853f189d92b40387e0f1cf7be2ca2621653817",
-    "/main.1ca915597cea800178e3.js": "b654ceed5c0c6a1175bc8676d3027b04b89912b7",
+    "/index.html": "2876377350376b44834aa7aa88df20ac4b86317c",
+    "/main.ecd7776c7582f9f90cd6.js": "f4388584ea9219b483c041fdc4c888cbcc1fcf30",
     "/polyfills.9d3a8743be9f041e6ba8.js": "6946e10a03311677a01490b8e91741668e64e17e",
     "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
     "/styles.3c312db6778fd6eed4a3.css": "4e1fea34d7869d10049a4eaaa046d27d58919921"

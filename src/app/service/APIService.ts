@@ -19,7 +19,8 @@ export class APIService {
   headers: any;
   opts: any;
   request: any;
-  projectURL: string = "http://192.168.30.148:5000/opentok/" // "https://assessment.qcin.org/opentok/" //'http://192.168.30.148:5000/opentok/'; // ../assets/fields.json
+  projectURL: string = "https://assessment.qcin.org/opentok/"
+  // projectURL: string = "http://192.168.30.148:5000/opentok/" // "https://assessment.qcin.org/opentok/" //'http://192.168.30.148:5000/opentok/'; // ../assets/fields.json
   projectURL2: string = "https://assessment.qcin.org/" //"https://assessment.qcin.org/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
