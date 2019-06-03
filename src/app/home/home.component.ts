@@ -56,14 +56,14 @@ export class HomeComponent implements OnInit {
 
     if(localStorage.getItem("role")) {
       this.user_role = localStorage.getItem("role")+""
-      console.log(this.user_role)
+      // console.log(this.user_role)
 
       if(this.user_role ==="gem"){
 
       } else {
 
         let checkForCall = setInterval(()=>{
-          console.log("chat")
+          // console.log("chat")
           this.projectService.getChatUsers()
         }, 6000)
 
