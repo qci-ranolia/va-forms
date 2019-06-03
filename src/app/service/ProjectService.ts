@@ -44,15 +44,15 @@ export class ProjectService {
   emitSessionScheduleData : EventEmitter<any> = new EventEmitter<any>();
 
 
-  
+
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router, private _errMsg: MatSnackBar ) {}
-  
+
   openErrMsgBar(message: string, action: string) {
     this._errMsg.open(message, action, {
       duration: 3400,
     })
-  }  
-  
+  }
+
   HttpEventResponse(event) {
     switch (event.type) {
       case HttpEventType.Sent:
@@ -114,9 +114,9 @@ export class ProjectService {
 
   imageArray(temp){
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
-      let response = this.HttpEventResponse(event)      
+      let response = this.HttpEventResponse(event)
       if(response){
-        console.log(response)
+        // console.log(response)
         this.openErrMsgBar("Data Saved", "Successfully")
         // Synced Area
         // localStorage.setItem(response.question_id, response.data_id)
@@ -124,7 +124,7 @@ export class ProjectService {
         // localStorage.setItem(response.question_id, response.data_id)
         this.emitImageData_Id.emit(localStorage.getItem(response.question_id))
       } else {
-        this.openErrMsgBar("Please try again.", "Data not synced!")        
+        this.openErrMsgBar("Please try again.", "Data not synced!")
       }
     }, (err) => {
         this.openErrMsgBar("Please try again.", "Data not synced!")
@@ -165,12 +165,13 @@ export class ProjectService {
     this.APIService.Login(data).subscribe((event: HttpEvent<any>) => {
       let response = this.HttpEventResponse(event)
       if(response){
-        console.log(response)
         if(response.success){
           localStorage.setItem("token", response.token+"")
           localStorage.setItem("role", response.role+"")
           localStorage.setItem("email", data.user_name+"")
           this.emitUserLogin.emit({login:'true'});
+        } else {
+          this.openErrMsgBar("Invalid credentials!", response.message)
         }
       }
     }, (err:HttpErrorResponse)=>{
@@ -196,7 +197,7 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response) {
-        console.log(response)
+        // console.log(response)
 
         if(!response.success){
           this.router.navigate(['/login']);
@@ -229,7 +230,7 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response){
         console.log("Archive video")
-        console.log(response)
+        // console.log(response)
       }
     })
   }
@@ -238,7 +239,7 @@ export class ProjectService {
     this.APIService.InitiateSession(data).subscribe((event: HttpEvent<any>)=>{
       let response = this.HttpEventResponse(event)
       if(response) {
-        console.log(response)
+        // console.log(response)
         if(response.success) {
           if(response.form_id){
             localStorage.setItem('form_id',""+response.form_id)
@@ -281,7 +282,7 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response){
         this.sessionConnected = false;
-        console.log(response)
+        // console.log(response)
         this.getChatUsers()
       }
     }, (err:HttpErrorResponse)=>{
@@ -313,7 +314,7 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response){
-        console.log(response)
+        // console.log(response)
         this.emitgetSessionScheduleDataFun(response)
       }
     }, (err:HttpErrorResponse)=>{
@@ -332,7 +333,7 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response){
-        console.log(response)
+        // console.log(response)
         this.emitLiveResponseFun(response)
       }
     }, (err:HttpErrorResponse)=>{
