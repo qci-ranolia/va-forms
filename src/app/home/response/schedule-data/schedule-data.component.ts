@@ -31,7 +31,7 @@ export class ScheduleDataComponent implements OnInit {
   constructor(private projectService: ProjectService) {
 
     this.projectService.emitSessionScheduleData.subscribe(res=>{
-      console.log(res)
+      // console.log(res)
       // this.scheduledData = res.response.scheduledData
     })
 

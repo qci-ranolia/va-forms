@@ -273,25 +273,32 @@ export class LiveAssesmentComponent implements OnInit {
 
   constructor(private projectService: ProjectService, private bottomSheet: MatBottomSheet) {
     this.projectService.emitLiveResponse.subscribe(res => {
-      console.log(res)
+      // console.log(res)
 
       if (res.response.tableHeader) {
 
-        this.tableHeader = res.response.tableHeader
-        this.tableSubHeaders = res.response.tableSubHeader
-        this.tableResponse = res.response.totalResponse
+        if(this.tableHeader === res.response.tableHeader){
+        } else {
+          this.tableHeader = res.response.tableHeader
+          // console.log(this.tableHeader)
+        }
 
-        console.log(this.tableHeader)
-        console.log(this.tableSubHeaders)
-        console.log(this.tableResponse)
+        if(this.tableSubHeaders === res.response.tableSubHeader){
+        } else {
+          this.tableSubHeaders = res.response.tableSubHeader
+          // console.log(this.tableSubHeaders)
+        }
 
+        if(this.tableResponse === res.response.totalResponse){
+        } else {
+          this.tableResponse = res.response.totalResponse
+          // console.log(this.tableResponse)
+        }
         this.displayLiveAssesment = true
-
       }
       if(res.response.form_status === true) {
           this.submitForm = true
       }
-
     })
   }
 
@@ -311,7 +318,7 @@ export class LiveAssesmentComponent implements OnInit {
         }
 
         let checkForNewData = setInterval(()=>{
-          console.log("chat")
+          // console.log("chat")
           this.projectService.getLiveAssesment(this.data)
         }, 10000)
       }
