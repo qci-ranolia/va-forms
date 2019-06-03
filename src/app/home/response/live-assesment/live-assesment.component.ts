@@ -288,7 +288,7 @@ export class LiveAssesmentComponent implements OnInit {
         this.displayLiveAssesment = true
 
       }
-      if(res.response.submitForm === "true") {
+      if(res.response.form_status === true) {
           this.submitForm = true
       }
 
@@ -309,7 +309,11 @@ export class LiveAssesmentComponent implements OnInit {
           form_id: form_id
           // form_id: "e13a679a51d746d4bc0ee7dc44f3933d"
         }
-        this.projectService.getLiveAssesment(this.data)
+
+        let checkForNewData = setInterval(()=>{
+          console.log("chat")
+          this.projectService.getLiveAssesment(this.data)
+        }, 10000)
       }
 
       let vendorFeed = document.getElementsByClassName(

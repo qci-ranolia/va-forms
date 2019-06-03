@@ -23,10 +23,11 @@ export class APIService {
   projectURL2: string = "https://assessment.qcin.org/" //"https://assessment.qcin.org/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
-  // localURL2: string = 'https://assessment.qcin.org';
-  // localURL2: string = 'http://192.168.15.146:5000';
-  localURL2: string = 'https://assessment.qcin.org' /*'http://192.168.30.148:5000'*/
-  //  localURL2: string = 'http://192.168.15.221:5000';
+
+  localURL2: string = 'https://assessment.qcin.org';
+
+  // localURL2: string = 'http://192.168.30.148:5000';
+  // localURL2: string = 'http://192.168.30.151:5000';
   current_URL : string = this.localURL;
 
   Header: any;
@@ -91,39 +92,39 @@ export class APIService {
 
   Get_Admin_UI(){
     this.setHeader()
-    const request = new HttpRequest('GET', this.projectURL+"getform", { reportProgress: true, headers: this.appHeader }) 
+    const request = new HttpRequest('GET', this.projectURL+"getform", { reportProgress: true, headers: this.appHeader })
     return this.http.request(request)
   }
-  
+
   async questionIdLocalStorage(questionId){
     let localData = await localStorage.getItem(questionId)
     return localData
   }
-  
+
   postFormDetails(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"submitresponse", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
-  
+
   vendorDetails(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"vendordetails", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
-  
+
   deleteImage(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"deleteimage", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
-  
+
   submitResponse(data:any){
     this.setHeader()
     const request = new HttpRequest('POST', this.projectURL+"submit", data, { reportProgress: true, headers: this.appHeader })//, headers: this.appHeader
     return this.http.request(request)
   }
-  
+
   InitiateSession(data) {
     this.setHeader();
     const request = new HttpRequest(
@@ -150,7 +151,7 @@ export class APIService {
     this.setHeader();
     const request = new HttpRequest(
       "GET",
-      this.localURL2 + "/opentok/getSessionScheduleData",
+      this.localURL2 + "/opentok/scheduledData",
       { reportProgress: true, headers: this.appHeader }
     );
     return this.http.request(request);
@@ -160,7 +161,7 @@ export class APIService {
     this.setHeader();
     const request = new HttpRequest(
       "POST",
-      this.localURL2 + "/opentok/uploadAssesorFeedback", data, 
+      this.localURL2 + "/opentok/submitfeedback", data,
       { reportProgress: true, headers: this.appHeader }
     );
     return this.http.request(request);
