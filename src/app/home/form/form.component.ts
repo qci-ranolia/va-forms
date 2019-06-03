@@ -68,7 +68,7 @@ export class FormComponent implements OnInit {
     this.ProjectService.emitVendorDetails.subscribe(el=>{
       this.form_response = el
       this.form_response_array = Object.keys(el)
-      this.storeFormStatus(el.form_status)
+      // this.storeFormStatus(el.form_status)
       this.storeVendorDetail(el.data)
     })
 

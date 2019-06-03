@@ -1,9 +1,10 @@
 <div class="justify-content-center mt-3 mb-3 p-2 border">
   <!-- <img class="col-7 pl-0" src={{src}} alt="" height="200px" width="200px" /><br /> -->
-  <!-- <pdf-viewer [src]="src" [render-text]="true" style="display:block;"></pdf-viewer> -->
   <!-- <button mat-raised-button (click)="upload()">Upload</button>
   <p>{{imageName}}</p> -->
   <div *ngIf="show == 'false'">
+    <iframe src="" type="application/pdf" width="100%" height="100%" style="overflow: auto;"></iframe>
+    <!-- <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;" ></pdf-viewer> -->
     <input id="{{question_id}}" class="col-7 pl-0 mt-3" type="file" accept=".pdf,.docx" (change)="browsePdfs($event)" /><br />
     <button class="text-white bg-danger mt-3" mat-raised-button (click)="removeObject()">Delete</button>
   </div>

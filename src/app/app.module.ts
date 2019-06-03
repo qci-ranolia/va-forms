@@ -84,6 +84,8 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
 import { QualityComponent } from './home/form/quality/quality.component';
 import { AssesorFeedbackComponent } from './home/response/live-assesment/assesor-feedback/assesor-feedback.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 @NgModule({
   declarations: [
@@ -123,7 +125,6 @@ import { AssesorFeedbackComponent } from './home/response/live-assesment/assesor
   ],
   entryComponents: [ PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent, FilesComponent, AssesorFeedbackComponent ],
   imports: [
-    HttpClientModule,
     MatTabsModule,
     MatBottomSheetModule,
     BrowserModule,
@@ -161,6 +162,7 @@ import { AssesorFeedbackComponent } from './home/response/live-assesment/assesor
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    PdfViewerModule,
     // RouterModule.forRoot([
     //   {
     //     path: 'form/safety',

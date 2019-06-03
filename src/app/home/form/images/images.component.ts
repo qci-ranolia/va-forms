@@ -36,12 +36,9 @@ export class ImagesComponent implements OnInit {
     setTimeout(()=> {
       this.ProjectService.deleteImage(temp)
       let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
-
       let v = storedData.filter(item => item.data_id !== this.data_id);
-      
       localStorage.setItem(this.question_id, JSON.stringify(v))
     }, 1500);
-
     this._ref.destroy();
   }
   

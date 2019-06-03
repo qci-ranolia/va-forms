@@ -19,13 +19,13 @@ export class APIService {
   headers: any;
   opts: any;
   request: any;
-  projectURL: string = "http://192.168.30.148:5000/opentok/" // "https://assessment.qcin.org/opentok/" //'http://192.168.30.148:5000/opentok/'; // ../assets/fields.json
+  projectURL: string = /* "http://192.168.30.148:5000/opentok/" */ "https://assessment.qcin.org/opentok/" //'http://192.168.30.148:5000/opentok/'; // ../assets/fields.json
   projectURL2: string = "https://assessment.qcin.org/" //"https://assessment.qcin.org/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
   // localURL2: string = 'https://assessment.qcin.org';
   // localURL2: string = 'http://192.168.15.146:5000';
-  localURL2: string = 'http://192.168.30.148:5000';
+  localURL2: string = 'https://assessment.qcin.org' /*'http://192.168.30.148:5000'*/
   //  localURL2: string = 'http://192.168.15.221:5000';
   current_URL : string = this.localURL;
 

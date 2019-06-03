@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from '../../../service/ProjectService';
+import { APIService } from '../../../service/APIService';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-files',
@@ -14,7 +16,8 @@ export class FilesComponent implements OnInit {
   @Input() data_id:any
   @Input() question_id:any
   show: string
-  constructor(private ProjectService: ProjectService ) {
+  pdfSrc: any
+  constructor( private APIService: APIService, private ProjectService: ProjectService, private http: HttpClient ) {
     this.show = localStorage.getItem("form_status")
     console.log("Form status is ", this.show)
 
@@ -67,18 +70,42 @@ export class FilesComponent implements OnInit {
       }
       // this.ProjectService.postFormDetails(temp)
       this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
-      setTimeout(()=>{      
+      setTimeout(()=>{
         this.ProjectService.imageArray(temp)
         this.ProjectService.emitImageData_Id.subscribe(el=>{
-          this.data_id = el
-          console.log("el is ", el)
-          this.storedData()
+          // this.http.post(JSON.parse(el)[0].src, {responseType: 'arraybuffer'})
+          //   .subscribe((el:Blob) => {
+          //     var file = new Blob([el], {type: 'application/pdf'});
+          //     var fileURL = URL.createObjectURL(file);
+          //     console.log(file)
+          //     console.log(fileURL)
+          //     // window.open(fileURL);
+          //   })
+          let fileURL:any, file:any  
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', JSON.parse(el)[0].src, true)
+          xhr.responseType = 'arraybuffer'
+          xhr.onload = function(e){
+            if(this.status == 200){
+              file = new Blob([this.response], {type: 'application/pdf'})
+              fileURL = window.URL.createObjectURL(file)
+              // console.log("fileURL is ", fileURL)
+              document.querySelector("iframe").src = fileURL
+            }
+          }
+          xhr.send()
+          setTimeout(()=>{
+            this.pdfSrc = fileURL
+            // console.log("this.pdfSrc is ", this.pdfSrc)
+            // this.data_id = el.data_id
+            // this.src = el.src
+            // console.log("el.data_id is ", el.data_id)
+            // console.log("el.src is ", el.src)
+            // this.storedData()
+          }, 1200)
         })
-      }, 1500);
-
+      }, 1500)
     }
-
-
   }
 
   storedData(){
