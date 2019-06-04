@@ -45,7 +45,7 @@ export class SupplierComponent implements OnInit {
       console.log("storedData is ", storedData)
       return storedData
     } 
-    return [{"src":null,"data_id":null }]
+    return [{"src":null,"data_id":null, "text_data":null}]
   }
 
   clickKeyAspects(e){
@@ -63,12 +63,14 @@ export class SupplierComponent implements OnInit {
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.ProjectService.HttpEventResponse(event)
       if(response){
-        localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id" :response.data_id}))
+        localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id" :response.data_id, "text_data": response.source}))
         console.log(response)
+        this.ProjectService.openErrMsgBar("Data saved.","Successfully!")
       } else {
         // console.log(response)
       }
     }, (err) => {
+      this.ProjectService.openErrMsgBar("Data not saved.","Please Try again!")
       console.log("err is ", err)
     })
   }

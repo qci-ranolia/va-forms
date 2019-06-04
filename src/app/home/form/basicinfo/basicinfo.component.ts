@@ -27,6 +27,8 @@ export class BasicinfoComponent implements OnInit {
     this.isDisabled = localStorage.getItem("form_status")
     this.officialDesignation = this.storedQuestionId(this.officialDesignationQuesID)[0]
     this.officialName = this.storedQuestionId(this.officialNameQuesID)[0]
+    console.log(this.officialName)
+    console.log(this.officialDesignation)
   }
 
   valueStored(){
@@ -40,7 +42,7 @@ export class BasicinfoComponent implements OnInit {
       console.log("storedData is ", storedData)
       return storedData
     } 
-    return [{"src":null,"data_id":null }]
+    return [{"src":null,"data_id":null, "text_data":null}]
   }
 
   clickOfficialName(e){
@@ -65,11 +67,10 @@ export class BasicinfoComponent implements OnInit {
   }
 
   postRequest(temp){
-    console.log("text temp is ", temp)
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.ProjectService.HttpEventResponse(event)
       if( response /*.success == true*/ ) {
-        localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id": response.data_id}))
+        localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id": response.data_id, "text_data": response.source}))
         this.ProjectService.openErrMsgBar("Data saved.","Successfully!")
         console.log(response)
       } else {
