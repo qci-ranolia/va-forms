@@ -6,7 +6,7 @@
         <div class="col-sm-12 p-2 rounded-top">     
           <mat-form-field class="col-sm-5 mt-2">
             <mat-label class="">Select parameter</mat-label>
-            <mat-select [(value)]="parameter" (selectionChange)="checkAndUpdate(parameter)">
+            <mat-select [(ngModel)]="parameter" (selectionChange)="checkAndUpdate(parameter)">
               <mat-option>None</mat-option>
               <mat-option class="text-capitalize" *ngFor="let parameter of para_array;let i = index" [value]="parameter">
                 

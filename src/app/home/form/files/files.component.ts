@@ -94,15 +94,7 @@ export class FilesComponent implements OnInit {
             }
           }
           xhr.send()
-          setTimeout(()=>{
-            this.pdfSrc = fileURL
-            // console.log("this.pdfSrc is ", this.pdfSrc)
-            // this.data_id = el.data_id
-            // this.src = el.src
-            // console.log("el.data_id is ", el.data_id)
-            // console.log("el.src is ", el.src)
-            // this.storedData()
-          }, 1200)
+          this.storedData()
         })
       }, 1500)
     }

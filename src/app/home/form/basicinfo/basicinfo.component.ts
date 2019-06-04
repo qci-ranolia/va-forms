@@ -20,24 +20,13 @@ export class BasicinfoComponent implements OnInit {
   componentName:any ="basicinformation"
   
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
-    // this.questionIds = this.valueStored()
-    // this.APIService.JSON_IU().subscribe(el=>{
-    //   console.log(el)
-    // })
-    // this.officialDesignationQuesID = this.storedQuestionId(this.officialDesignationQuesID)
     this.form_id = localStorage.getItem("form_id")
-    // console.log("sahgshasg ", this.storedQuestionId(this.officialDesignationQuesID)[0].src)
-    
   }
 
   ngOnInit() {
     this.isDisabled = localStorage.getItem("form_status")
-
     this.officialDesignation = this.storedQuestionId(this.officialDesignationQuesID)[0]
     this.officialName = this.storedQuestionId(this.officialNameQuesID)[0]
-
-    console.log(this.officialDesignation)
-    console.log(this.officialName)
   }
 
   valueStored(){
@@ -47,7 +36,6 @@ export class BasicinfoComponent implements OnInit {
 
   storedQuestionId(questionId){
     let storedData : any = JSON.parse(localStorage.getItem(questionId))
-
     if (storedData.length != 0){
       console.log("storedData is ", storedData)
       return storedData
@@ -60,32 +48,35 @@ export class BasicinfoComponent implements OnInit {
       form_id: this.form_id,
       question_id: this.officialNameQuesID,
       file_data: e.target.value,
-      is_submit : false,
-      data_id:  this.officialName.data_id
+      is_submit: false,
+      data_id: this.officialName.data_id
     }
-    this.postRequest(temp)       
+    this.postRequest(temp)
   }
   clickOfficialDesignation(e){
     var temp = {
       form_id: this.form_id,
       question_id: this.officialDesignationQuesID,
       file_data: e.target.value,
-      is_submit : false,
-      data_id:  this.officialDesignation.data_id
+      is_submit: false,
+      data_id: this.officialDesignation.data_id
     }
     this.postRequest(temp)
   }
 
   postRequest(temp){
+    console.log("text temp is ", temp)
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.ProjectService.HttpEventResponse(event)
-      if(response){
-        localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id" :response.data_id}))
+      if( response /*.success == true*/ ) {
+        localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id": response.data_id}))
+        this.ProjectService.openErrMsgBar("Data saved.","Successfully!")
         console.log(response)
       } else {
-        // console.log(response)
+        console.log(response)
       }
     }, (err) => {
+      this.ProjectService.openErrMsgBar("Data not saved.","Please Try again!")
       console.log("err is ", err)
     })
   }

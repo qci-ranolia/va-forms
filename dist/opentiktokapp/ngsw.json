@@ -1,0 +1,119 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main.31751f024e2a069dac2c.js",
+        "/pdfjsWorker.8a010ecd2344c9389b33.js",
+        "/polyfills.0cca9fb60ef8adec61c7.js",
+        "/runtime.4920bc6eb35174f06e2c.js",
+        "/styles.3c312db6778fd6eed4a3.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/db.json",
+        "/assets/fields.json",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/images/1.jpg",
+        "/assets/images/10.jpg",
+        "/assets/images/11.jpg",
+        "/assets/images/12.jpg",
+        "/assets/images/13.jpg",
+        "/assets/images/14.jpg",
+        "/assets/images/15.jpg",
+        "/assets/images/16.jpg",
+        "/assets/images/17.jpg",
+        "/assets/images/18.jpg",
+        "/assets/images/19.jpg",
+        "/assets/images/2.jpg",
+        "/assets/images/20.jpg",
+        "/assets/images/21.jpg",
+        "/assets/images/22.jpg",
+        "/assets/images/23.jpg",
+        "/assets/images/24.jpg",
+        "/assets/images/25.jpg",
+        "/assets/images/3.jpg",
+        "/assets/images/4.jpg",
+        "/assets/images/5.jpg",
+        "/assets/images/6.jpg",
+        "/assets/images/7.jpg",
+        "/assets/images/8.jpg",
+        "/assets/images/9.jpg",
+        "/assets/ringtone/ring1.ogg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/db.json": "fb4f11622155979fe6ace6375854d8ccd6f246c9",
+    "/assets/fields.json": "ddf57705d12b65b97a81890f554c08c3a5453bb8",
+    "/assets/icons/icon-128x128.png": "def3fe155c107f68649d1840d4abcfc5fffc3cab",
+    "/assets/icons/icon-72x72.png": "a6cdf55ae8aab2e7ce0b3474ec00c98549f3b1fd",
+    "/assets/icons/icon-96x96.png": "8431108644d3b73f96f1f9063231f7e916257db7",
+    "/assets/images/1.jpg": "df2a70ddd818b29202ed24559d1f8727b32e4ea1",
+    "/assets/images/10.jpg": "ff2c8d6b9e3b0dcfa553f48f3e6527203aabc632",
+    "/assets/images/11.jpg": "43882fed09d47e2ef9936dff59e6751a78ece2cb",
+    "/assets/images/12.jpg": "bf93baa956c3f681775298e1ee532401f0812ee1",
+    "/assets/images/13.jpg": "d43fad2ec4c5eaa592004bc558929bc3799a1b8f",
+    "/assets/images/14.jpg": "06d850ad27083752b6709694ba8199bfebd27d76",
+    "/assets/images/15.jpg": "23cd191ed7bea6344e368e9a993746e9b4965e8b",
+    "/assets/images/16.jpg": "949490b37e10960c2a3bf212346e2753592366ed",
+    "/assets/images/17.jpg": "e3afdcf8a0e6f933f14bbf54b7f07b0aaf1c0962",
+    "/assets/images/18.jpg": "e52742c79be02b02caed6cdf96294d38bcec1acc",
+    "/assets/images/19.jpg": "8086584f30aeb2d0a18540283dc55d86dc496e30",
+    "/assets/images/2.jpg": "b2491d3bc679e5e009f96a010b8c2f63f3652f1f",
+    "/assets/images/20.jpg": "196d59d31db858075412b79bf294025ba02d0ce3",
+    "/assets/images/21.jpg": "274449f050291fa286a9017145c5f4874bf86cb6",
+    "/assets/images/22.jpg": "b44815c9eb827cb26d2a136cb0faad80f402ea59",
+    "/assets/images/23.jpg": "402e976aca7eab17a10ac4de8fa88b5e700ba99b",
+    "/assets/images/24.jpg": "7728416e7927f18d407430099d422bd25c432a1d",
+    "/assets/images/25.jpg": "4b71329749e7a13306a8f37c5326fdc4e10ad2f7",
+    "/assets/images/3.jpg": "6ac2db511a17bf39f3ccca800a8ada4a0c2cbf2d",
+    "/assets/images/4.jpg": "b70133a26b3eb6e39e7123ac0a70de9e870df8fe",
+    "/assets/images/5.jpg": "fcc29d9be7e213ff512a1482b86659a3ecf6f8af",
+    "/assets/images/6.jpg": "6693448fcbced0f6d3d46fd68f8e08b4528af647",
+    "/assets/images/7.jpg": "6f85a42f700fce2680fae9b9cb19be65e9ce1969",
+    "/assets/images/8.jpg": "a4f8b933b80194d0b71cbfe96e97477618fce5d7",
+    "/assets/images/9.jpg": "b33ca20fd3e889e5704ac74f92b2a5f2b556fb39",
+    "/assets/ringtone/ring1.ogg": "868c27fbf54695d752e0f5d98af8614275d07c90",
+    "/favicon.ico": "62fae5bf4cf6a1297de625279a656f0ff97928d7",
+    "/index.html": "07e7554d47428d3b895805e6ef27dab63156968e",
+    "/main.31751f024e2a069dac2c.js": "39eb75aaab0cc41ffb2a1f7432b86786c5db5abd",
+    "/pdfjsWorker.8a010ecd2344c9389b33.js": "ca2aefeab443a989659ec886f309016106b87c26",
+    "/polyfills.0cca9fb60ef8adec61c7.js": "4143cc4bc0fbb59aaa962427fc23c8c7f03e07f4",
+    "/runtime.4920bc6eb35174f06e2c.js": "bd62d6e906a56c39b8c544e9d20e90f0417d0d0f",
+    "/styles.3c312db6778fd6eed4a3.css": "4e1fea34d7869d10049a4eaaa046d27d58919921"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

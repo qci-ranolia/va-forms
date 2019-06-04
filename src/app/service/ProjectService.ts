@@ -49,7 +49,7 @@ export class ProjectService {
   
   openErrMsgBar(message: string, action: string) {
     this._errMsg.open(message, action, {
-      duration: 3400,
+      duration : 4200,
     })
   }  
   

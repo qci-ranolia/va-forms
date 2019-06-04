@@ -1,0 +1,47 @@
+{
+  "login": [
+    {
+      "id": 1,
+      "email": "admin@qcin.org",
+      "password": "1234"
+    }
+  ],
+  "chat_users": [
+    {
+      "id": 1,
+      "name": "Sam",
+      "userid": 123,
+      "status": "online"
+    },
+    {
+      "id": 2,
+      "name": "Tom",
+      "userid": 234,
+      "status": "offline"
+    },
+    {
+      "id": 3,
+      "name": "Sammy",
+      "userid": 345,
+      "status": "online"
+    },
+    {
+      "id": 4,
+      "name": "Tommy",
+      "userid": 456,
+      "status": "online"
+    },
+    {
+      "id": 5,
+      "name": "Hari",
+      "userid": 321,
+      "status": "offline"
+    },
+    {
+      "id": 6,
+      "name": "Alex",
+      "userid": 234,
+      "status": "online"
+    }
+  ]
+}

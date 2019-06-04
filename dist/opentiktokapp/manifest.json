@@ -1,0 +1,31 @@
+{
+  "short_name": "GEM Survey",
+  "name": "GEM Survey",
+
+  "start_url": "/",
+  "scope": ".",
+
+  "background_color": "#53BCA6",
+  "theme_color": "#53BCA6",
+
+  "display": "standalone",
+  "orientation": "portrait",
+
+  "icons": [
+    {
+      "src": "/assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}

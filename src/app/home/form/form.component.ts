@@ -75,7 +75,7 @@ export class FormComponent implements OnInit {
     // Experimental feature to set tab name
     //   this.router.events.subscribe(value => {
     //     console.log('current route: ', this.router.url.toString());
-    //     let route_name : string = this.router.url.toString() 
+    //     let route_name : string = this.router.url.toString()
     //     console.log("This is the route name", this.route_names[route_name])
     //     this.parameter = this.route_names[route_name]
     // });
@@ -121,35 +121,42 @@ export class FormComponent implements OnInit {
   }
 
   storeVendorDetail(data){
-    console.log("data is ", data)
+    console.log("vendor data is ", data)
     // console.log("Data is ", data["Physical Location "][0].question_id)
-    let subSectionKeys :any = Object.keys(data)
-    let subSectionData :any
-    let all_question_ids = [] //it will hold question_ids of all questions
-
-    for (let i = 0; i < subSectionKeys.length; i++){
+    let subSectionKeys : any = Object.keys(data)
+    let subSectionData : any
+    let all_question_ids = [] // It will hold question_ids of all questions
+    for ( let i = 0; i < subSectionKeys.length; i++ ){
       let name = subSectionKeys[i]
-      console.log("sasasa", data[name])
+      // console.log("vendor keyData[name] is ", data[name])
       let x = []
       for ( let datas in data[name]){
         let pLData:any =  data[name][datas]
+        
+        // Add key "text_data" corresponding to the question id's stored locally 
+        for (let k in pLData.data){
+          pLData.data[k]["text_data"] = pLData.text_data
+        }
+        // key "text_data" ends
+
         x.push(pLData.question_id)
-        console.log(pLData.question_id, pLData.data )
+        // console.log("someData is ", pLData.question_id, pLData.data)
         // storing data for each question id in localstorage
         localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
         all_question_ids.push(pLData.question_id)
       }
       // localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
       localStorage.setItem(name, JSON.stringify(x))
-      console.log(name, x) 
+      // console.log(name, x)
     }
-    console.log("All question ids", all_question_ids)
-     
-    this.storePhysicalLocation(data["physical_location"])
-    this.storeBasicInfo(data["basic_information"])
+    // console.log("All question ids", all_question_ids)
+    
+    // this.storePhysicalLocation(data["physical_location"])
+    // this.storeBasicInfo(data["basic_information"])
     this.storeQuestionIds(all_question_ids)
   }
 
+  // Function use commented, See NO usage
   storeQuestionIds(question_ids){
     // The purpose is to store all question ids in the localstorage, 
     // So when the user is about to submit the all details, 
@@ -157,6 +164,7 @@ export class FormComponent implements OnInit {
     localStorage.setItem("questionIds", JSON.stringify(question_ids))
   }
 
+  // Function use commented, See NO usage
   storePhysicalLocation(physicalLocationData){
     for ( let data in physicalLocationData){
       let pLData =  physicalLocationData[data]
@@ -165,7 +173,6 @@ export class FormComponent implements OnInit {
   }
 
   storeBasicInfo(basicInfoData){
-    // console.log(basicInfoData)
     for ( let data in basicInfoData){
       let bIData =  basicInfoData[data]
       localStorage.setItem(bIData.question_id, JSON.stringify(bIData.data))
@@ -173,7 +180,6 @@ export class FormComponent implements OnInit {
   }
   
   checkAndUpdate(i){
-    // this.images = ''
     for ( let j = 0; j < this.para_array.length; j++ ) {
       if ( i == this.para_array[j] ) {
         let routeName = i.replace(/_/g, "")
@@ -183,22 +189,13 @@ export class FormComponent implements OnInit {
           synced:null
         }
         this.routeData.push(newRoutes)
-        localStorage.setItem("routeSyncedInfo",JSON.stringify(this.routeData))
+        localStorage.setItem("routeSyncedInfo", JSON.stringify(this.routeData))
         return
-        // if ( j+1 == this.para_array.length ) this.showFreeze = false
-        // else this.showFreeze = true
-        
-        // this.param_id = set it to a value
-        // this.showSubQuestions = true
-        // this.subquestions = this.response[i]
-        // this.param_name = i
-        // return this.subquestions
       } else {
-        // this.param_name = null
-        // this.showSubQuestions = false
+        
+        // this.ProjectService.openErrMsgBar("Please select a ","PARAMETER")
       }
     }
   }
-  
-}
 
+}
