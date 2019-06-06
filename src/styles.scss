@@ -137,14 +137,6 @@ main {
 .bodyActive .conToggle {
   transform: translateY(-24px);
 }
-
-.OT_publisher,
-.OT_subscriber {
-  width: 100vw !important;
-  // background-color: white !important;
-  // display: none;
-}
-
 .OT_subscriber:first-child,
 .OT_publisher:first-child {
   // display: block;
@@ -158,12 +150,17 @@ main {
 }
 .OT_publisher,
 .OT_subscriber {
-  // height: 350px !important;
+  width: 100vw !important;
 }
 .OT_publisher .OT_video-element,
 .OT_subscriber .OT_video-element {
   width: 100%;
 }
+
+.OT_subscriber {
+  height:600px !important;
+}
+
 video {
   width: 100%;
   height: 100%;
@@ -541,5 +538,5 @@ angular material css
 .zoom:hover {
   -ms-transform: scale(5.5); /* IE 9 */
   -webkit-transform: scale(5.5); /* Safari 3-8 */
-  transform: scale(5.5); 
+  transform: scale(5.5);
 }
