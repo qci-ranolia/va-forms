@@ -90,7 +90,7 @@ export class ProjectService {
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
       } else {
-        this.openErrMsgBar("Please try again.", "Data not synced!")
+        // this.openErrMsgBar("Please try again.", "Data not synced!")
       }
     }, (err) => {
         this.openErrMsgBar("Please try again.", "Data not synced!")
@@ -124,7 +124,7 @@ export class ProjectService {
         // localStorage.setItem(response.question_id, response.data_id)
         this.emitImageData_Id.emit(localStorage.getItem(response.question_id))
       } else {
-        this.openErrMsgBar("Please try again.", "Data not synced!")        
+        // this.openErrMsgBar("Please try again.", "Data not synced!")        
       }
     }, (err) => {
         this.openErrMsgBar("Please try again.", "Data not synced!")
@@ -140,7 +140,7 @@ export class ProjectService {
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
       } else {
-        this.openErrMsgBar("Please try again.", "Data not synced!")
+        // this.openErrMsgBar("Please try again.", "Data not synced!")
       }
     }, (err) => {
         this.openErrMsgBar("Please try again.", "Data not synced!")
@@ -154,7 +154,7 @@ export class ProjectService {
         localStorage.removeItem("form_id")
         // this.emitData_id.emit(response)
       } else {
-        this.openErrMsgBar("Images not deleted.", "Please try again!")
+        // this.openErrMsgBar("Images not deleted.", "Please try again!")
       }
     }, (err) => {
         this.openErrMsgBar("Images not deleted.", "Please try again!")

@@ -1,16 +1,12 @@
 {
   "short_name": "GEM Survey",
-  "name": "GEM Survey",
-
-  "start_url": "/",
+  "name": "Government E-Marketplace Survey",
+  "start_url": "https://vendor-assessment.qcin.org",
   "scope": ".",
-
   "background_color": "#53BCA6",
   "theme_color": "#53BCA6",
-
   "display": "standalone",
   "orientation": "portrait",
-
   "icons": [
     {
       "src": "/assets/icons/icon-72x72.png",
