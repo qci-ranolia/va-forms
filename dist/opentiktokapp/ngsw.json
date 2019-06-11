@@ -9,7 +9,8 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.751e0a05c1b7477a77b6.js",
+        "/main.06ce247ba85fcfe8e24d.js",
+        "/manifest.json",
         "/pdfjsWorker.8a010ecd2344c9389b33.js",
         "/polyfills.0cca9fb60ef8adec61c7.js",
         "/runtime.4920bc6eb35174f06e2c.js",
@@ -23,7 +24,6 @@
       "updateMode": "prefetch",
       "urls": [
         "/assets/db.json",
-        "/assets/favicon.ico",
         "/assets/fields.json",
         "/assets/icons/icon-128x128.png",
         "/assets/icons/icon-144x144.png",
@@ -62,7 +62,6 @@
   "dataGroups": [],
   "hashTable": {
     "/assets/db.json": "fb4f11622155979fe6ace6375854d8ccd6f246c9",
-    "/assets/favicon.ico": "62fae5bf4cf6a1297de625279a656f0ff97928d7",
     "/assets/fields.json": "ddf57705d12b65b97a81890f554c08c3a5453bb8",
     "/assets/icons/icon-128x128.png": "def3fe155c107f68649d1840d4abcfc5fffc3cab",
     "/assets/icons/icon-144x144.png": "def3fe155c107f68649d1840d4abcfc5fffc3cab",
@@ -95,8 +94,9 @@
     "/assets/images/9.jpg": "b33ca20fd3e889e5704ac74f92b2a5f2b556fb39",
     "/assets/ringtone/ring1.ogg": "868c27fbf54695d752e0f5d98af8614275d07c90",
     "/favicon.ico": "62fae5bf4cf6a1297de625279a656f0ff97928d7",
-    "/index.html": "d8d191476f1b68c1e0222e08ea1b2d4d5043e032",
-    "/main.751e0a05c1b7477a77b6.js": "7b7843c960d1eec697d1955041aeb9e18c75c0cb",
+    "/index.html": "d897eb40080ddd67e8f64446d2563f01d3ca6851",
+    "/main.06ce247ba85fcfe8e24d.js": "7b7843c960d1eec697d1955041aeb9e18c75c0cb",
+    "/manifest.json": "77c01bec611affca4e594b17c30c38e3229580ed",
     "/pdfjsWorker.8a010ecd2344c9389b33.js": "ca2aefeab443a989659ec886f309016106b87c26",
     "/polyfills.0cca9fb60ef8adec61c7.js": "4143cc4bc0fbb59aaa962427fc23c8c7f03e07f4",
     "/runtime.4920bc6eb35174f06e2c.js": "bd62d6e906a56c39b8c544e9d20e90f0417d0d0f",

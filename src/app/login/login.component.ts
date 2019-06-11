@@ -10,7 +10,6 @@ import { ProjectService } from '../service/ProjectService';
 export class LoginComponent implements OnInit {
   email : any = "";
   password: any = "";
-
   constructor(private projectService: ProjectService, private router: Router) {
     this.projectService.checkLogin()
     this.projectService.emitUserLogin.subscribe((res)=>{
@@ -18,10 +17,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-
-  }
+  ngOnInit(){ }
 
   login() {
     console.log(this.email)
