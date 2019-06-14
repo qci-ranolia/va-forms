@@ -26,9 +26,11 @@ export class ProjectService {
     SESSION_ID:"",
     TOKEN:""
   }
+
   storeCopyOfSession : any;
   sessionConnected = false;
   calling = false;
+
   emitUI : EventEmitter<any> = new EventEmitter<any>();
   emitCalling : EventEmitter<any> = new EventEmitter<any>();
   emitData_id : EventEmitter<any> = new EventEmitter<any>();
@@ -38,11 +40,11 @@ export class ProjectService {
   emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
   emitLiveResponse : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
-  emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
-  emitVendorDetails : EventEmitter<any> = new EventEmitter<any>();
   emitImageData_Id : EventEmitter<any> = new EventEmitter<any>();
+  emitGemVideoCall : EventEmitter<any> = new EventEmitter<any>();
+  emitVendorDetails : EventEmitter<any> = new EventEmitter<any>();
+  emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
   emitSessionScheduleData : EventEmitter<any> = new EventEmitter<any>();
-
 
 
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router, private _errMsg: MatSnackBar ) {}
@@ -314,7 +316,7 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response){
-        // console.log(response)
+        console.log(response)
         this.emitgetSessionScheduleDataFun(response)
       }
     }, (err:HttpErrorResponse)=>{
@@ -345,6 +347,19 @@ export class ProjectService {
     this.emitCycleVideo.emit({
       cycle: "video"
     })
+  }
+
+  getGemVideoCall() {
+    this.APIService.GetGemVideoCall().subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log(response)
+        this.emitGemVideoCall.emit(response.data)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
   }
 
   uploadAssesorFeedback(data) {

@@ -16,6 +16,7 @@ export class LiveAssesmentComponent implements OnInit {
   displayLiveAssesment = false;
   data = {};
   submitForm = false;
+  checkForNewData : any;
 
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableHeader  = [
@@ -33,7 +34,6 @@ export class LiveAssesmentComponent implements OnInit {
   //
   // ]
   //  +++++++++++++++original++++++++++++++++++++++++
-
 
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableSubHeaders= [
@@ -54,7 +54,6 @@ export class LiveAssesmentComponent implements OnInit {
   //   {name:"Video link"}
   // ]
   //  +++++++++++++++original++++++++++++++++++++++++
-
 
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableResponse=[
@@ -306,9 +305,10 @@ export class LiveAssesmentComponent implements OnInit {
 
     let role = localStorage.getItem("role") + ""
 
-    if (role === "gem") {
+    if (role === "gem"){
       this.projectService.getAssesmentDataForGem()
-    } else {
+    }
+    if(role === "assessor") {
 
       if (localStorage.getItem("form_id")) {
         let form_id = localStorage.getItem("form_id");
@@ -319,8 +319,7 @@ export class LiveAssesmentComponent implements OnInit {
 
         this.projectService.getLiveAssesment(this.data)
 
-        let checkForNewData = setInterval(()=>{
-          // console.log("chat")
+        this.checkForNewData = setInterval(()=>{
           this.projectService.getLiveAssesment(this.data)
         }, 10000)
       }
@@ -347,5 +346,9 @@ export class LiveAssesmentComponent implements OnInit {
 
   acceptFeedback() {
     this.bottomSheet.open(AssesorFeedbackComponent);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.checkForNewData)
   }
 }

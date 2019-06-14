@@ -24,9 +24,7 @@ export class APIService {
   projectURL2: string = "https://assessment.qcin.org/" //"https://assessment.qcin.org/opentok/";
   UI_JSON: string = '../assets/UI_JSON/';
   localURL: string = 'http://localhost:3000';
-
   localURL2: string = 'https://assessment.qcin.org';
-
   // localURL2: string = 'http://192.168.30.148:5000';
   // localURL2: string = 'http://192.168.30.151:5000';
   current_URL : string = this.localURL;
@@ -86,7 +84,7 @@ export class APIService {
 
   GetAssesmentDataForGem() {
     this.setHeader()
-    const request = new HttpRequest('Get', this.localURL2+"/opentok/filleddetails", { reportProgress: true, headers: this.appHeader })
+    const request = new HttpRequest('Get', this.localURL2+"/opentok/dashboarddetails", { reportProgress: true, headers: this.appHeader })
     console.log(this.http.request(request))
     return this.http.request(request)
   }
@@ -153,6 +151,16 @@ export class APIService {
     const request = new HttpRequest(
       "GET",
       this.localURL2 + "/opentok/scheduledData",
+      { reportProgress: true, headers: this.appHeader }
+    );
+    return this.http.request(request);
+  }
+
+  GetGemVideoCall() {
+    this.setHeader();
+    const request = new HttpRequest(
+      "GET",
+      this.localURL2 + "/opentok/online",
       { reportProgress: true, headers: this.appHeader }
     );
     return this.http.request(request);

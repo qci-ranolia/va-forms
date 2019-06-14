@@ -12,7 +12,6 @@
         class="fa fa-refresh rotateIn animated infinite"
         aria-hidden="true"
         (click)=refreshData()
-
         ></i>
       </button>
       &nbsp;
@@ -22,7 +21,6 @@
         class="fa fa-cloud-upload"
         aria-hidden="true"
         (click)=acceptFeedback()
-
         ></i>
       </button>
 
@@ -56,6 +54,16 @@
                   <img  class="zoom" src="{{ data.src }}" alt="" width="80px" height="100px" style="margin:4px;"/>
                 </div>
               </span>
+
+              <span *ngIf="data.type === 'video'">
+                <div style="margin:14px;" >
+                  <video width="320" height="240" controls>
+                    <source src="{{data.src}}" type="video/mp4">
+                    Browser doesn't support video
+                  </video>
+                </div>
+              </span>
+
             </span>
           </td>
         </tr>

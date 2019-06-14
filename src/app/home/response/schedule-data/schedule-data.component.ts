@@ -8,31 +8,31 @@ import { ProjectService } from "../../../service/ProjectService";
 })
 export class ScheduleDataComponent implements OnInit {
 
-  scheduledData = [
-    {
-      time:"10:30AM",
-      date:"14/05/2019",
-      status:"online"
-    },
-    {
-      time:"11:30AM",
-      date:"14/05/2019",
-      status:"offline"
-    },
-    {
-      time:"1:00PM",
-      date:"14/05/2019",
-      status:"offline"
-    }
-  ]
+  // scheduledData = [
+  //   {
+  //     time:"10:30AM",
+  //     date:"14/05/2019",
+  //     status:"online"
+  //   },
+  //   {
+  //     time:"11:30AM",
+  //     date:"14/05/2019",
+  //     status:"offline"
+  //   },
+  //   {
+  //     time:"1:00PM",
+  //     date:"14/05/2019",
+  //     status:"offline"
+  //   }
+  // ]
 
-  // scheduledData = []
+  scheduledData = []
 
   constructor(private projectService: ProjectService) {
 
     this.projectService.emitSessionScheduleData.subscribe(res=>{
-      // console.log(res)
-      // this.scheduledData = res.response.scheduledData
+      console.log(res)
+      this.scheduledData = res.response.scheduledData
     })
 
   }

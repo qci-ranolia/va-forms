@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   email: any = "";
   user_role:any = "";
   calling = false;
+  checkForCall: any;
   // ringtone = new Howl({
   //   src: ['./assets/ringtone/ring1.ogg'],
   //   autoplay: true,
@@ -56,20 +57,22 @@ export class HomeComponent implements OnInit {
 
     if(localStorage.getItem("role")) {
       this.user_role = localStorage.getItem("role")+""
-      // console.log(this.user_role)
+      console.log(this.user_role)
 
-      if(this.user_role ==="gem"){
+      if(this.user_role === "gem"){
 
       } else {
-
-        let checkForCall = setInterval(()=>{
+        console.log("User role is "+ this.user_role)
+        this.checkForCall = setInterval(()=>{
           // console.log("chat")
           this.projectService.getChatUsers()
         }, 6000)
-
       }
-
     }
-
   }
+
+  ngOnDestroy() {
+    clearInterval(this.checkForCall)
+  }
+
 }

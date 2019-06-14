@@ -67,13 +67,23 @@
   <div *ngIf="user_role === 'gem'">
     <div class="row">
       <a
-        [routerLink]="['/form/response']"
+        [routerLink]="['/response']"
         class="col"
         routerLinkActive="active"
         mat-flat-button
       >
         Dashboard
       </a>
+
+      <a
+        [routerLink]="['/liveChat']"
+        class="col"
+        routerLinkActive="active"
+        mat-flat-button
+      >
+        Live Chat
+      </a>
+
     </div>
   </div>
 </div>
