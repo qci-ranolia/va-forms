@@ -1,5 +1,6 @@
 
-<div *ngIf="displayLiveAssesment" >
+<div >
+<!-- <div *ngIf="displayLiveAssesment" > -->
 
   <div class="liveAssesmentStrip row align-items-center">
     <h4 class="live-assesment col-9 ">
@@ -44,6 +45,7 @@
 
         <tr *ngFor="let rd of tableResponse">
           <td  width="90px" *ngFor="let response of rd.responseData">
+
             <span *ngFor="let data of response.data">
               <span *ngIf="data.type === 'text'">
                 {{ data.value }}
@@ -65,6 +67,24 @@
               </span>
 
             </span>
+
+            <span *ngIf="response.feedback" >
+
+              <span *ngIf='response.feedback.type==="radio"' >
+                <div *ngFor="let opt of response.feedback.options" (change)='getVal(response.feedback.id, opt)'>
+                  <label>
+                    <input type="radio" value={{opt}} name={{response.feedback.id}} [checked]='opt == response.feedback.value' [disabled]='response.feedback.disabled' >
+                    <span>{{opt}}</span>
+                  </label>
+                </div>
+              </span>
+
+              <span *ngIf='response.feedback.type==="text"' >
+                <input type="text" [(ngModel)]='response.feedback.value'  (change)="getVal(response.feedback.id,response.feedback.value)" [disabled]='response.feedback.disabled' >
+              </span>
+
+            </span>
+
           </td>
         </tr>
       </thead>
@@ -74,6 +94,6 @@
 
 </div>
 
-<div *ngIf="!displayLiveAssesment" >
+<!-- <div *ngIf="!displayLiveAssesment" >
   <h4>Live preview not available</h4>
-</div>
+</div> -->

@@ -34,7 +34,7 @@ export class LiveAssesmentComponent implements OnInit {
   //
   // ]
   //  +++++++++++++++original++++++++++++++++++++++++
-
+  //
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableSubHeaders= [
   //   {name:"Geotagged Assessor"},
@@ -54,7 +54,7 @@ export class LiveAssesmentComponent implements OnInit {
   //   {name:"Video link"}
   // ]
   //  +++++++++++++++original++++++++++++++++++++++++
-
+  //
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableResponse=[
   //   {
@@ -62,12 +62,28 @@ export class LiveAssesmentComponent implements OnInit {
   //     {
   //         data : [
   //           {type:"text", value:"Assessor_NAme"},
-  //         ]
+  //         ],
+  //         feedback: {
+  //           id:"123",
+  //           type:"radio",
+  //           options:[
+  //             "Yes",
+  //             "No"
+  //           ],
+  //           value:"Yes",
+  //           disabled: "true"
+  //         }
   //       },
   //     {
   //         data : [
   //           {type:"text", value:"Vendor_NAme"},
-  //         ]
+  //         ],
+  //         feedback: {
+  //           id:"123",
+  //           type:"text",
+  //           value:"Yes",
+  //           disabled: "true"
+  //         }
   //       },
   //       {
   //         data : [
@@ -75,7 +91,16 @@ export class LiveAssesmentComponent implements OnInit {
   //           {type:"image", src:"assets/images/2.jpg", id:""},
   //           {type:"image", src:"assets/images/3.jpg", id:""},
   //           {type:"image", src:"assets/images/4.jpg", id:""},
-  //         ]
+  //         ],
+  //         feedback: {
+  //           id:"122",
+  //           type:"radio",
+  //           options:[
+  //             "Yes",
+  //             "No"
+  //           ],
+  //           value:"Yes"
+  //         }
   //       },
   //       {
   //         data : [
@@ -272,7 +297,7 @@ export class LiveAssesmentComponent implements OnInit {
 
   constructor(private projectService: ProjectService, private bottomSheet: MatBottomSheet) {
     this.projectService.emitLiveResponse.subscribe(res => {
-      // console.log(res)
+      console.log(res)
 
       if (res.response.tableHeader) {
 
@@ -302,6 +327,14 @@ export class LiveAssesmentComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+    // this.projectService.getLiveAssesment({
+    //   form_id: ""+localStorage.getItem("form_id")
+    // })
+
+
+
 
     let role = localStorage.getItem("role") + ""
 
@@ -346,6 +379,21 @@ export class LiveAssesmentComponent implements OnInit {
 
   acceptFeedback() {
     this.bottomSheet.open(AssesorFeedbackComponent);
+  }
+
+  getVal(id, opt) {
+    console.log(id)
+    console.log(opt)
+    console.log(""+localStorage.getItem("form_id"))
+
+    let data = {
+      id: id,
+      value: opt,
+      form_id: ""+localStorage.getItem("form_id")
+    }
+
+    this.projectService.submitChunkFeedback(data)
+
   }
 
   ngOnDestroy() {

@@ -176,4 +176,14 @@ export class APIService {
     return this.http.request(request);
   }
 
+  SubmitChunkFeedback(data) {
+    this.setHeader();
+    const request = new HttpRequest(
+      "POST",
+      this.localURL2 + "/opentok/assessorResponse", data,
+      { reportProgress: true, headers: this.appHeader }
+    );
+    return this.http.request(request);
+  }
+
 }

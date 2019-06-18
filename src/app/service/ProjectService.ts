@@ -386,6 +386,19 @@ export class ProjectService {
     });
   }
 
+  submitChunkFeedback(data) {
+    this.APIService.SubmitChunkFeedback(data).subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log(response)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
+
+  }
+
   userCalling(bool) {
     this.calling = bool;
     this.emitUserCalling()

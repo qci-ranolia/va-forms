@@ -95,10 +95,22 @@ export class GraphicComponent implements OnInit {
   }
 
   getvideo(res) {
+
+    if(this.opentokService){
+      this.opentokService.disconnect();
+    }
+
+    let tabElements = document.getElementsByClassName(
+      "OT_subscriber"
+    )[0] as HTMLElement;
+    if (tabElements) tabElements.style.display = "none";
+
+
     this.sessionConnected = true
     this.projectService.setOpenTokCredentials(res)
 
     if (this.sessionConnected) {
+
       this.opentokService
         .initSession()
         .then((session: OT.Session) => {
@@ -119,7 +131,24 @@ export class GraphicComponent implements OnInit {
           });
         })
         .then(() => {
+
+          let tabElements1 = document.getElementsByClassName(
+            "OT_subscriber"
+          )[0] as HTMLElement;
+
+          if(tabElements1)
+          tabElements1.style.display = "block";
+
           this.opentokService.connect();
+
+          let tabElements2 = document.getElementsByClassName(
+            "OT_subscriber"
+          )[0] as HTMLElement;
+
+          if(tabElements2)
+          tabElements2.style.display = "block";
+
+
         })
         .catch(err => {
           console.error(err);
@@ -129,6 +158,13 @@ export class GraphicComponent implements OnInit {
         });
     }
 
+  }
+
+  ngOnDestroy() {
+    let tabElements = document.getElementsByClassName(
+      "OT_subscriber"
+    )[0] as HTMLElement;
+    if (tabElements) tabElements.style.display = "none";
   }
 
 }
