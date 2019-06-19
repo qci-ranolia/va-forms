@@ -1,5 +1,5 @@
 import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { ImagesComponent } from '../images/images.component' 
+import { ImagesComponent } from '../images/images.component'
 
 @Component({
   selector: 'app-proccapab',
@@ -8,10 +8,10 @@ import { ImagesComponent } from '../images/images.component'
 })
 export class ProccapabComponent implements OnInit {
 
-  questionId : any = "037891c729514fc530b74b2a71891c00"
+  questionId : any = "e810819408d2e13cf8b4ef0680e48469"
   show: any
-  @ViewChild('parent2', { read: ViewContainerRef }) container: ViewContainerRef; 
-  
+  @ViewChild('parent2', { read: ViewContainerRef }) container: ViewContainerRef;
+
   constructor(private _cfr: ComponentFactoryResolver  ) { }
 
   ngOnInit() {

@@ -8,15 +8,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./anymoredoc.component.scss']
 })
 export class AnymoredocComponent implements OnInit {
-  questionId:any = "6bf7aaf92d848eaf25689fc1b2dca435"
+  questionId:any = "e14c2e57d1888ce16a4944fb4dd8ed05"
   show: any;
 
   urlParaName:any
 
-  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
+  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef;
   constructor(private route: ActivatedRoute, private _cfr: ComponentFactoryResolver, ) {
-    this.urlParaName = this.route.snapshot.paramMap    
-    console.log(this.urlParaName)    
+    this.urlParaName = this.route.snapshot.paramMap
+    console.log(this.urlParaName)
   }
 
   ngOnInit() {

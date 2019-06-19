@@ -14,7 +14,7 @@ import { DcustomdialogComponent } from '../dcustomdialog/dcustomdialog.component
 export class SubmitComponent implements OnInit {
 
   form_id: any
-  constructor(private snackBar: MatSnackBar, public dialog: MatDialog,  
+  constructor(private snackBar: MatSnackBar, public dialog: MatDialog,
     private service: APIService, private ProjectService: ProjectService) { }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class SubmitComponent implements OnInit {
       console.log('The dialog was closed');
       if (result===null){
           console.log("ok was clicked")
-          this.postCompletion(this.form_id)          
+          this.postCompletion(this.form_id)
 
       }
     });
@@ -48,7 +48,7 @@ export class SubmitComponent implements OnInit {
         let question_id = question_ids[i]
         let question_data = JSON.parse(localStorage.getItem(question_id))
         if (!question_data.length) {
-          console.error("Form cannot be submitted", question_id,  question_data);  
+          console.error("Form cannot be submitted", question_id,  question_data);
           this.snackBar.open("Form couldnt be submitted, Please fill the missing details", "", {
             duration: 5000,
           });
@@ -61,7 +61,8 @@ export class SubmitComponent implements OnInit {
 
   postCompletion(form_id){
     //After all the due dilligence, mark the form_id to be completed in the backend
-    this.service.submitResponse({"form_id": form_id}).subscribe((event: HttpEvent<any>) =>{
+    let form_id_1 = localStorage.getItem("form_id")
+    this.service.submitResponse({"form_id": form_id_1, "is_submit":"true"}).subscribe((event: HttpEvent<any>) =>{
       let response = this.ProjectService.HttpEventResponse(event)
       if(response){
         localStorage.removeItem('form_id')
@@ -77,7 +78,6 @@ export class SubmitComponent implements OnInit {
     }, (err) => {
       console.error("err is in PostCompletion ", err)
     })
-
   }
 
 }

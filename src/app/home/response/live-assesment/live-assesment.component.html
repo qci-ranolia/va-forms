@@ -68,9 +68,10 @@
 
             </span>
 
-            <span *ngIf="response.feedback" >
+            <span *ngIf="checkCondition(response.feedback, response.data)" >
 
               <span *ngIf='response.feedback.type==="radio"' >
+                Accept response:
                 <div *ngFor="let opt of response.feedback.options" (change)='getVal(response.feedback.id, opt)'>
                   <label>
                     <input type="radio" value={{opt}} name={{response.feedback.id}} [checked]='opt == response.feedback.value' [disabled]='response.feedback.disabled' >
@@ -80,7 +81,7 @@
               </span>
 
               <span *ngIf='response.feedback.type==="text"' >
-                <input type="text" [(ngModel)]='response.feedback.value'  (change)="getVal(response.feedback.id,response.feedback.value)" [disabled]='response.feedback.disabled' >
+                Feedback:  <input type="text" [(ngModel)]='response.feedback.value'  (change)="getVal(response.feedback.id,response.feedback.value)" [disabled]='response.feedback.disabled' >
               </span>
 
             </span>

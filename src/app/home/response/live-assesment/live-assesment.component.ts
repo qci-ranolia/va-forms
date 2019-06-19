@@ -396,6 +396,19 @@ export class LiveAssesmentComponent implements OnInit {
 
   }
 
+  checkCondition(feedback, data) {
+
+    if(!feedback)
+      return false
+
+    if(data.length===0)
+      return false
+
+      console.log(data)
+
+      return true
+  }
+
   ngOnDestroy() {
     clearInterval(this.checkForNewData)
   }

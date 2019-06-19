@@ -377,7 +377,8 @@ export class ProjectService {
             let data = {
               form_id: form_id
             }
-            this.getLiveAssesment(data)
+            // this.getLiveAssesment(data)
+              window.location.reload(true);
           }
         }
       }

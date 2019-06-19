@@ -1,5 +1,5 @@
 import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
-import { ImagesComponent } from '../images/images.component' 
+import { ImagesComponent } from '../images/images.component'
 
 
 @Component({
@@ -10,10 +10,10 @@ import { ImagesComponent } from '../images/images.component'
 export class AnymoreimagComponent implements OnInit {
 
   // this needs to be changed based on the backend question_id
-  questionId : any = "6fb7d835b1433cb8a8b69b8a616950af"
+  questionId : any = "065af52b6c0c07cc26771f6534b6b5e0"
   show: any;
 
-  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
+  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef;
   constructor(private _cfr: ComponentFactoryResolver, ) { }
 
   ngOnInit() {
@@ -42,6 +42,6 @@ export class AnymoreimagComponent implements OnInit {
     // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
     // this.presentData = storedData
     if (storedData) storedData.filter(el=> this.addComponent(this.questionId, el.data_id, el.src) )
-  
+
 }
 }

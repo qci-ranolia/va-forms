@@ -39,7 +39,7 @@ export class AssesorFeedbackComponent implements OnInit {
       form_id: form_id
     }
 
-    console.log(data)
+    // console.log(data)
 
     this.projectService.uploadAssesorFeedback(data)
     this.bottomSheet.dismiss()

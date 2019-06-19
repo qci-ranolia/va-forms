@@ -13,12 +13,12 @@ export class BasicinfoComponent implements OnInit {
   officialName:any
   form_id:any
   officialDesignationQuesID:any="4f7414dcea7d5e61ee08e4ddf238a04f"
-  officialNameQuesID:any="4367252b9f222177ac5134c1b84d6341"
+  officialNameQuesID:any="24b1a4afb79805740156744d6f5ca40d"
   isDisabled: any
-  
+
   questionIds:any= new Array()
   componentName:any ="basicinformation"
-  
+
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
     // this.questionIds = this.valueStored()
     // this.APIService.JSON_IU().subscribe(el=>{
@@ -27,7 +27,7 @@ export class BasicinfoComponent implements OnInit {
     // this.officialDesignationQuesID = this.storedQuestionId(this.officialDesignationQuesID)
     this.form_id = localStorage.getItem("form_id")
     // console.log("sahgshasg ", this.storedQuestionId(this.officialDesignationQuesID)[0].src)
-    
+
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class BasicinfoComponent implements OnInit {
     if (storedData.length != 0){
       console.log("storedData is ", storedData)
       return storedData
-    } 
+    }
     return [{"src":null,"data_id":null }]
   }
 
@@ -63,7 +63,7 @@ export class BasicinfoComponent implements OnInit {
       is_submit : false,
       data_id:  this.officialName.data_id
     }
-    this.postRequest(temp)       
+    this.postRequest(temp)
   }
   clickOfficialDesignation(e){
     var temp = {
