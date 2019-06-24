@@ -364,27 +364,45 @@ export class ProjectService {
 
   uploadAssesorFeedback(data) {
 
-    this.APIService.UploadAssesorFeedback(data).subscribe((event: HttpEvent<any>) => {
+    let data1 = {
+      form_id: localStorage.getItem("form_id")+"",
+      is_submit: true
+    }
+
+    this.APIService.PreSubmitFeedback(data1).subscribe((event: HttpEvent<any>) => {
 
       let response = this.HttpEventResponse(event)
       if(response){
 
-        if(response.success) {
 
-          // Get live preview after form submit assesor feedback
-          if (localStorage.getItem("form_id")) {
-            let form_id = localStorage.getItem("form_id");
-            let data = {
-              form_id: form_id
+          this.APIService.UploadAssesorFeedback(data).subscribe((event: HttpEvent<any>) => {
+
+            let response = this.HttpEventResponse(event)
+            if(response){
+
+              if(response.success) {
+
+                // Get live preview after form submit assesor feedback
+                if (localStorage.getItem("form_id")) {
+                  let form_id = localStorage.getItem("form_id");
+                  let data = {
+                    form_id: form_id
+                  }
+                  // this.getLiveAssesment(data)
+                    window.location.reload(true);
+                }
+              }
             }
-            // this.getLiveAssesment(data)
-              window.location.reload(true);
-          }
-        }
+          }, (err:HttpErrorResponse)=>{
+            console.log(err)
+          });
+
       }
-    }, (err:HttpErrorResponse)=>{
-      console.log(err)
-    });
+
+      }, (err:HttpErrorResponse)=>{
+        console.log(err)
+      }
+    )
   }
 
   submitChunkFeedback(data) {

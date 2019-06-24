@@ -317,12 +317,25 @@ export class LiveAssesmentComponent implements OnInit {
         } else {
           this.tableResponse = res.response.totalResponse
           // console.log(this.tableResponse)
+          let user_role = localStorage.getItem("role") + ""
+
+          if(res.response.totalResponse.length && user_role === "assessor") {
+            if(res.response.totalResponse[0].responseData.length>0) {
+                  this.submitForm = true
+            } else {
+              this.submitForm = false
+            }
+          } else {
+            this.submitForm = false
+          }
         }
         this.displayLiveAssesment = true
       }
-      if(res.response.form_status === true) {
-          this.submitForm = true
-      }
+
+
+      // if(res.response.form_status === true) {
+      //     this.submitForm = true
+      // }
     })
   }
 
@@ -403,8 +416,6 @@ export class LiveAssesmentComponent implements OnInit {
 
     if(data.length===0)
       return false
-
-      console.log(data)
 
       return true
   }
