@@ -84,6 +84,7 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
 import { QualityComponent } from './home/form/quality/quality.component';
 import { AssesorFeedbackComponent } from './home/response/live-assesment/assesor-feedback/assesor-feedback.component';
+import { GemliveviewComponent } from './home/graphic/gemliveview/gemliveview.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { AssesorFeedbackComponent } from './home/response/live-assesment/assesor
     AnymoreimagComponent,
     FilesComponent,
     QualityComponent,
-    AssesorFeedbackComponent
+    AssesorFeedbackComponent,
+    GemliveviewComponent
   ],
   entryComponents: [ PopUpComponent, ProfileComponent, ImagesComponent, DcustomdialogComponent, FilesComponent, AssesorFeedbackComponent ],
   imports: [

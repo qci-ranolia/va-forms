@@ -2,13 +2,13 @@
 <div >
 <!-- <div *ngIf="displayLiveAssesment" > -->
 
-  <div class="liveAssesmentStrip row align-items-center">
+  <div class="liveAssesmentStrip row align-items-center" *ngIf="submitForm" >
     <h4 class="live-assesment col-9 ">
       <span class="animated infinite pulse live-assesment-danger"></span> Live
       Assesment
     </h4>
     <div class="col-3 text-right">
-      <button class="btn btn-primary refresh">
+      <button class="btn btn-primary refresh" >
         <i
         class="fa fa-refresh rotateIn animated infinite"
         aria-hidden="true"
@@ -17,7 +17,7 @@
       </button>
       &nbsp;
       &nbsp;
-      <button class="btn btn-primary refresh" *ngIf="submitForm" >
+      <button class="btn btn-primary refresh" >
         <i
         class="fa fa-cloud-upload"
         aria-hidden="true"
@@ -58,11 +58,20 @@
               </span>
 
               <span *ngIf="data.type === 'video'">
-                <div style="margin:14px;" >
-                  <video width="320" height="240" controls>
+                <div style="margin:14px; width:180px; height:100px" >
+                  <!-- <video width="320" height="240" controls>
                     <source src="{{data.src}}" type="video/mp4">
                     Browser doesn't support video
+                  </video> -->
+
+                  <video width="180px" height="100px" [controls]=false [autoplay]=false>
+                    <source src="{{data.src}}" type="video/mp4" (click)="openInNewTab(data.src)">
+                    <source src="{{data.src}}" type="video/ogg">
+                    Your browser does not support HTML5 video.
                   </video>
+
+                  <button type="button" name="button" (click)="openInNewTab(data.src)"> Play Video </button>
+
                 </div>
               </span>
 

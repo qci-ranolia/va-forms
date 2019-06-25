@@ -17,6 +17,8 @@ export class GraphicComponent implements OnInit {
   changeDetectorRef: ChangeDetectorRef;
   alreadyPublishing: boolean = false;
   copyOfSession: any;
+  form_id: any;
+  displayLiveResponse = false;
 
   constructor(
     private ref: ChangeDetectorRef,
@@ -48,6 +50,9 @@ export class GraphicComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.displayLiveResponse = false;
+    this.form_id = "123"
 
     this.projectService.getGemVideoCall()
 
@@ -96,6 +101,8 @@ export class GraphicComponent implements OnInit {
 
   getvideo(res) {
 
+    this.displayLiveResponse = true;
+    this.form_id = res.form_id;
     if(this.opentokService){
       this.opentokService.disconnect();
     }

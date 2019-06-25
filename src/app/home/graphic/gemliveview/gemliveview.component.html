@@ -1,0 +1,89 @@
+<h4> {{form_id}} </h4>
+
+<div >
+<!-- <div *ngIf="displayLiveAssesment" > -->
+
+  <div class="liveAssesmentStrip row align-items-center" >
+    <h4 class="live-assesment col-9 ">
+      <span class="animated infinite pulse live-assesment-danger"></span> Live
+      Assesment
+    </h4>
+    <div class="col-3 text-right">
+      <button class="btn btn-primary refresh" >
+        <i
+        class="fa fa-refresh rotateIn animated infinite"
+        aria-hidden="true"
+        ></i>
+      </button>
+      &nbsp;
+
+    </div>
+  </div>
+
+  <div class="tableContainer table-responsive">
+    <table class="table table-bordered table-striped" style="width:100%">
+      <thead>
+        <tr>
+          <th  width="190px" *ngFor="let head of tableHeader" [attr.colspan]="head.colspan">
+            {{ head.data }}
+          </th>
+        </tr>
+
+        <tr>
+          <th width="90px" *ngFor="let header of tableSubHeaders" title="{{ header.name }}">
+            {{header.name}}
+          </th>
+        </tr>
+
+        <tr *ngFor="let rd of tableResponse">
+          <td  width="90px" *ngFor="let response of rd.responseData">
+
+            <span *ngFor="let data of response.data">
+              <span *ngIf="data.type === 'text'">
+                {{ data.value }}
+              </span>
+
+              <span *ngIf="data.type === 'image'">
+                <div style="margin:4px;" >
+                  <img  class="zoom" src="{{ data.src }}" alt="" width="80px" height="100px" style="margin:4px;"/>
+                </div>
+              </span>
+
+              <span *ngIf="data.type === 'video'">
+                <div style="margin:14px;" >
+                  <video width="320" height="240" controls>
+                    <source src="{{data.src}}" type="video/mp4">
+                    Browser doesn't support video
+                  </video>
+                </div>
+              </span>
+
+              <span *ngIf="checkCondition(response.feedback, response.data)" >
+
+                <span *ngIf='response.feedback.type==="radio"' >
+                  <br>
+                  Accept response:
+                  <div *ngFor="let opt of response.feedback.options" >
+                    <label>
+                      <input type="radio" value={{opt}} name={{response.feedback.id}} [checked]='opt == response.feedback.value' [disabled]=true >
+                      <span>{{opt}}</span>
+                    </label>
+                  </div>
+                </span>
+
+                <span *ngIf='response.feedback.type==="text"' >
+                  <br>
+                  Feedback:  <input type="text" [(ngModel)]='response.feedback.value' [disabled]=true >
+                </span>
+
+              </span>
+
+            </span>
+          </td>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>

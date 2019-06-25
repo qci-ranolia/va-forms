@@ -332,7 +332,6 @@ export class LiveAssesmentComponent implements OnInit {
         this.displayLiveAssesment = true
       }
 
-
       // if(res.response.form_status === true) {
       //     this.submitForm = true
       // }
@@ -418,6 +417,11 @@ export class LiveAssesmentComponent implements OnInit {
       return false
 
       return true
+  }
+
+  openInNewTab(src) {
+    console.log(src)
+    window.open(src, "_blank");
   }
 
   ngOnDestroy() {
