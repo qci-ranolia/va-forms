@@ -1,28 +1,27 @@
 
-<div *ngIf="displayLiveAssesment" >
+<div >
+<!-- <div *ngIf="displayLiveAssesment" > -->
 
-  <div class="liveAssesmentStrip row align-items-center">
+  <div class="liveAssesmentStrip row align-items-center" *ngIf="submitForm" >
     <h4 class="live-assesment col-9 ">
       <span class="animated infinite pulse live-assesment-danger"></span> Live
       Assesment
     </h4>
     <div class="col-3 text-right">
-      <button class="btn btn-primary refresh">
+      <button class="btn btn-primary refresh" >
         <i
         class="fa fa-refresh rotateIn animated infinite"
         aria-hidden="true"
         (click)=refreshData()
-
         ></i>
       </button>
       &nbsp;
       &nbsp;
-      <button class="btn btn-primary refresh" *ngIf="submitForm" >
+      <button class="btn btn-primary refresh" >
         <i
         class="fa fa-cloud-upload"
         aria-hidden="true"
         (click)=acceptFeedback()
-
         ></i>
       </button>
 
@@ -46,17 +45,56 @@
 
         <tr *ngFor="let rd of tableResponse">
           <td  width="90px" *ngFor="let response of rd.responseData">
+
             <span *ngFor="let data of response.data">
               <span *ngIf="data.type === 'text'">
                 {{ data.value }}
               </span>
 
               <span *ngIf="data.type === 'image'">
-                <div style="margin:2px; margin-right:0px; margin-left:0px">
-                  <img  class="zoom" src="{{ data.src }}" alt="" width="80px" height="100px" />
+                <div style="margin:4px;" >
+                  <img  class="zoom" src="{{ data.src }}" alt="" width="80px" height="100px" style="margin:4px;"/>
                 </div>
               </span>
+
+              <span *ngIf="data.type === 'video'">
+                <div style="margin:14px; width:180px; height:100px" >
+                  <!-- <video width="320" height="240" controls>
+                    <source src="{{data.src}}" type="video/mp4">
+                    Browser doesn't support video
+                  </video> -->
+
+                  <video width="180px" height="100px" [controls]=false [autoplay]=false>
+                    <source src="{{data.src}}" type="video/mp4" (click)="openInNewTab(data.src)">
+                    <source src="{{data.src}}" type="video/ogg">
+                    Your browser does not support HTML5 video.
+                  </video>
+
+                  <button type="button" name="button" (click)="openInNewTab(data.src)"> Play Video </button>
+
+                </div>
+              </span>
+
             </span>
+
+            <span *ngIf="checkCondition(response.feedback, response.data)" >
+
+              <span *ngIf='response.feedback.type==="radio"' >
+                Accept response:
+                <div *ngFor="let opt of response.feedback.options" (change)='getVal(response.feedback.id, opt)'>
+                  <label>
+                    <input type="radio" value={{opt}} name={{response.feedback.id}} [checked]='opt == response.feedback.value' [disabled]='response.feedback.disabled' >
+                    <span>{{opt}}</span>
+                  </label>
+                </div>
+              </span>
+
+              <span *ngIf='response.feedback.type==="text"' >
+                Feedback:  <input type="text" [(ngModel)]='response.feedback.value'  (change)="getVal(response.feedback.id,response.feedback.value)" [disabled]='response.feedback.disabled' >
+              </span>
+
+            </span>
+
           </td>
         </tr>
       </thead>
@@ -66,6 +104,6 @@
 
 </div>
 
-<div *ngIf="!displayLiveAssesment" >
+<!-- <div *ngIf="!displayLiveAssesment" >
   <h4>Live preview not available</h4>
-</div>
+</div> -->

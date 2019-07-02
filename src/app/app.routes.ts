@@ -24,11 +24,12 @@ import { AnymoreimagComponent } from './home/form/anymoreimag/anymoreimag.compon
 
 export const routes: Routes = [
   { path:'', component: HomeComponent, children: [
-    { path:'', component:ChatComponent },
+    { path:'chat', component:ChatComponent },
     { path:'form', component:FormComponent },
     { path:'chat', component:ChatComponent },
     { path:'graphic', component:GraphicComponent },
-    { path:'response', component:ResponseComponent },
+    { path:'', component:ResponseComponent },
+    { path:'liveChat', component:GraphicComponent },
     {
       path:'form',
       component:FormComponent,
@@ -46,8 +47,8 @@ export const routes: Routes = [
         { path:'quality', component:QualityComponent },
         { path:'suppliers', component:SupplierComponent },
         { path:'transportation', component:TranspComponent },
-        { path:'additionalimages', component: AnymoreimagComponent }, 
-        { path:'additionaldocuments', component: AnymoredocComponent }, 
+        { path:'additionalimages', component: AnymoreimagComponent },
+        { path:'additionaldocuments', component: AnymoredocComponent },
         { path:'Submit', component: SubmitComponent }
       ]
     },

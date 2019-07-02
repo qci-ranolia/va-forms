@@ -1,5 +1,5 @@
 import { Component, OnInit, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { ImagesComponent } from '../images/images.component' 
+import { ImagesComponent } from '../images/images.component'
 
 @Component({
   selector: 'app-quality',
@@ -8,9 +8,9 @@ import { ImagesComponent } from '../images/images.component'
 })
 export class QualityComponent implements OnInit {
 
-  questionId : any = "54ed18b8089778736e121b093989b553"
+  questionId : any = "a8b1b449ee5be4e3e8ffc5f1dedb23f6"
   show : any
-  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
+  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef;
   constructor(private _cfr: ComponentFactoryResolver ) { }
 
   ngOnInit() {

@@ -101,7 +101,7 @@ export class DialComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log("called");
+
     let tabElements = document.getElementsByClassName(
       "OT_subscriber"
     )[0] as HTMLElement;

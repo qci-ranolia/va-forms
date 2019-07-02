@@ -8,8 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "gembuild": "ng build --prod",
-    "gemprod": "npm run gembuild && cd dist/opentiktokapp && http-server -S -C cert.pem -o"
+    "live":"ng build --prod && sudo firebase deploy"
   },
   "private": true,
   "dependencies": {

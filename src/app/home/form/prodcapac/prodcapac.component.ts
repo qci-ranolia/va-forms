@@ -8,10 +8,10 @@ import { ImagesComponent } from '../images/images.component'
 })
 export class ProdcapacComponent implements OnInit {
 
-  questionId : any = "54852977a1d19ad2cf79587dc6559b7c"
+  questionId : any = "ecb8516548ff3bc49c5cf70a9b012c93"
   show: any;
-  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef; 
-  
+  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef;
+
   constructor(private _cfr: ComponentFactoryResolver  ) { }
 
   ngOnInit() {

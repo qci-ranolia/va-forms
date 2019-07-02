@@ -11,10 +11,10 @@ export class RdevComponent implements OnInit {
   processQuesId: any = "0e5a8c50bc4caae87205619ff21f79cb"
   facilityQuesId: any = "7688840f61caa4597471ce0b019302d3"
   show: any;
-  @ViewChild('parent3', { read: ViewContainerRef }) container3: ViewContainerRef; 
-  @ViewChild('parent4', { read: ViewContainerRef }) container4: ViewContainerRef; 
-  @ViewChild('parent5', { read: ViewContainerRef }) container5: ViewContainerRef; 
-  
+  @ViewChild('parent3', { read: ViewContainerRef }) container3: ViewContainerRef;
+  @ViewChild('parent4', { read: ViewContainerRef }) container4: ViewContainerRef;
+  @ViewChild('parent5', { read: ViewContainerRef }) container5: ViewContainerRef;
+
   constructor(private _cfr: ComponentFactoryResolver  ) { }
 
   ngOnInit() {

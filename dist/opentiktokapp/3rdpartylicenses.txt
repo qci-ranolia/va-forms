@@ -571,13 +571,16 @@ Apache-2.0
 @angular/core
 MIT
 
-@angular/animations
-MIT
-
 @angular/common
 MIT
 
 @angular/platform-browser
+MIT
+
+@angular/router
+MIT
+
+@angular/animations
 MIT
 
 @angular/cdk
@@ -644,9 +647,6 @@ MIT
 @angular/material/tooltip
 
 @angular/material/snack-bar
-
-@angular/router
-MIT
 
 ngx-webcam
 MIT

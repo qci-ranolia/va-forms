@@ -26,9 +26,11 @@ export class ProjectService {
     SESSION_ID:"",
     TOKEN:""
   }
+
   storeCopyOfSession : any;
   sessionConnected = false;
   calling = false;
+
   emitUI : EventEmitter<any> = new EventEmitter<any>();
   emitCalling : EventEmitter<any> = new EventEmitter<any>();
   emitData_id : EventEmitter<any> = new EventEmitter<any>();
@@ -38,21 +40,21 @@ export class ProjectService {
   emitCycleVideo: EventEmitter<any> = new EventEmitter<any>();
   emitLiveResponse : EventEmitter<any> = new EventEmitter<any>();
   emitDismissPopup : EventEmitter<any> = new EventEmitter<any>();
-  emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
-  emitVendorDetails : EventEmitter<any> = new EventEmitter<any>();
   emitImageData_Id : EventEmitter<any> = new EventEmitter<any>();
+  emitGemVideoCall : EventEmitter<any> = new EventEmitter<any>();
+  emitVendorDetails : EventEmitter<any> = new EventEmitter<any>();
+  emitDialUserDetails : EventEmitter<any> = new EventEmitter<any>();
   emitSessionScheduleData : EventEmitter<any> = new EventEmitter<any>();
 
 
-  
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router, private _errMsg: MatSnackBar ) {}
-  
+
   openErrMsgBar(message: string, action: string) {
     this._errMsg.open(message, action, {
       duration : 4200,
     })
-  }  
-  
+  }
+
   HttpEventResponse(event) {
     switch (event.type) {
       case HttpEventType.Sent:
@@ -114,9 +116,9 @@ export class ProjectService {
 
   imageArray(temp){
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
-      let response = this.HttpEventResponse(event)      
+      let response = this.HttpEventResponse(event)
       if(response){
-        console.log(response)
+        // console.log(response)
         this.openErrMsgBar("Data Saved", "Successfully")
         // Synced Area
         // localStorage.setItem(response.question_id, response.data_id)
@@ -165,12 +167,13 @@ export class ProjectService {
     this.APIService.Login(data).subscribe((event: HttpEvent<any>) => {
       let response = this.HttpEventResponse(event)
       if(response){
-        console.log(response)
         if(response.success){
           localStorage.setItem("token", response.token+"")
           localStorage.setItem("role", response.role+"")
           localStorage.setItem("email", data.user_name+"")
           this.emitUserLogin.emit({login:'true'});
+        } else {
+          this.openErrMsgBar("Invalid credentials!", response.message)
         }
       }
     }, (err:HttpErrorResponse)=>{
@@ -196,7 +199,7 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response) {
-        console.log(response)
+        // console.log(response)
 
         if(!response.success){
           this.router.navigate(['/login']);
@@ -229,7 +232,7 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response){
         console.log("Archive video")
-        console.log(response)
+        // console.log(response)
       }
     })
   }
@@ -238,7 +241,7 @@ export class ProjectService {
     this.APIService.InitiateSession(data).subscribe((event: HttpEvent<any>)=>{
       let response = this.HttpEventResponse(event)
       if(response) {
-        console.log(response)
+        // console.log(response)
         if(response.success) {
           if(response.form_id){
             localStorage.setItem('form_id',""+response.form_id)
@@ -281,7 +284,7 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response){
         this.sessionConnected = false;
-        console.log(response)
+        // console.log(response)
         this.getChatUsers()
       }
     }, (err:HttpErrorResponse)=>{
@@ -332,7 +335,7 @@ export class ProjectService {
 
       let response = this.HttpEventResponse(event)
       if(response){
-        console.log(response)
+        // console.log(response)
         this.emitLiveResponseFun(response)
       }
     }, (err:HttpErrorResponse)=>{
@@ -346,28 +349,73 @@ export class ProjectService {
     })
   }
 
-  uploadAssesorFeedback(data) {
-
-    this.APIService.UploadAssesorFeedback(data).subscribe((event: HttpEvent<any>) => {
+  getGemVideoCall() {
+    this.APIService.GetGemVideoCall().subscribe((event: HttpEvent<any>) => {
 
       let response = this.HttpEventResponse(event)
       if(response){
-
-        if(response.success) {
-
-          // Get live preview after form submit assesor feedback
-          if (localStorage.getItem("form_id")) {
-            let form_id = localStorage.getItem("form_id");
-            let data = {
-              form_id: form_id
-            }
-            this.getLiveAssesment(data)
-          }
-        }
+        console.log(response)
+        this.emitGemVideoCall.emit(response.data)
       }
     }, (err:HttpErrorResponse)=>{
       console.log(err)
     });
+  }
+
+  uploadAssesorFeedback(data) {
+
+    let data1 = {
+      form_id: localStorage.getItem("form_id")+"",
+      is_submit: true
+    }
+
+    this.APIService.PreSubmitFeedback(data1).subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+
+
+          this.APIService.UploadAssesorFeedback(data).subscribe((event: HttpEvent<any>) => {
+
+            let response = this.HttpEventResponse(event)
+            if(response){
+
+              if(response.success) {
+
+                // Get live preview after form submit assesor feedback
+                if (localStorage.getItem("form_id")) {
+                  let form_id = localStorage.getItem("form_id");
+                  let data = {
+                    form_id: form_id
+                  }
+                  // this.getLiveAssesment(data)
+                    window.location.reload(true);
+                }
+              }
+            }
+          }, (err:HttpErrorResponse)=>{
+            console.log(err)
+          });
+
+      }
+
+      }, (err:HttpErrorResponse)=>{
+        console.log(err)
+      }
+    )
+  }
+
+  submitChunkFeedback(data) {
+    this.APIService.SubmitChunkFeedback(data).subscribe((event: HttpEvent<any>) => {
+
+      let response = this.HttpEventResponse(event)
+      if(response){
+        console.log(response)
+      }
+    }, (err:HttpErrorResponse)=>{
+      console.log(err)
+    });
+
   }
 
   userCalling(bool) {

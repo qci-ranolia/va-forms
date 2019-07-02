@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
   constructor(private projectService: ProjectService, private router: Router) {
     this.projectService.checkLogin()
     this.projectService.emitUserLogin.subscribe((res)=>{
-      this.router.navigate(['/']);
+      console.log(res)
+      this.router.navigate(['/']);  
     });
   }
 

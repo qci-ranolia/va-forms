@@ -22,7 +22,7 @@ export class ChatComponent implements OnInit {
     this.projectService.emitChatUsers.subscribe(res=>{
       this.chatUsers = res.chatUsers.all_user_data
       this.dialUser = res.dialUser
-      console.log(res)
+      // console.log(res)
 
       if(res.chatUsers && res.chatUsers.all_user_data) {
         // check for any call
@@ -54,16 +54,16 @@ export class ChatComponent implements OnInit {
 
     let callingFlag = false;
 
-    console.log(this.chatUsers)
+    // console.log(this.chatUsers)
 
     if(this.chatUsers.length) {
       for(let user=0; user< this.chatUsers.length; user++) {
 
-        console.log(this.chatUsers[user].status)
-        console.log(!this.dialUser)
+        // console.log(this.chatUsers[user].status)
+        // console.log(!this.dialUser)
 
         if(this.chatUsers[user].status === "calling" && !this.dialUser) {
-          console.log("calling")
+          // console.log("calling")
           callingFlag = true;
           break;
         }
@@ -92,7 +92,7 @@ export class ChatComponent implements OnInit {
   }
 
   contactThisUser(chatUser) {
-    console.log(chatUser)
+    // console.log(chatUser)
     this.chatUser = chatUser
     this.contactUser = chatUser
     this.bottomSheet.open(PopUpComponent);

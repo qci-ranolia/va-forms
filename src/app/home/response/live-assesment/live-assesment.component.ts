@@ -16,6 +16,7 @@ export class LiveAssesmentComponent implements OnInit {
   displayLiveAssesment = false;
   data = {};
   submitForm = false;
+  checkForNewData : any;
 
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableHeader  = [
@@ -33,8 +34,7 @@ export class LiveAssesmentComponent implements OnInit {
   //
   // ]
   //  +++++++++++++++original++++++++++++++++++++++++
-
-
+  //
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableSubHeaders= [
   //   {name:"Geotagged Assessor"},
@@ -54,8 +54,7 @@ export class LiveAssesmentComponent implements OnInit {
   //   {name:"Video link"}
   // ]
   //  +++++++++++++++original++++++++++++++++++++++++
-
-
+  //
   //  +++++++++++++++original++++++++++++++++++++++++
   // tableResponse=[
   //   {
@@ -63,12 +62,28 @@ export class LiveAssesmentComponent implements OnInit {
   //     {
   //         data : [
   //           {type:"text", value:"Assessor_NAme"},
-  //         ]
+  //         ],
+  //         feedback: {
+  //           id:"123",
+  //           type:"radio",
+  //           options:[
+  //             "Yes",
+  //             "No"
+  //           ],
+  //           value:"Yes",
+  //           disabled: "true"
+  //         }
   //       },
   //     {
   //         data : [
   //           {type:"text", value:"Vendor_NAme"},
-  //         ]
+  //         ],
+  //         feedback: {
+  //           id:"123",
+  //           type:"text",
+  //           value:"Yes",
+  //           disabled: "true"
+  //         }
   //       },
   //       {
   //         data : [
@@ -76,7 +91,16 @@ export class LiveAssesmentComponent implements OnInit {
   //           {type:"image", src:"assets/images/2.jpg", id:""},
   //           {type:"image", src:"assets/images/3.jpg", id:""},
   //           {type:"image", src:"assets/images/4.jpg", id:""},
-  //         ]
+  //         ],
+  //         feedback: {
+  //           id:"122",
+  //           type:"radio",
+  //           options:[
+  //             "Yes",
+  //             "No"
+  //           ],
+  //           value:"Yes"
+  //         }
   //       },
   //       {
   //         data : [
@@ -277,31 +301,59 @@ export class LiveAssesmentComponent implements OnInit {
 
       if (res.response.tableHeader) {
 
-        this.tableHeader = res.response.tableHeader
-        this.tableSubHeaders = res.response.tableSubHeader
-        this.tableResponse = res.response.totalResponse
+        if(this.tableHeader === res.response.tableHeader){
+        } else {
+          this.tableHeader = res.response.tableHeader
+          // console.log(this.tableHeader)
+        }
 
-        console.log(this.tableHeader)
-        console.log(this.tableSubHeaders)
-        console.log(this.tableResponse)
+        if(this.tableSubHeaders === res.response.tableSubHeader){
+        } else {
+          this.tableSubHeaders = res.response.tableSubHeader
+          // console.log(this.tableSubHeaders)
+        }
 
+        if(this.tableResponse === res.response.totalResponse){
+        } else {
+          this.tableResponse = res.response.totalResponse
+          // console.log(this.tableResponse)
+          let user_role = localStorage.getItem("role") + ""
+
+          if(res.response.totalResponse.length && user_role === "assessor") {
+            if(res.response.totalResponse[0].responseData.length>0) {
+                  this.submitForm = true
+            } else {
+              this.submitForm = false
+            }
+          } else {
+            this.submitForm = false
+          }
+        }
         this.displayLiveAssesment = true
-
-      }
-      if(res.response.form_status === true) {
-          this.submitForm = true
       }
 
+      // if(res.response.form_status === true) {
+      //     this.submitForm = true
+      // }
     })
   }
 
   ngOnInit() {
 
+
+    // this.projectService.getLiveAssesment({
+    //   form_id: ""+localStorage.getItem("form_id")
+    // })
+
+
+
+
     let role = localStorage.getItem("role") + ""
 
-    if (role === "gem") {
+    if (role === "gem"){
       this.projectService.getAssesmentDataForGem()
-    } else {
+    }
+    if(role === "assessor") {
 
       if (localStorage.getItem("form_id")) {
         let form_id = localStorage.getItem("form_id");
@@ -310,8 +362,9 @@ export class LiveAssesmentComponent implements OnInit {
           // form_id: "e13a679a51d746d4bc0ee7dc44f3933d"
         }
 
-        let checkForNewData = setInterval(()=>{
-          console.log("chat")
+        this.projectService.getLiveAssesment(this.data)
+
+        this.checkForNewData = setInterval(()=>{
           this.projectService.getLiveAssesment(this.data)
         }, 10000)
       }
@@ -338,5 +391,40 @@ export class LiveAssesmentComponent implements OnInit {
 
   acceptFeedback() {
     this.bottomSheet.open(AssesorFeedbackComponent);
+  }
+
+  getVal(id, opt) {
+    console.log(id)
+    console.log(opt)
+    console.log(""+localStorage.getItem("form_id"))
+
+    let data = {
+      id: id,
+      value: opt,
+      form_id: ""+localStorage.getItem("form_id")
+    }
+
+    this.projectService.submitChunkFeedback(data)
+
+  }
+
+  checkCondition(feedback, data) {
+
+    if(!feedback)
+      return false
+
+    if(data.length===0)
+      return false
+
+      return true
+  }
+
+  openInNewTab(src) {
+    console.log(src)
+    window.open(src, "_blank");
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.checkForNewData)
   }
 }

@@ -21,6 +21,8 @@ export class OpentokService {
     this.SESSION_ID = this.projectService.openTokCreds.SESSION_ID;
     this.TOKEN = this.projectService.openTokCreds.TOKEN;
 
+    console.log(this.API_KEY+" 1 "+this.SESSION_ID+" 2 "+this.TOKEN)
+
     if (this.API_KEY && this.TOKEN && this.SESSION_ID) {
       this.session = this.getOT().initSession(this.API_KEY, this.SESSION_ID);
       this.token = this.TOKEN;

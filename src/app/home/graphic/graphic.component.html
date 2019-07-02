@@ -1,5 +1,25 @@
-<main>
-  <p>
-    graphic works!
-  </p>
+<main class="text-center" >
+
+  <div *ngFor="let res of response"  >
+    <br>
+    <button (click)="getvideo(res)"
+    mat-flat-button
+    color="primary"
+    type="submit"
+    class="login">
+      form id:  {{res.form_id}}
+    </button>
+    <br>
+  </div>
+
+  <div *ngIf="displayLiveResponse">
+    <app-gemliveview [form_id]=form_id ></app-gemliveview>
+  </div>
+
+  <app-subscriber
+    *ngFor="let stream of streams"
+    [stream]="stream"
+    [session]="session"
+  ></app-subscriber>
+
 </main>

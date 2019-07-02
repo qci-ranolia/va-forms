@@ -13,14 +13,16 @@ export class BasicinfoComponent implements OnInit {
   officialName:any
   form_id:any
   officialDesignationQuesID:any="4f7414dcea7d5e61ee08e4ddf238a04f"
-  officialNameQuesID:any="4367252b9f222177ac5134c1b84d6341"
+  officialNameQuesID:any="24b1a4afb79805740156744d6f5ca40d"
   isDisabled: any
-  
+
   questionIds:any= new Array()
   componentName:any ="basicinformation"
-  
+
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
     this.form_id = localStorage.getItem("form_id")
+    // console.log("sahgshasg ", this.storedQuestionId(this.officialDesignationQuesID)[0].src)
+
   }
 
   ngOnInit() {
