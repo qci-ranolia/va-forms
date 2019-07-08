@@ -33,6 +33,8 @@ export class SafetyComponent implements OnInit/* , AfterViewInit */  {
   extnDataId:any
   firstCondDataId:any
   
+
+  offline:boolean = false
   @ViewChild('parentSafe', { read: ViewContainerRef }) containerSafe: ViewContainerRef;
   @ViewChild('parentExtn', { read: ViewContainerRef }) containerExtn: ViewContainerRef;
   @ViewChild("safety") elSafety: ElementRef;
@@ -152,16 +154,25 @@ export class SafetyComponent implements OnInit/* , AfterViewInit */  {
 
   postRequest(temp){
     console.log("request data", temp)
-    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
-      let response = this.ProjectService.HttpEventResponse(event)
-      if(response) {
-        console.log(response)
-        // localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id" : response.data_id}))
-        return response.data_id
-      }
-    }, (err) => {
-      console.log("err is ", err)
-    })
+    if(navigator.onLine){
+      this.offline = false
+      console.log("You are Online")
+      this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
+        let response = this.ProjectService.HttpEventResponse(event)
+        if(response) {
+          console.log(response)
+          // localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id" : response.data_id}))
+          return response.data_id
+        }
+      }, (err) => {
+        console.log("err is ", err)
+      })
+    }
+    else {
+      this.offline = true
+      this.ProjectService.openErrMsgBar("You are offline", "Please go online!")            
+      console.error("You are Offline")
+    }
   }
 
 

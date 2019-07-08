@@ -11,31 +11,110 @@ declare var gtag;
 })
 
 export class AppComponent {
-  title = 'opentiktokapp';
+    
+    title = 'opentiktokapp';
+    request : any
+    db : any
+    objectStore : any
+    cursor : any
+    emp : any
+    transaction : any
 
-  constructor(private swUpdate: SwUpdate, private router:Router) {
-    const navEndEvents =  this.router.events.pipe(
-        filter(event=>event instanceof NavigationEnd)
-    )
-    navEndEvents.subscribe((event:NavigationEnd)=>{
-        gtag('config', 'UA-122661218-2',{
-            'page_path':event.urlAfterRedirects
-        });
-    })
+    constructor( private swUpdate: SwUpdate, private router:Router ) {
+        const navEndEvents = this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd)
+        )
+        navEndEvents.subscribe((event:NavigationEnd)=>{
+            gtag('config', 'UA-122661218-2', {
+                'page_path' : event.urlAfterRedirects
+            })
+        })
+    }
 
-  }
-
-    ngOnInit() {
-
+    ngOnInit(){
+        if( window.indexedDB ){
+            this.request = window.indexedDB.open("testdb", 1)
+            this.emp = [
+                { id : "01", name : "deepak", age : "24" },
+                { id : "02", name : "deepica", age : "25" }
+            ]
+            
+            this.request.onerror = (event:any) => {
+                console.error("error")
+            }
+            this.request.onsuccess = (event:any) => {
+                this.db = this.request.result
+            }
+            this.request.onupgradeneeded = (event:any) => {
+                this.db = event.target.result
+                this.objectStore =  this.db.createObjectStore("emp", {keyPath:"id"})
+                for ( var i in this.emp ) {
+                    this.objectStore.add(this.emp[i])
+                }
+            }
+        } else {
+            alert("Local DB not found. Please upgrade to latest browser!")
+        }
         if (this.swUpdate.isEnabled) {
-
             this.swUpdate.available.subscribe(() => {
-
                 if(confirm("New version available. Load New Version?")) { 
-
                     window.location.reload();
                 }
             });
         }
     }
+
+    readAll(){
+        this.objectStore = this.db.transaction("emp").objectStore("emp")
+        this.objectStore.openCursor().onsuccess = (event : any) => {
+            this.cursor = event.target.result
+            if(this.cursor){
+                alert("Name for id "/*+ this.cursor.value.id */+ " is " + this.cursor.value.name + ", Age: " + this.cursor.value.age)
+                this.cursor.continue()
+            }
+        }
+    }
+
+    add(){
+        this.request = this.db.transaction(["emp"],"readwrite")
+        .objectStore("emp")
+        .add({ id : "03", name : "deepakzzz", age : 26 })
+        this.request.onerror = (event:any) => {
+            console.error("error")
+        }
+        this.request.onsuccess = (event:any) => {
+            console.log("event is ", event)
+        }
+    }
+
+    get(){
+        this.transaction = this.db.transaction(["emp"])
+        console.log("this.transaction ", this.transaction)
+
+        this.objectStore = this.transaction.objectStore("emp")
+        console.log("this.objectStore ", this.objectStore)
+        
+        this.request = this.objectStore.get("01")
+        console.log("this.request ", this.request)
+
+        this.request.onerror = (event : any) => {
+            console.error(event)
+        }
+        this.request.onsuccess = (event : any) => {
+            console.log("event is ", event)
+        }
+    }
+
+    remove(){
+        this.request = this.db.transaction(["emp"],"readwrite")
+        .objectStore("emp")
+        .delete("03")
+        this.request.onerror = (event:any) => {
+            console.error("error")
+        }
+        this.request.onsuccess = (event:any) => {
+            console.log("event is ", event)
+        }
+    }
+
 }

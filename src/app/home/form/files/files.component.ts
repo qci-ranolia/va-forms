@@ -17,6 +17,7 @@ export class FilesComponent implements OnInit {
   @Input() question_id:any
   show: string
   pdfSrc: any
+  offline:boolean=false
   constructor( private APIService: APIService, private ProjectService: ProjectService, private http: HttpClient ) {
     this.show = localStorage.getItem("form_status")
     console.log("Form status is ", this.show)
@@ -71,31 +72,40 @@ export class FilesComponent implements OnInit {
       // this.ProjectService.postFormDetails(temp)
       this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
       setTimeout(()=>{
-        this.ProjectService.imageArray(temp)
-        this.ProjectService.emitImageData_Id.subscribe(el=>{
-          // this.http.post(JSON.parse(el)[0].src, {responseType: 'arraybuffer'})
-          //   .subscribe((el:Blob) => {
-          //     var file = new Blob([el], {type: 'application/pdf'});
-          //     var fileURL = URL.createObjectURL(file);
-          //     console.log(file)
-          //     console.log(fileURL)
-          //     // window.open(fileURL);
-          //   })
-          let fileURL:any, file:any  
-          var xhr = new XMLHttpRequest();
-          xhr.open('GET', JSON.parse(el)[0].src, true)
-          xhr.responseType = 'arraybuffer'
-          xhr.onload = function(e){
-            if(this.status == 200){
-              file = new Blob([this.response], {type: 'application/pdf'})
-              fileURL = window.URL.createObjectURL(file)
-              // console.log("fileURL is ", fileURL)
-              document.querySelector("iframe").src = fileURL
+        if(navigator.onLine){
+          this.offline = false
+          console.log("You are Online")
+          this.ProjectService.imageArray(temp)
+          this.ProjectService.emitImageData_Id.subscribe(el=>{
+            // this.http.post(JSON.parse(el)[0].src, {responseType: 'arraybuffer'})
+            //   .subscribe((el:Blob) => {
+            //     var file = new Blob([el], {type: 'application/pdf'});
+            //     var fileURL = URL.createObjectURL(file);
+            //     console.log(file)
+            //     console.log(fileURL)
+            //     // window.open(fileURL);
+            //   })
+            let fileURL:any, file:any  
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', JSON.parse(el)[0].src, true)
+            xhr.responseType = 'arraybuffer'
+            xhr.onload = function(e){
+              if(this.status == 200){
+                file = new Blob([this.response], {type: 'application/pdf'})
+                fileURL = window.URL.createObjectURL(file)
+                // console.log("fileURL is ", fileURL)
+                document.querySelector("iframe").src = fileURL
+              }
             }
-          }
-          xhr.send()
-          this.storedData()
-        })
+            xhr.send()
+            this.storedData()
+          })
+        }
+        else {
+          this.offline = true
+          this.ProjectService.openErrMsgBar("You are offline", "Please go online!")            
+          console.error("You are Offline")
+        }
       }, 1500)
     }
   }

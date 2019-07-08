@@ -1,4 +1,6 @@
+<!-- <mat-progress-bar mode="buffer" *ngIf="offline"></mat-progress-bar> -->
 <div class="justify-content-center mt-3 mb-3 p-2 border">
+  <!-- {{question_id}}   -->
   <img class="col-12 pl-0" src={{src}} alt="" style="max-height:450px;max-width:450px;" /><br />
   <div *ngIf="show == 'false'">
     <input class="col-7 pl-0 mt-3" type="file" accept="image/gif, image/jpeg, image/png" (change)="browseImages($event)" /><br />

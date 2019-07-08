@@ -15,7 +15,9 @@ export class ImagesComponent implements OnInit {
   @Input() data_id:any
   @Input() question_id:any
   show: string
-  
+  offline:boolean = false
+  files:any
+
   processedImages:any
   showTitle:any
   
@@ -42,14 +44,16 @@ export class ImagesComponent implements OnInit {
     this._ref.destroy();
   }
   
-  browseImages($event){
-    let files = $event.target.files || $event.srcElement.files
+  browseImages($event) {
+    if ($event !== null){
+      this.files = $event.target.files || $event.srcElement.files
+    }
     // let data_id : any = localStorage.getItem(this.question_id)
     // this.imageName = $event.target.value
     // console.log(this.imageName)
     
     let images : any //: Array<IImage> = [];
-    ImageCompressService.filesToCompressedImageSource(files).then(observableImages => {
+    ImageCompressService.filesToCompressedImageSource(this.files).then(observableImages => {
       observableImages.subscribe((image) => {
         this.src = image.compressedImage.imageDataUrl;
       }, (error) => {
@@ -66,19 +70,46 @@ export class ImagesComponent implements OnInit {
           data_id : this.data_id
         }
         // this.ProjectService.postFormDetails(temp)
-        this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
-        setTimeout(()=>{
-          this.ProjectService.imageArray(temp)
-          this.ProjectService.emitImageData_Id.subscribe(el=>{
-            console.log(el)
-            // this.data_id = el.data_id
-            // this.src = el.source
-            this.storedData()
-          })
+        if ($event !== null) this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+        setTimeout(() => {
+          if(navigator.onLine){
+            this.offline = false
+            console.log("You are Online")
+            this.ProjectService.imageArray(temp)
+            this.ProjectService.emitImageData_Id.subscribe(el=>{
+              // console.log(el)
+              // this.data_id = el.data_id
+              // this.src = el.source
+              this.storedData()
+            })
+          }
+          else {
+            this.offline = true
+
+            // Store in indexed DB corresponding to question_id and replace src with bs64/octat strm
+            // Replace in indexed DB corresponding to question_id and replace src with bs64/octat strm
+            // Delete in indexed DB corresponding to question_id and replace src with bs64/octat strm
+            
+            // this.request = window.indexedDB.open("question_id", 1)
+            // this.request = window.indexedDB.open("question_id", 1)
+            // this.request = window.indexedDB.open("question_id", 1)
+            // this.request = window.indexedDB.open("question_id", 1)
+            this.ProjectService.openErrMsgBar("We are trying to connect", "You are offline, Data will be uploaded once you will be online")
+            this.looper()
+            // this.browseImages(null)
+            console.error("You are Offline")
+          }
         }, 1500);
       });
     });
   }
+
+  looper() {
+    console.warn("Running...")
+    this.browseImages(null)
+  }
+
+
 
   storedData(){
     // localStorage.setItem(this.question_id, JSON.stringify(rd))

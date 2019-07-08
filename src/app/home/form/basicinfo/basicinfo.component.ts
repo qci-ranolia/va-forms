@@ -19,6 +19,7 @@ export class BasicinfoComponent implements OnInit {
   questionIds:any= new Array()
   componentName:any ="basicinformation"
 
+  offline:boolean=false
   constructor(private ProjectService: ProjectService, private APIService: APIService) {
     this.form_id = localStorage.getItem("form_id")
     // console.log("sahgshasg ", this.storedQuestionId(this.officialDesignationQuesID)[0].src)
@@ -69,19 +70,29 @@ export class BasicinfoComponent implements OnInit {
   }
 
   postRequest(temp){
-    this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
-      let response = this.ProjectService.HttpEventResponse(event)
-      if( response /*.success == true*/ ) {
-        localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id": response.data_id, "text_data": response.source}))
-        this.ProjectService.openErrMsgBar("Data saved.","Successfully!")
-        console.log(response)
-      } else {
-        console.log(response)
-      }
-    }, (err) => {
-      this.ProjectService.openErrMsgBar("Data not saved.","Please Try again!")
-      console.log("err is ", err)
-    })
+    if(navigator.onLine){
+      this.offline = false
+      console.log("You are Online")
+      this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
+        let response = this.ProjectService.HttpEventResponse(event)
+        if( response /*.success == true*/ ) {
+          localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id": response.data_id, "text_data": response.source}))
+          this.ProjectService.openErrMsgBar("Data saved.","Successfully!")
+          console.log(response)
+        } else {
+          console.log(response)
+        }
+      }, (err) => {
+        this.ProjectService.openErrMsgBar("Data not saved.","Please Try again!")
+        console.log("err is ", err)
+      })
+    }
+    else {
+      this.offline = true
+      this.ProjectService.openErrMsgBar("You are offline", "Please go online!")            
+      console.error("You are Offline")
+    }
+    
   }
 
 }
