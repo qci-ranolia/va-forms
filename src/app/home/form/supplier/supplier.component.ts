@@ -65,12 +65,12 @@ export class SupplierComponent implements OnInit {
       if(response){
         localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id" :response.data_id, "text_data": response.source}))
         console.log(response)
-        this.ProjectService.openErrMsgBar("Data saved.","Successfully!")
+        this.ProjectService.openErrMsgBar("Data saved.","Successfully!", 2200)
       } else {
         // console.log(response)
       }
     }, (err) => {
-      this.ProjectService.openErrMsgBar("Data not saved.","Please Try again!")
+      this.ProjectService.openErrMsgBar("Data not saved.","Please Try again!", 4000)
       console.log("err is ", err)
     })
   }

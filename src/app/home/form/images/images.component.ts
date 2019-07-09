@@ -18,14 +18,32 @@ export class ImagesComponent implements OnInit {
   offline:boolean = false
   files:any
 
+
+  request : any
+  db : any
+  objectStore : any
+  cursor : any
+  offlineFormData : any = new Array()
+  transaction : any
+
+
   processedImages:any
   showTitle:any
   
   constructor(private ProjectService: ProjectService, private imgCompressService: ImageCompressService ) {
     this.show = localStorage.getItem("form_status")
+    this.request = window.indexedDB.open("offlineForms", 1.2)
+    console.log("this.request from image component is ", this.request)
+    this.request.onerror = ( event : any ) => {
+      console.error("error")
+    }
+    this.request.onsuccess = ( event : any ) => {
+        this.db = this.request.result
+    }
   }
 
-  ngOnInit(){ }
+  ngOnInit(){
+  }
 
   removeObject(){
     var temp = {
@@ -34,7 +52,7 @@ export class ImagesComponent implements OnInit {
       data_id:this.data_id
     }
     // console.log(temp)
-    this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+    this.ProjectService.openErrMsgBar("Please wait...","Syncing!", 4000)
     setTimeout(()=> {
       this.ProjectService.deleteImage(temp)
       let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
@@ -70,13 +88,13 @@ export class ImagesComponent implements OnInit {
           data_id : this.data_id
         }
         // this.ProjectService.postFormDetails(temp)
-        if ($event !== null) this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+        if ($event !== null) this.ProjectService.openErrMsgBar("Please wait...","Syncing!", 4000)
         setTimeout(() => {
-          if(navigator.onLine){
+          if(navigator.onLine) {
             this.offline = false
             console.log("You are Online")
             this.ProjectService.imageArray(temp)
-            this.ProjectService.emitImageData_Id.subscribe(el=>{
+            this.ProjectService.emitImageData_Id.subscribe( el => {
               // console.log(el)
               // this.data_id = el.data_id
               // this.src = el.source
@@ -85,16 +103,25 @@ export class ImagesComponent implements OnInit {
           }
           else {
             this.offline = true
-
-            // Store in indexed DB corresponding to question_id and replace src with bs64/octat strm
-            // Replace in indexed DB corresponding to question_id and replace src with bs64/octat strm
-            // Delete in indexed DB corresponding to question_id and replace src with bs64/octat strm
+            let question_id = this.question_id
             
-            // this.request = window.indexedDB.open("question_id", 1)
-            // this.request = window.indexedDB.open("question_id", 1)
-            // this.request = window.indexedDB.open("question_id", 1)
-            // this.request = window.indexedDB.open("question_id", 1)
-            this.ProjectService.openErrMsgBar("We are trying to connect", "You are offline, Data will be uploaded once you will be online")
+            let xx : any = {
+              question_id : [
+                {
+                  
+                }
+              ]
+            }            
+            this.request = this.db.transaction(["imageStore"], "readwrite")
+            .objectStore("imageStore")
+            .add(temp)
+            this.request.onerror = (event:any) => {
+                console.error("error")
+            }
+            this.request.onsuccess = (event:any) => {
+                console.log("event is ", event)
+            }
+            this.ProjectService.openErrMsgBar("We are trying to connect to the internet. Data will be uploaded once you will be online.", "OFFLINE!", 10000)
             this.looper()
             // this.browseImages(null)
             console.error("You are Offline")
@@ -108,8 +135,6 @@ export class ImagesComponent implements OnInit {
     console.warn("Running...")
     this.browseImages(null)
   }
-
-
 
   storedData(){
     // localStorage.setItem(this.question_id, JSON.stringify(rd))

@@ -33,7 +33,7 @@ export class FilesComponent implements OnInit {
       data_id:this.data_id
     }
     // console.log(temp)
-    this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+    this.ProjectService.openErrMsgBar("Please wait...","Syncing!", 4000)
     setTimeout(()=>{      
       this.ProjectService.deleteImage(temp)
       let storedData : any = JSON.parse(localStorage.getItem(this.question_id))
@@ -70,7 +70,7 @@ export class FilesComponent implements OnInit {
         data_id : this.data_id
       }
       // this.ProjectService.postFormDetails(temp)
-      this.ProjectService.openErrMsgBar("Please wait...","Syncing!")
+      this.ProjectService.openErrMsgBar("Please wait...","Syncing!", 4000)
       setTimeout(()=>{
         if(navigator.onLine){
           this.offline = false
@@ -103,7 +103,7 @@ export class FilesComponent implements OnInit {
         }
         else {
           this.offline = true
-          this.ProjectService.openErrMsgBar("You are offline", "Please go online!")            
+          this.ProjectService.openErrMsgBar("You are offline", "Please go online!", 4000)            
           console.error("You are Offline")
         }
       }, 1500)

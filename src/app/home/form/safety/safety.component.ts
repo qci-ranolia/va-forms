@@ -170,7 +170,7 @@ export class SafetyComponent implements OnInit/* , AfterViewInit */  {
     }
     else {
       this.offline = true
-      this.ProjectService.openErrMsgBar("You are offline", "Please go online!")            
+      this.ProjectService.openErrMsgBar("You are offline", "Please go online!", 4000)
       console.error("You are Offline")
     }
   }

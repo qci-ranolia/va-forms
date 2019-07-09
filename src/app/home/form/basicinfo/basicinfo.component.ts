@@ -77,19 +77,19 @@ export class BasicinfoComponent implements OnInit {
         let response = this.ProjectService.HttpEventResponse(event)
         if( response /*.success == true*/ ) {
           localStorage.setItem(temp.question_id, JSON.stringify({"src": temp.file_data, "data_id": response.data_id, "text_data": response.source}))
-          this.ProjectService.openErrMsgBar("Data saved.","Successfully!")
+          this.ProjectService.openErrMsgBar("Data saved.","Successfully!", 2200)
           console.log(response)
         } else {
           console.log(response)
         }
       }, (err) => {
-        this.ProjectService.openErrMsgBar("Data not saved.","Please Try again!")
+        this.ProjectService.openErrMsgBar("Data not saved.","Please Try again!", 4000)
         console.log("err is ", err)
       })
     }
     else {
       this.offline = true
-      this.ProjectService.openErrMsgBar("You are offline", "Please go online!")            
+      this.ProjectService.openErrMsgBar("You are offline", "Please go online!", 4000)
       console.error("You are Offline")
     }
     

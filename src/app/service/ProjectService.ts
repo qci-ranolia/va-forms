@@ -49,9 +49,9 @@ export class ProjectService {
 
   constructor( private APIService: APIService, private route: ActivatedRoute, private router: Router, private _errMsg: MatSnackBar ) {}
 
-  openErrMsgBar(message: string, action: string) {
+  openErrMsgBar(message: string, action: string, duration:number) {
     this._errMsg.open(message, action, {
-      duration : 4200,
+      duration : duration,
     })
   }
 
@@ -76,10 +76,10 @@ export class ProjectService {
         // Synced Area
         this.emitQuestions.emit(response.data)
       } else {
-        // this.openErrMsgBar("Please try again.", "Could not retrieved!")
+        // this.openErrMsgBar("Please try again.", "Could not retrieved!", 4000)
       }
     }, (err) => {
-        // this.openErrMsgBar("Please try again.", "Could not retrieved!")
+        // this.openErrMsgBar("Please try again.", "Could not retrieved!", 4000)
     })
   }
 
@@ -87,15 +87,15 @@ export class ProjectService {
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
       if(response){
-        this.openErrMsgBar("Data Saved", "Successfully")
+        this.openErrMsgBar("Data Saved", "Successfully", 2200)
         // Synced Area
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
       } else {
-        // this.openErrMsgBar("Please try again.", "Data not synced!")
+        // this.openErrMsgBar("Please try again.", "Data not synced!", 4000)
       }
     }, (err) => {
-        this.openErrMsgBar("Please try again.", "Data not synced!")
+        this.openErrMsgBar("Please try again.", "Data not synced!", 4000)
     })
   }
 
@@ -107,10 +107,10 @@ export class ProjectService {
         // localStorage.setItem(response.question_id, response.data_id)
         this.emitVendorDetails.emit(response)
       } else {
-        // this.openErrMsgBar("Forms will not be initialised", "Start Video Assessment")
+        // this.openErrMsgBar("Forms will not be initialised", "Start Video Assessment", 4000)
       }
     }, (err) => {
-      // this.openErrMsgBar("Forms will not be initialised", "Start Video Assessment")
+      // this.openErrMsgBar("Forms will not be initialised", "Start Video Assessment", 4000)
     })
   }
 
@@ -119,17 +119,17 @@ export class ProjectService {
       let response = this.HttpEventResponse(event)
       if(response){
         // console.log(response)
-        this.openErrMsgBar("Data Saved", "Successfully")
+        this.openErrMsgBar("Data Saved", "Successfully", 2200)
         // Synced Area
         // localStorage.setItem(response.question_id, response.data_id)
         // this.emitImageData_Id.emit(response)
         // localStorage.setItem(response.question_id, response.data_id)
         this.emitImageData_Id.emit(localStorage.getItem(response.question_id))
       } else {
-        // this.openErrMsgBar("Please try again.", "Data not synced!")        
+        // this.openErrMsgBar("Please try again.", "Data not synced!", 4000)        
       }
     }, (err) => {
-        this.openErrMsgBar("Please try again.", "Data not synced!")
+        this.openErrMsgBar("Please try again.", "Data not synced!", 4000)
     })
   }
 
@@ -137,29 +137,29 @@ export class ProjectService {
     this.APIService.postFormDetails(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
       if(response){
-        this.openErrMsgBar("Data Saved", "Successfully")
+        this.openErrMsgBar("Data Saved", "Successfully", 2200)
         // Synced Area
         localStorage.setItem(response.question_id, response.data_id)
         // this.emitData_id.emit(response)
       } else {
-        // this.openErrMsgBar("Please try again.", "Data not synced!")
+        // this.openErrMsgBar("Please try again.", "Data not synced!", 4000)
       }
     }, (err) => {
-        this.openErrMsgBar("Please try again.", "Data not synced!")
+        this.openErrMsgBar("Please try again.", "Data not synced!", 4000)
     })
   }
   deleteImage(temp){
     this.APIService.deleteImage(temp).subscribe((event: HttpEvent<any>) =>{
       let response = this.HttpEventResponse(event)
       if(response){
-        this.openErrMsgBar("Images Deleted.", "Successfully!")
+        this.openErrMsgBar("Images Deleted.", "Successfully!", 2200)
         localStorage.removeItem("form_id")
         // this.emitData_id.emit(response)
       } else {
-        // this.openErrMsgBar("Images not deleted.", "Please try again!")
+        // this.openErrMsgBar("Images not deleted.", "Please try again!", 4000)
       }
     }, (err) => {
-        this.openErrMsgBar("Images not deleted.", "Please try again!")
+        this.openErrMsgBar("Images not deleted.", "Please try again!", 4000)
     })
   }
 
@@ -173,7 +173,7 @@ export class ProjectService {
           localStorage.setItem("email", data.user_name+"")
           this.emitUserLogin.emit({login:'true'});
         } else {
-          this.openErrMsgBar("Invalid credentials!", response.message)
+          this.openErrMsgBar("Invalid credentials!", response.message, 4000)
         }
       }
     }, (err:HttpErrorResponse)=>{
@@ -197,19 +197,19 @@ export class ProjectService {
   getChatUsers() {
     this.APIService.GetChatUsers().subscribe((event: HttpEvent<any>) => {
 
-      let response = this.HttpEventResponse(event)
-      if(response) {
-        // console.log(response)
+      // let response = this.HttpEventResponse(event)
+      // if(response) {
+      //   // console.log(response)
 
-        if(!response.success){
-          this.router.navigate(['/login']);
-        }
+      //   if(!response.success){
+      //     this.router.navigate(['/login']);
+      //   }
 
-        this.emitChatUsers.emit({
-          chatUsers: response,
-          dialUser: this.dialUser
-        })
-      }
+      //   this.emitChatUsers.emit({
+      //     chatUsers: response,
+      //     dialUser: this.dialUser
+      //   })
+      // }
     })
   }
 
@@ -312,16 +312,16 @@ export class ProjectService {
   }
 
   getSessionScheduleData() {
-    this.APIService.GetSessionScheduleData().subscribe((event: HttpEvent<any>) => {
+    // this.APIService.GetSessionScheduleData().subscribe((event: HttpEvent<any>) => {
 
-      let response = this.HttpEventResponse(event)
-      if(response){
-        console.log(response)
-        this.emitgetSessionScheduleDataFun(response)
-      }
-    }, (err:HttpErrorResponse)=>{
-      console.log(err)
-    });
+    //   let response = this.HttpEventResponse(event)
+    //   if(response){
+    //     console.log(response)
+    //     this.emitgetSessionScheduleDataFun(response)
+    //   }
+    // }, (err:HttpErrorResponse)=>{
+    //   console.log(err)
+    // });
   }
 
   emitgetSessionScheduleDataFun(response){
