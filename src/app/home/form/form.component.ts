@@ -1,6 +1,7 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ProjectService } from '../../service/ProjectService';
 import { Router, ActivatedRoute } from '@angular/router';
+import { navigationCancelingError } from 'v3/opentiktokapp/node_modules/@angular/router/src/shared';
 
 @Component({
   selector: 'app-form',
@@ -59,12 +60,22 @@ export class FormComponent implements OnInit {
   Select_parameter = "Select parameter"
   urlParaName:any
 
+
+  request : any
+  vendorRequest : any
+  db : any
+  vendorStore : any
+  cursor : any
+  offlineFormData : any = new Array()
+  transaction : any
+
   routeData:any=[]
-  
+
   constructor( private ProjectService: ProjectService, private router: Router ){
+    // Experimental feature below will be removed and may be released in future release depending on business/developer's need
     // var x = this.router.url.split('/')[2]
     // this.Select_parameter = x
-    
+
     this.ProjectService.emitVendorDetails.subscribe(el=>{
       this.form_response = el
       this.form_response_array = Object.keys(el)
@@ -73,12 +84,13 @@ export class FormComponent implements OnInit {
     })
 
     // Experimental feature to set tab name
+    // Experimental feature below will be removed and may be released in future release depending on business/developer's need
     //   this.router.events.subscribe(value => {
     //     console.log('current route: ', this.router.url.toString());
     //     let route_name : string = this.router.url.toString()
     //     console.log("This is the route name", this.route_names[route_name])
     //     this.parameter = this.route_names[route_name]
-    // });
+    // })
   }
 
   ngOnInit(){
@@ -105,11 +117,11 @@ export class FormComponent implements OnInit {
     // console.log("This is the form id", this.form_id)
     // let physical_location_question_id = localStorage.getItem('question_id')
     
-    if (this.form_id){
+    if ( this.form_id ){
       this.local_form_id = true
-      this.ProjectService.vendorDetails({form_id:this.form_id})//"this.form_id"
+      this.ProjectService.vendorDetails({form_id:this.form_id})
     } else {
-      console.error("%c Form id couldnt be found","color: #f44'")
+      this.ProjectService.openErrMsgBar("Please start video chat first.", "Forms will not work properly", 4800)
       this.local_form_id = false
     }
   }
@@ -121,34 +133,67 @@ export class FormComponent implements OnInit {
   }
 
   storeVendorDetail(data){
-    console.log("vendor data is ", data)
     // console.log("Data is ", data["Physical Location "][0].question_id)
     let subSectionKeys : any = Object.keys(data)
     let subSectionData : any
     let all_question_ids = [] // It will hold question_ids of all questions
-    for ( let i = 0; i < subSectionKeys.length; i++ ){
-      let name = subSectionKeys[i]
-      // console.log("vendor keyData[name] is ", data[name])
-      let x = []
-      for ( let datas in data[name]){
-        let pLData:any =  data[name][datas]
-        
-        // Add key "text_data" corresponding to the question id's stored locally 
-        for (let k in pLData.data){
-          pLData.data[k]["text_data"] = pLData.text_data
+    if(navigator.onLine){
+      if(window.indexedDB){
+        this.request = window.indexedDB.open( "offlineForms", 1 )
+        this.request.onerror = ( event : any ) => {
+          console.error("some error")
+          // this.ProjectService.openErrMsgBar("We could not save your data.", "OFFLINE!", 8000)
+        }    
+        this.request.onsuccess = (event:any)=>{
+          this.db = this.request.result
+          for ( let i = 0; i < subSectionKeys.length; i++ ){
+            let name = subSectionKeys[i]
+            // console.log("vendor keyData[name] is ", data[name])
+            let x = []
+            for ( let datas in data[name]){
+              let pLData:any =  data[name][datas]
+              // Add key "text_data" corresponding to the question id's stored locally 
+              for (let k in pLData.data){
+                pLData.data[k]["text_data"] = pLData.text_data
+              }
+              // key "text_data" ends
+              x.push(pLData.question_id)
+              // console.log("someData is ", pLData.question_id, pLData.data)
+              // storing data for each question id in localstorage
+              
+              this.vendorRequest = this.db.transaction(["vendorStore"], "readwrite")
+              .objectStore("vendorStore")
+              .put(pLData)
+              this.vendorRequest.onerror = (event:any)=>{
+                console.error("not saved")
+                // this.ProjectService.openErrMsgBar("We could not save your data.", "Database not updated", 7000)
+              }
+              this.vendorRequest.onsuccess = (event:any)=>{
+                console.warn("saved successfully")                
+                // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
+              }
+              localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
+              all_question_ids.push(pLData.question_id)
+              
+            }
+            // localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
+            localStorage.setItem(name, JSON.stringify(x))
+            // console.log(name, x)
+          }
         }
-        // key "text_data" ends
-
-        x.push(pLData.question_id)
-        // console.log("someData is ", pLData.question_id, pLData.data)
-        // storing data for each question id in localstorage
-        localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
-        all_question_ids.push(pLData.question_id)
-      }
-      // localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
-      localStorage.setItem(name, JSON.stringify(x))
-      // console.log(name, x)
-    }
+        this.request.onupgradeneeded = (event:any)=>{
+          this.db = event.target.result
+          this.vendorStore = this.db.createObjectStore("vendorStore", { keyPath : "question_id" })
+          const objectData:any = [] 
+          // console.log(this.vendorStore)
+          // for ( var i in objectData ) {
+          //   console.log(objectData[i])
+          //   this.vendorStore.put(objectData[i], pLData.question_id)
+          // }
+          console.log(this.vendorStore)
+        }
+      }// else, if no DB found
+    }// else,if not online
     // console.log("All question ids", all_question_ids)
     
     // this.storePhysicalLocation(data["physical_location"])
@@ -156,7 +201,6 @@ export class FormComponent implements OnInit {
     this.storeQuestionIds(all_question_ids)
   }
 
-  // Function use commented, See NO usage
   storeQuestionIds(question_ids){
     // The purpose is to store all question ids in the localstorage, 
     // So when the user is about to submit the all details, 
@@ -172,6 +216,7 @@ export class FormComponent implements OnInit {
     }
   }
 
+  // Function use commented, See NO usage
   storeBasicInfo(basicInfoData){
     for ( let data in basicInfoData){
       let bIData =  basicInfoData[data]
@@ -184,15 +229,16 @@ export class FormComponent implements OnInit {
       if ( i == this.para_array[j] ) {
         let routeName = i.replace(/_/g, "")
         this.router.navigate(['/form/'+routeName])
+        // Experimental feature to set tab name
+        // Experimental feature below will be removed and may be released in future release depending on business/developer's need
         let newRoutes:any = {
-          route:i,
-          synced:null
+          route: i,
+          synced: null
         }
         this.routeData.push(newRoutes)
         localStorage.setItem("routeSyncedInfo", JSON.stringify(this.routeData))
         return
       } else {
-        
         // this.ProjectService.openErrMsgBar("Please select a ","PARAMETER")
       }
     }

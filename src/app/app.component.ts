@@ -14,13 +14,13 @@ export class AppComponent {
     
     title = 'opentiktokapp';
     
-    request : any
-    db : any
-    textStore : any
-    imageStore : any
-    cursor : any
-    offlineFormData : any = new Array()
-    transaction : any
+    // request : any
+    // db : any
+    // textStore : any
+    // imageStore : any
+    // cursor : any
+    // offlineFormData : any = new Array()
+    // transaction : any
 
     constructor( private swUpdate: SwUpdate, private router:Router ) {
         const navEndEvents = this.router.events.pipe(
@@ -34,45 +34,12 @@ export class AppComponent {
     }
 
     ngOnInit(){
-        //      window.indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.OIndexedDB || window.msIndexedDB,
-        //      IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction || window.msIDBTransaction,
-        //      dbVersion = 1;
-        
-        if( window.indexedDB ){
-            this.request = window.indexedDB.open( "offlineForms", 1.2 )
-            console.log("this.request from app component is ", this.request)
-            
-            // this.emp = [
-            //     { id : "01", name : "deepak", age : "24" },
-            //     { id : "02", name : "deepica", age : "25" }
-            // ]
-            this.request.onerror = ( event : any ) => {
-                console.error("error")
-            }
-            this.request.onsuccess = ( event : any ) => {
-                this.db = this.request.result
-            }
-            this.request.onupgradeneeded = ( event : any ) => {
-                this.db = event.target.result
-                this.imageStore = this.db.createObjectStore("imageStore", { keyPath : "question_id" })
-                for ( var i in this.offlineFormData ) {
-                    this.imageStore.add(this.offlineFormData[i])
-                    console.log(this.offlineFormData)
-                }
-                // this.textStore = this.db.createObjectStore("textStore", { keyPath : "question_id" })
-                // for ( var i in this.offlineFormData ) {
-                //     this.imageStore.add(this.offlineFormData[i])
-                // }
-            }
-        } else {
-            alert("Local DB not found. Please upgrade to latest browser!")
-        }
         if (this.swUpdate.isEnabled) {
             this.swUpdate.available.subscribe(() => {
                 if(confirm("New version available. Load New Version?")) { 
                     window.location.reload();
                 }
-            });
+            })
         }
     }
 
