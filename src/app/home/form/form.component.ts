@@ -1,7 +1,6 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ProjectService } from '../../service/ProjectService';
 import { Router, ActivatedRoute } from '@angular/router';
-import { navigationCancelingError } from 'v3/opentiktokapp/node_modules/@angular/router/src/shared';
 
 @Component({
   selector: 'app-form',
@@ -40,9 +39,9 @@ export class FormComponent implements OnInit {
 
   index: number = 0;
 
-  form_response:any
-  form_response_array:any
-  response_subquestions:any
+  form_response : any
+  form_response_array : any
+  response_subquestions : any
   route_names : any =       {
                       '/form/additionaldocuments': "additional_documents",
                       '/form/additionalimages': 'additional_images',
@@ -60,17 +59,23 @@ export class FormComponent implements OnInit {
   Select_parameter = "Select parameter"
   urlParaName:any
 
-
   request : any
   vendorRequest : any
   db : any
+
   vendorStore : any
+  parameterStore : any
+  
   cursor : any
   offlineFormData : any = new Array()
   transaction : any
 
   routeData:any=[]
 
+  // is the function is affected with debounce condition ?
+  // bounce : number = 0;
+  // debounceDelay : number = 10;
+  
   constructor( private ProjectService: ProjectService, private router: Router ){
     // Experimental feature below will be removed and may be released in future release depending on business/developer's need
     // var x = this.router.url.split('/')[2]
@@ -133,13 +138,18 @@ export class FormComponent implements OnInit {
   }
 
   storeVendorDetail(data){
+    // is the function is affected with debounce condition ?
+    // if (this.bounce >= (Date.now() - this.debounceDelay))
+    //   return;
+    // this.bounce = Date.now();
+    
     // console.log("Data is ", data["Physical Location "][0].question_id)
     let subSectionKeys : any = Object.keys(data)
     let subSectionData : any
     let all_question_ids = [] // It will hold question_ids of all questions
     if(navigator.onLine){
       if(window.indexedDB){
-        this.request = window.indexedDB.open( "offlineForms", 1 )
+        this.request = window.indexedDB.open("offlineForms", 2)
         this.request.onerror = ( event : any ) => {
           console.error("some error")
           // this.ProjectService.openErrMsgBar("We could not save your data.", "OFFLINE!", 8000)
@@ -155,12 +165,28 @@ export class FormComponent implements OnInit {
               // Add key "text_data" corresponding to the question id's stored locally 
               for (let k in pLData.data){
                 pLData.data[k]["text_data"] = pLData.text_data
+                console.log("%c src from vendor is ","color:#800", pLData.data[k].src)
+                // var temp = pLData.data[k].src
+                // var spaceRegEx = temp.replace(/ /g, "%20")
+                var request = new XMLHttpRequest()
+                request.open('GET', pLData.data[k].src, true)
+                request.send(null)
+                request.onreadystatechange = function () {
+                  if (request.readyState === 4 && request.status === 200) {
+                    // console.log("request.responseText", request.responseText)
+                    var type = request.getResponseHeader('Content-Type')
+                    if (type.indexOf("text") !== 1) {
+                      console.log("%c src after reading from vendor is ","color:#080", request.responseText)
+                      // return request.responseText
+                    }
+                  }
+                }
               }
               // key "text_data" ends
               x.push(pLData.question_id)
               // console.log("someData is ", pLData.question_id, pLData.data)
               // storing data for each question id in localstorage
-              
+              // pLData.src = "sasasas"
               this.vendorRequest = this.db.transaction(["vendorStore"], "readwrite")
               .objectStore("vendorStore")
               .put(pLData)
@@ -172,6 +198,17 @@ export class FormComponent implements OnInit {
                 console.warn("saved successfully")                
                 // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
               }
+              // this.parameterStore = this.db.transaction(["parameterStore"], "readwrite")
+              // .objectStore("parameterStore")
+              // .put(Object.values(this.response[i]))
+              // this.parameterStore.onerror = (event:any)=>{
+              //   console.error("not saved")
+              //   // this.ProjectService.openErrMsgBar("We could not save your data.", "Database not updated", 7000)
+              // }
+              // this.parameterStore.onsuccess = (event:any)=>{
+              //   console.warn("saved successfully")                
+              //   // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
+              // }
               localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
               all_question_ids.push(pLData.question_id)
               
@@ -184,13 +221,15 @@ export class FormComponent implements OnInit {
         this.request.onupgradeneeded = (event:any)=>{
           this.db = event.target.result
           this.vendorStore = this.db.createObjectStore("vendorStore", { keyPath : "question_id" })
+          // this.parameterStore = this.db.createObjectStore("parameterStore", { keyPath : "question_id" })
+          // console.log(this.parameterStore)
           const objectData:any = [] 
           // console.log(this.vendorStore)
           // for ( var i in objectData ) {
           //   console.log(objectData[i])
           //   this.vendorStore.put(objectData[i], pLData.question_id)
           // }
-          console.log(this.vendorStore)
+          console.log("this.vendorStore is ", this.vendorStore)
         }
       }// else, if no DB found
     }// else,if not online

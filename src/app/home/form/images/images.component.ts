@@ -82,6 +82,7 @@ export class ImagesComponent implements OnInit {
     ImageCompressService.filesToCompressedImageSource(this.files).then(observableImages => {
       observableImages.subscribe((image) => {
         this.src = image.compressedImage.imageDataUrl;
+        console.log("%c this.src is ","color:#050", this.src)
       }, (error) => {
         alert('Please try again later.')
         // console.log("%c Error while converting","color: blue")
