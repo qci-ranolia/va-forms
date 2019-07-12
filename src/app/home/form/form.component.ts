@@ -61,6 +61,7 @@ export class FormComponent implements OnInit {
 
   request : any
   vendorRequest : any
+  parameterRequest : any
   db : any
 
   vendorStore : any
@@ -100,7 +101,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(){
     this.ProjectService.emitQuestions.subscribe(res => {
-      this.response = res
+      this.response = Object.values(res)
       this.para_array = Object.keys(res)
       // Warning remove this, when backend will give you actual question ids
       // this.para_array.push("MoreImg")
@@ -111,9 +112,9 @@ export class FormComponent implements OnInit {
       this.para_array.push("Submit")
       
       // console.log("getforms is  ", this.response) // this.form_id
-      if (this.response["physical_location"]){
-        this.physical_location_question_id = this.response["physical_location"][0].id 
-      }
+      // if (this.response["physical_location"]){
+      //   this.physical_location_question_id = this.response["physical_location"][0].id 
+      // }
       // console.log("physical id is ", this.physical_location_question_id)
     })
 
@@ -145,7 +146,7 @@ export class FormComponent implements OnInit {
     
     // console.log("Data is ", data["Physical Location "][0].question_id)
     let subSectionKeys : any = Object.keys(data)
-    let subSectionData : any
+    let subSectionValues : any = Object.values(data)
     let all_question_ids = [] // It will hold question_ids of all questions
     if(navigator.onLine){
       if(window.indexedDB){
@@ -153,7 +154,7 @@ export class FormComponent implements OnInit {
         this.request.onerror = ( event : any ) => {
           console.error("some error")
           // this.ProjectService.openErrMsgBar("We could not save your data.", "OFFLINE!", 8000)
-        }    
+        }
         this.request.onsuccess = (event:any)=>{
           this.db = this.request.result
           for ( let i = 0; i < subSectionKeys.length; i++ ){
@@ -165,18 +166,17 @@ export class FormComponent implements OnInit {
               // Add key "text_data" corresponding to the question id's stored locally 
               for (let k in pLData.data){
                 pLData.data[k]["text_data"] = pLData.text_data
-                console.log("%c src from vendor is ","color:#800", pLData.data[k].src)
+                // console.log("%c src from vendor is ","color:#800", pLData.data[k].src)
                 // var temp = pLData.data[k].src
                 // var spaceRegEx = temp.replace(/ /g, "%20")
-                var request = new XMLHttpRequest()
-                request.open('GET', pLData.data[k].src, true)
-                request.send(null)
-                request.onreadystatechange = function () {
-                  if (request.readyState === 4 && request.status === 200) {
-                    // console.log("request.responseText", request.responseText)
-                    var type = request.getResponseHeader('Content-Type')
+                let XHR = new XMLHttpRequest()
+                XHR.open('GET', pLData.data[k].src, true)
+                XHR.send(null)
+                XHR.onreadystatechange = function () {
+                  if (XHR.readyState === 4 && XHR.status === 200) {
+                    var type = XHR.getResponseHeader('Content-Type')
                     if (type.indexOf("text") !== 1) {
-                      console.log("%c src after reading from vendor is ","color:#080", request.responseText)
+                      // console.log("%c src after reading from vendor is ","color:#080", XHR.responseText)
                       // return request.responseText
                     }
                   }
@@ -192,23 +192,26 @@ export class FormComponent implements OnInit {
               .put(pLData)
               this.vendorRequest.onerror = (event:any)=>{
                 console.error("not saved")
-                // this.ProjectService.openErrMsgBar("We could not save your data.", "Database not updated", 7000)
+                this.ProjectService.openErrMsgBar("Pre-filled forms will not work in offline mode", "Internet is working.", 5000)
               }
               this.vendorRequest.onsuccess = (event:any)=>{
                 console.warn("saved successfully")                
                 // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
               }
-              // this.parameterStore = this.db.transaction(["parameterStore"], "readwrite")
-              // .objectStore("parameterStore")
-              // .put(Object.values(this.response[i]))
-              // this.parameterStore.onerror = (event:any)=>{
-              //   console.error("not saved")
-              //   // this.ProjectService.openErrMsgBar("We could not save your data.", "Database not updated", 7000)
-              // }
-              // this.parameterStore.onsuccess = (event:any)=>{
-              //   console.warn("saved successfully")                
-              //   // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
-              // }
+              let parameterNames : any =  {
+                "parameter_name":subSectionKeys[i],
+                "data":Object.values(this.response[i])
+              }
+              this.parameterRequest = this.db.transaction(["parameterStore"], "readwrite")
+              .objectStore("parameterStore")
+              .put(parameterNames)
+              this.parameterRequest.onerror = (event:any)=>{
+                this.ProjectService.openErrMsgBar("Forms will not work in offline mode.", "Internet is working.", 5000)
+              }
+              this.parameterRequest.onsuccess = (event:any)=>{
+                console.warn("saved successfully")                
+                // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
+              }
               localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
               all_question_ids.push(pLData.question_id)
               
@@ -221,7 +224,7 @@ export class FormComponent implements OnInit {
         this.request.onupgradeneeded = (event:any)=>{
           this.db = event.target.result
           this.vendorStore = this.db.createObjectStore("vendorStore", { keyPath : "question_id" })
-          // this.parameterStore = this.db.createObjectStore("parameterStore", { keyPath : "question_id" })
+          this.parameterStore = this.db.createObjectStore("parameterStore", { keyPath : "parameter_name" })
           // console.log(this.parameterStore)
           const objectData:any = [] 
           // console.log(this.vendorStore)
