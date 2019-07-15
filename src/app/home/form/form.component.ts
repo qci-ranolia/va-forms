@@ -113,8 +113,7 @@ export class FormComponent implements OnInit, OnDestroy {
             let cursor = event.target.result
             if(cursor){
               console.log("%c cursor.value vendor is ", "color:#800", cursor.value)
-              console.log(cursor.value)
-              this.cursor.continue()
+              cursor.continue()
             }
           }
         }
