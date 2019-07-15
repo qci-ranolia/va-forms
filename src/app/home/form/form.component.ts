@@ -1,6 +1,6 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProjectService } from '../../service/ProjectService';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./form.component.scss']
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   images : any
   imagesArray = new Array()
   imagesCounter : any
@@ -73,6 +73,8 @@ export class FormComponent implements OnInit {
 
   routeData:any=[]
 
+  unsubscribeForms:any
+  unsubscribeVendors:any
   // is the function is affected with debounce condition ?
   // bounce : number = 0;
   // debounceDelay : number = 10;
@@ -81,26 +83,53 @@ export class FormComponent implements OnInit {
     // Experimental feature below will be removed and may be released in future release depending on business/developer's need
     // var x = this.router.url.split('/')[2]
     // this.Select_parameter = x
-
-    this.ProjectService.emitVendorDetails.subscribe(el=>{
+    
+    this.unsubscribeVendors = this.ProjectService.emitVendorDetails.subscribe(el=>{
       this.form_response = el
       this.form_response_array = Object.keys(el)
       this.storeFormStatus(el.form_status)
       this.storeVendorDetail(el.data)
     })
-
+    if (!navigator.onLine){
+      if(window.indexedDB){
+        this.request = window.indexedDB.open("offlineForms", 1)
+        // console.log(this.request)
+        this.request.onerror = ( event : any ) => {
+          console.error(event)
+          this.ProjectService.openErrMsgBar("We could not fetched your data.", "Reload", 7000)
+        }
+        this.request.onsuccess = (event:any) => {
+          this.db = this.request.result
+          this.parameterStore = this.db.transaction("parameterStore").objectStore("parameterStore")
+          this.parameterStore.openCursor().onsuccess = (event : any) => {
+            this.cursor = event.target.result
+            if(this.cursor){
+              console.log(this.cursor.value)
+              this.cursor.continue()
+            }
+          }
+        }
+        this.request.onupgradeneeded = (event:any) => {
+          this.db = event.target.result
+          this.parameterStore = this.db.createObjectStore( "parameterStore", { keyPath: "questions" })
+          // for ( var i in this.emp ) {
+          //  this.objectStore.add(this.emp[i])
+          // }
+        }
+      }
+    }
     // Experimental feature to set tab name
     // Experimental feature below will be removed and may be released in future release depending on business/developer's need
-    //   this.router.events.subscribe(value => {
-    //     console.log('current route: ', this.router.url.toString());
-    //     let route_name : string = this.router.url.toString()
-    //     console.log("This is the route name", this.route_names[route_name])
-    //     this.parameter = this.route_names[route_name]
+    // this.router.events.subscribe(value => {
+    //   console.error("sasa")
+    //   // let route_name : string = this.router.url.toString()
+    //   // this.parameter = this.route_names[route_name]
     // })
+  
   }
 
   ngOnInit(){
-    this.ProjectService.emitQuestions.subscribe(res => {
+    this.unsubscribeForms = this.ProjectService.emitQuestions.subscribe(res => {
       this.response = Object.values(res)
       this.para_array = Object.keys(res)
       // Warning remove this, when backend will give you actual question ids
@@ -145,12 +174,12 @@ export class FormComponent implements OnInit {
     // this.bounce = Date.now();
     
     // console.log("Data is ", data["Physical Location "][0].question_id)
-    let subSectionKeys : any = Object.keys(data)
-    let subSectionValues : any = Object.values(data)
+    let subSectionKeys : any = Object.keys(data) // vendor keys
+    let subSectionValues : any = Object.values(data) // vendor values
     let all_question_ids = [] // It will hold question_ids of all questions
     if(navigator.onLine){
       if(window.indexedDB){
-        this.request = window.indexedDB.open("offlineForms", 2)
+        this.request = window.indexedDB.open("offlineForms", 1)
         this.request.onerror = ( event : any ) => {
           console.error("some error")
           // this.ProjectService.openErrMsgBar("We could not save your data.", "OFFLINE!", 8000)
@@ -169,18 +198,42 @@ export class FormComponent implements OnInit {
                 // console.log("%c src from vendor is ","color:#800", pLData.data[k].src)
                 // var temp = pLData.data[k].src
                 // var spaceRegEx = temp.replace(/ /g, "%20")
-                let XHR = new XMLHttpRequest()
-                XHR.open('GET', pLData.data[k].src, true)
-                XHR.send(null)
-                XHR.onreadystatechange = function () {
-                  if (XHR.readyState === 4 && XHR.status === 200) {
-                    var type = XHR.getResponseHeader('Content-Type')
-                    if (type.indexOf("text") !== 1) {
-                      // console.log("%c src after reading from vendor is ","color:#080", XHR.responseText)
-                      // return request.responseText
+                // let XHR = new XMLHttpRequest()
+                // XHR.open('GET', pLData.data[k].src, true)
+                // XHR.send(null)
+                // XHR.onreadystatechange = function (){
+                //   if(XHR.readyState === 4 && XHR.status === 200){
+                //     var type = XHR.getResponseHeader('Content-Type')
+                //     console.log("%c type after reading from vendor is ", "color:#008", type)
+                //     if( type.indexOf("text") !== 1 ){
+                //       console.log("%c src after reading from vendor is ", "color:#080", XHR.responseText)
+                //       // return request.responseText
+                //     }
+                //   }
+                // }
+
+
+                var xhr = new XMLHttpRequest()
+                xhr.open('GET', pLData.data[k].src, true)
+                xhr.responseType = 'arraybuffer'
+                // Process the response when the request is ready.
+                xhr.onload = function(e) {
+                  if (this.status == 200) {
+                    // Create a binary string from the returned data, then encode it as a data URL.
+                    var uInt8Array = new Uint8Array(this.response)
+                    var i = uInt8Array.length
+                    var binaryString = new Array(i)
+                    while (i--) {
+                      binaryString[i] = String.fromCharCode(uInt8Array[i])
                     }
+                    var data = binaryString.join('')
+                    var base64 = window.btoa(data)
+                    console.log("%c base64 is ", "color:#080", base64)
+                    // document.getElementById("myImage").src="data:image/png;base64," + base64;
                   }
-                }
+                };
+
+                xhr.send();
               }
               // key "text_data" ends
               x.push(pLData.question_id)
@@ -214,7 +267,6 @@ export class FormComponent implements OnInit {
               }
               localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
               all_question_ids.push(pLData.question_id)
-              
             }
             // localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
             localStorage.setItem(name, JSON.stringify(x))
@@ -234,8 +286,8 @@ export class FormComponent implements OnInit {
           // }
           console.log("this.vendorStore is ", this.vendorStore)
         }
-      }// else, if no DB found
-    }// else,if not online
+      } // else, if no DB found
+    } // else,if not online
     // console.log("All question ids", all_question_ids)
     
     // this.storePhysicalLocation(data["physical_location"])
@@ -244,16 +296,16 @@ export class FormComponent implements OnInit {
   }
 
   storeQuestionIds(question_ids){
-    // The purpose is to store all question ids in the localstorage, 
-    // So when the user is about to submit the all details, 
-    // We will check if data for every question id is not null 
+    // The purpose is to store all question ids in the localstorage,
+    // So when the user is about to submit the all details,
+    // We will check if data for every question id is not null
     localStorage.setItem("questionIds", JSON.stringify(question_ids))
   }
 
   // Function use commented, See NO usage
   storePhysicalLocation(physicalLocationData){
-    for ( let data in physicalLocationData){
-      let pLData =  physicalLocationData[data]
+    for ( let data in physicalLocationData ){
+      let pLData = physicalLocationData[data]
       localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
     }
   }
@@ -284,6 +336,11 @@ export class FormComponent implements OnInit {
         // this.ProjectService.openErrMsgBar("Please select a ","PARAMETER")
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribeForms.unsubscribe()
+    this.unsubscribeVendors.unsubscribe()
   }
 
 }

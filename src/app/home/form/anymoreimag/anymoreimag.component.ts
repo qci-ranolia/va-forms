@@ -16,8 +16,7 @@ export class AnymoreimagComponent implements OnInit {
   request : any
   requestData : any
   db : any
-  imageStore : any
-  textStore : any
+  vendorStore : any  
   cursor : any
   offlineFormData : any = new Array()
   transaction : any
@@ -31,37 +30,31 @@ export class AnymoreimagComponent implements OnInit {
       this.preFilledData()
     } else {
       if(window.indexedDB){
-        this.request = window.indexedDB.open( "offlineForms", 1 )
+        this.request = window.indexedDB.open("offlineForms", 1)
+        // console.log(this.request)
         this.request.onerror = ( event : any ) => {
+          console.error(event)
           // this.ProjectService.openErrMsgBar("We could not save your data.", "OFFLINE!", 8000)
         }
-        this.request.onsuccess = ( event : any ) => {
+        this.request.onsuccess = (event:any)=>{
           this.db = this.request.result
-          console.log(this.db)
-          this.transaction = this.db.transaction(["imageStore"])
-          console.log("this.transaction ", this.transaction)
-          this.imageStore = this.transaction.objectStore("imageStore")
-          console.log("this.objectStore ", this.imageStore)
-          this.requestData = this.imageStore.get(this.questionId)
-          this.requestData.onerror = (event : any) => {
-            console.error(event)
-          }
-          this.requestData.onsuccess = (event : any) => {
-            console.log("event is ", event.target.result)
-            let src = event.target.result.file_data
-            let data_id = event.target.result.data_id
-            this.addComponent(this.questionId, data_id, src)
+          this.vendorStore = this.db.transaction("vendorStore").objectStore("vendorStore")
+          this.vendorStore.openCursor().onsuccess = (event : any) => {
+            this.cursor = event.target.result
+            if(this.cursor){
+              console.log(this.cursor)
+              // alert("Name for id "/*+ this.cursor.value.id */+ " is " + this.cursor.value.name + ", Age: " + this.cursor.value.age)
+              this.cursor.continue()
+            }
           }
         }
-        this.request.onupgradeneeded = ( event : any ) => {
+        this.request.onupgradeneeded = (event:any) => {
           this.db = event.target.result
-          this.imageStore = this.db.createObjectStore("imageStore", { keyPath : "question_id" })
-          // for ( var i in this.offlineFormData ) {
-          //   this.imageStore.add(this.offlineFormData[i])
+          this.vendorStore =  this.db.createObjectStore("vendorStore", { keyPath:"question_id" })
+          // for ( var i in this.emp ) {
+          //     this.objectStore.add(this.emp[i])
           // }
         }
-      } else {
-        // this.ProjectService.openErrMsgBar("This application does not work offline properly", "Offline Incompatible", 4000)
       }
     }
   }
