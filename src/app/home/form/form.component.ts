@@ -99,12 +99,16 @@ export class FormComponent implements OnInit, OnDestroy {
           this.ProjectService.openErrMsgBar("We could not fetched your data.", "Reload", 7000)
         }
         this.request.onsuccess = (event:any) => {
+          this.para_array = []
           this.db = this.request.result
           this.parameterStore = this.db.transaction("parameterStore").objectStore("parameterStore")
           this.parameterStore.openCursor().onsuccess = (event : any) => {
             let cursor = event.target.result
             if(cursor){
-              console.log("%c cursor.value parameter is ", "color:#080", cursor.value)
+              let string = cursor.value.parameter_name
+              // this.delay(50)
+              this.para_array.push(string.toString())
+              // console.log("%c this.para_array is ", "color:#080", this.para_array)
               cursor.continue()
             }
           }
@@ -112,6 +116,7 @@ export class FormComponent implements OnInit, OnDestroy {
           this.vendorStore.openCursor().onsuccess = (event : any) => {
             let cursor = event.target.result
             if(cursor){
+
               console.log("%c cursor.value vendor is ", "color:#800", cursor.value)
               cursor.continue()
             }
@@ -119,8 +124,8 @@ export class FormComponent implements OnInit, OnDestroy {
         }
         this.request.onupgradeneeded = (event:any) => {
           this.db = event.target.result
-          this.vendorStore = this.db.createObjectStore("vendorStore", { keyPath : "question_id" })
-          this.parameterStore = this.db.createObjectStore( "parameterStore", { keyPath: "questions" })
+          this.vendorStore = this.db.createObjectStore("vendorStore", { keyPath : "question_id"})
+          this.parameterStore = this.db.createObjectStore("parameterStore", { keyPath: "questions"})
           // for ( var i in this.emp ) {
           //  this.objectStore.add(this.emp[i])
           // }
@@ -134,13 +139,13 @@ export class FormComponent implements OnInit, OnDestroy {
     //   // let route_name : string = this.router.url.toString()
     //   // this.parameter = this.route_names[route_name]
     // })
-  
   }
 
   ngOnInit(){
     this.unsubscribeForms = this.ProjectService.emitQuestions.subscribe(res => {
       this.response = Object.values(res)
       this.para_array = Object.keys(res)
+      console.log(this.para_array)
       // Warning remove this, when backend will give you actual question ids
       // this.para_array.push("MoreImg")
       // this.para_array.push("MoreDoc")
@@ -338,6 +343,9 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
   ngOnDestroy() {
     this.unsubscribeForms.unsubscribe()
     this.unsubscribeVendors.unsubscribe()
