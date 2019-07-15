@@ -102,15 +102,25 @@ export class FormComponent implements OnInit, OnDestroy {
           this.db = this.request.result
           this.parameterStore = this.db.transaction("parameterStore").objectStore("parameterStore")
           this.parameterStore.openCursor().onsuccess = (event : any) => {
-            this.cursor = event.target.result
-            if(this.cursor){
-              console.log(this.cursor.value)
+            let cursor = event.target.result
+            if(cursor){
+              console.log("%c cursor.value parameter is ", "color:#080", cursor.value)
+              cursor.continue()
+            }
+          }
+          this.vendorStore = this.db.transaction("vendorStore").objectStore("vendorStore")
+          this.vendorStore.openCursor().onsuccess = (event : any) => {
+            let cursor = event.target.result
+            if(cursor){
+              console.log("%c cursor.value vendor is ", "color:#800", cursor.value)
+              console.log(cursor.value)
               this.cursor.continue()
             }
           }
         }
         this.request.onupgradeneeded = (event:any) => {
           this.db = event.target.result
+          this.vendorStore = this.db.createObjectStore("vendorStore", { keyPath : "question_id" })
           this.parameterStore = this.db.createObjectStore( "parameterStore", { keyPath: "questions" })
           // for ( var i in this.emp ) {
           //  this.objectStore.add(this.emp[i])
@@ -181,7 +191,7 @@ export class FormComponent implements OnInit, OnDestroy {
       if(window.indexedDB){
         this.request = window.indexedDB.open("offlineForms", 1)
         this.request.onerror = ( event : any ) => {
-          console.error("some error")
+          console.error("some error while registering/fetching offline forms in storeVendorDetail(data)")
           // this.ProjectService.openErrMsgBar("We could not save your data.", "OFFLINE!", 8000)
         }
         this.request.onsuccess = (event:any)=>{
@@ -195,76 +205,42 @@ export class FormComponent implements OnInit, OnDestroy {
               // Add key "text_data" corresponding to the question id's stored locally 
               for (let k in pLData.data){
                 pLData.data[k]["text_data"] = pLData.text_data
-                // console.log("%c src from vendor is ","color:#800", pLData.data[k].src)
-                // var temp = pLData.data[k].src
-                // var spaceRegEx = temp.replace(/ /g, "%20")
-                // let XHR = new XMLHttpRequest()
-                // XHR.open('GET', pLData.data[k].src, true)
-                // XHR.send(null)
-                // XHR.onreadystatechange = function (){
-                //   if(XHR.readyState === 4 && XHR.status === 200){
-                //     var type = XHR.getResponseHeader('Content-Type')
-                //     console.log("%c type after reading from vendor is ", "color:#008", type)
-                //     if( type.indexOf("text") !== 1 ){
-                //       console.log("%c src after reading from vendor is ", "color:#080", XHR.responseText)
-                //       // return request.responseText
-                //     }
-                //   }
-                // }
-
-
-                var xhr = new XMLHttpRequest()
+                let base64, xhr, uInt8Array, i, binaryString:any
+                xhr = new XMLHttpRequest()
                 xhr.open('GET', pLData.data[k].src, true)
                 xhr.responseType = 'arraybuffer'
                 // Process the response when the request is ready.
                 xhr.onload = function(e) {
-                  if (this.status == 200) {
+                  if (xhr.status == 200) {
                     // Create a binary string from the returned data, then encode it as a data URL.
-                    var uInt8Array = new Uint8Array(this.response)
-                    var i = uInt8Array.length
-                    var binaryString = new Array(i)
+                    uInt8Array = new Uint8Array(this.response)
+                    i = uInt8Array.length
+                    binaryString = new Array(i)
                     while (i--) {
                       binaryString[i] = String.fromCharCode(uInt8Array[i])
                     }
                     var data = binaryString.join('')
-                    var base64 = window.btoa(data)
-                    console.log("%c base64 is ", "color:#080", base64)
+                    base64 = window.btoa(data)
+                    pLData.data[k].src = "data:image/png;base64," + base64
+                    // console.log("%c pLData.data[k].src is ", "color:#080", pLData.data[k].src)
                     // document.getElementById("myImage").src="data:image/png;base64," + base64;
                   }
-                };
-
-                xhr.send();
+                }
+                xhr.send()
               }
               // key "text_data" ends
               x.push(pLData.question_id)
               // console.log("someData is ", pLData.question_id, pLData.data)
               // storing data for each question id in localstorage
               // pLData.src = "sasasas"
-              this.vendorRequest = this.db.transaction(["vendorStore"], "readwrite")
-              .objectStore("vendorStore")
-              .put(pLData)
-              this.vendorRequest.onerror = (event:any)=>{
-                console.error("not saved")
-                this.ProjectService.openErrMsgBar("Pre-filled forms will not work in offline mode", "Internet is working.", 5000)
-              }
-              this.vendorRequest.onsuccess = (event:any)=>{
-                console.warn("saved successfully")                
-                // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
-              }
-              let parameterNames : any =  {
-                "parameter_name":subSectionKeys[i],
-                "data":Object.values(this.response[i])
-              }
-              this.parameterRequest = this.db.transaction(["parameterStore"], "readwrite")
-              .objectStore("parameterStore")
-              .put(parameterNames)
-              this.parameterRequest.onerror = (event:any)=>{
-                this.ProjectService.openErrMsgBar("Forms will not work in offline mode.", "Internet is working.", 5000)
-              }
-              this.parameterRequest.onsuccess = (event:any)=>{
-                console.warn("saved successfully")                
-                // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
-              }
+              setTimeout(()=>{
+                let parameterNames : any =  {
+                  "parameter_name":subSectionKeys[i],
+                  "data":Object.values(this.response[i])
+                }
+                // store data in indexed DB
+                this.storeIndexedDB(pLData, parameterNames, this.db)
+              }, 3500)
               localStorage.setItem(pLData.question_id, JSON.stringify(pLData.data))
               all_question_ids.push(pLData.question_id)
             }
@@ -293,6 +269,31 @@ export class FormComponent implements OnInit, OnDestroy {
     // this.storePhysicalLocation(data["physical_location"])
     // this.storeBasicInfo(data["basic_information"])
     this.storeQuestionIds(all_question_ids)
+  }
+
+  storeIndexedDB(pLData, parameterNames, db){
+    this.vendorRequest = db.transaction(["vendorStore"], "readwrite")
+    .objectStore("vendorStore")
+    .put(pLData)
+    this.vendorRequest.onerror = (event:any)=>{
+      console.error("Some error in vendorRequest()")
+      this.ProjectService.openErrMsgBar("Pre-filled forms will not work in offline mode", "Internet is working.", 5000)
+    }
+    this.vendorRequest.onsuccess = (event:any)=>{
+      console.warn("saved successfully in vendorRequest()")                
+      // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
+    }
+    this.parameterRequest = db.transaction(["parameterStore"], "readwrite")
+    .objectStore("parameterStore")
+    .put(parameterNames)
+    this.parameterRequest.onerror = (event:any)=>{
+      console.error("Some error in parameterRequest()")      
+      this.ProjectService.openErrMsgBar("Forms will not work in offline mode.", "Internet is working.", 5000)
+    }
+    this.parameterRequest.onsuccess = (event:any)=>{
+      console.warn("saved successfully in parameterRequest()")                
+      // this.ProjectService.openErrMsgBar("We successfully saved your data. Data will be synced once you will be online.", "OFFLINE!", 7000)
+    }
   }
 
   storeQuestionIds(question_ids){
