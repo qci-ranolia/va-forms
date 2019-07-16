@@ -112,15 +112,14 @@ export class FormComponent implements OnInit, OnDestroy {
               cursor.continue()
             }
           }
-          this.vendorStore = this.db.transaction("vendorStore").objectStore("vendorStore")
-          this.vendorStore.openCursor().onsuccess = (event : any) => {
-            let cursor = event.target.result
-            if(cursor){
-
-              console.log("%c cursor.value vendor is ", "color:#800", cursor.value)
-              cursor.continue()
-            }
-          }
+          // this.vendorStore = this.db.transaction("vendorStore").objectStore("vendorStore")
+          // this.vendorStore.openCursor().onsuccess = (event : any) => {
+          //   let cursor = event.target.result
+          //   if(cursor){
+          //     // console.log("%c cursor.value vendor is ", "color:#800", cursor.value)
+          //     cursor.continue()
+          //   }
+          // }
         }
         this.request.onupgradeneeded = (event:any) => {
           this.db = event.target.result

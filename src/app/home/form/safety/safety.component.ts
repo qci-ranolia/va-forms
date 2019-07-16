@@ -49,23 +49,24 @@ export class SafetyComponent implements OnInit/* , AfterViewInit */  {
     
     // let firstCondData = this.storedSafetyQuestionId(this.safetyQuestionId)
       
-      this.storedSafetyQuestionId()
-      this.storedExtnQuestionId()
-  
-      // this.firstCond = firstCondData.src 
-      this.safetyDataIdKey = this.safetyQuestionId+'data_id'
-      this.safetyDataId = this.getDataId(this.safetyDataIdKey)
-      // this.firstCondDataId = firstCondData.data_id
-  
-      this.extnDataIdKey = this.extnQuestionId+'data_id'
-      this.extnDataId = this.getDataId(this.extnDataIdKey)
-  
-      this.APIService.questionIdLocalStorage(this.safetyQuestionId)
+    this.storedSafetyQuestionId()
+    this.storedExtnQuestionId()
+
+    // this.firstCond = firstCondData.src 
+    this.safetyDataIdKey = this.safetyQuestionId+'data_id'
+    this.safetyDataId = this.getDataId(this.safetyDataIdKey)
+    // this.firstCondDataId = firstCondData.data_id
+
+    this.extnDataIdKey = this.extnQuestionId+'data_id'
+    this.extnDataId = this.getDataId(this.extnDataIdKey)
+
+    this.APIService.questionIdLocalStorage(this.safetyQuestionId)
   }
 
   getDataId(dataIdKey){
     return localStorage.getItem(dataIdKey)
   }
+  
   storedSafetyQuestionId():any{
     this.APIService.questionIdLocalStorage(this.safetyQuestionId).then((el:any)=>{
       let storedData = JSON.parse(el)
@@ -84,6 +85,7 @@ export class SafetyComponent implements OnInit/* , AfterViewInit */  {
     // this.firstCondDataId = firstCondData.data_id
     // let storedData : any = JSON.parse(localStorage.getItem(questionId))
   }
+  
   storedExtnQuestionId():any{
     this.APIService.questionIdLocalStorage(this.extnQuestionId).then((el:any)=>{
       let storedData = JSON.parse(el)

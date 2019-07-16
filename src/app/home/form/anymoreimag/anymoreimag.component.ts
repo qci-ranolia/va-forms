@@ -14,6 +14,7 @@ export class AnymoreimagComponent implements OnInit {
   show: any;
 
   request : any
+  imageRequest : any
   requestData : any
   db : any
   vendorStore : any  
@@ -33,19 +34,26 @@ export class AnymoreimagComponent implements OnInit {
         this.request = window.indexedDB.open("offlineForms", 1)
         // console.log(this.request)
         this.request.onerror = ( event : any ) => {
-          console.error(event)
+          console.error("error while getting offlineforms in anymoreimages")
           // this.ProjectService.openErrMsgBar("We could not save your data.", "OFFLINE!", 8000)
         }
         this.request.onsuccess = (event:any)=>{
           this.db = this.request.result
-          this.vendorStore = this.db.transaction("vendorStore").objectStore("vendorStore")
-          this.vendorStore.openCursor().onsuccess = (event : any) => {
-            this.cursor = event.target.result
-            if(this.cursor){
-              console.log(this.cursor)
-              // alert("Name for id "/*+ this.cursor.value.id */+ " is " + this.cursor.value.name + ", Age: " + this.cursor.value.age)
-              this.cursor.continue()
-            }
+          this.transaction = this.db.transaction(["vendorStore"])
+          // console.log("%c this.transaction is ", "color:#800", this.transaction)
+
+          this.vendorStore = this.transaction.objectStore("vendorStore")
+          // console.log("%c this.vendorStore is ", "color:#880", this.vendorStore)
+
+          this.imageRequest = this.vendorStore.get(this.questionId)
+          // console.log("%c this.request is ", "color:#808", this.imageRequest)
+
+          this.imageRequest.onerror = (event : any) => {
+            console.error("Image corresponding to question id could not be fetched successfully ", event)
+          }
+          this.imageRequest.onsuccess = (event : any) => {
+            let x = event.target.result.data
+            this.offlinePreFilledData(x)          
           }
         }
         this.request.onupgradeneeded = (event:any) => {
@@ -72,11 +80,15 @@ export class AnymoreimagComponent implements OnInit {
     expComponent.instance._ref = expComponent;
   }
 
-  preFilledData(){
+  offlinePreFilledData(x){
+    if (x) x.filter(el => this.addComponent(this.questionId, el.data_id, el.src))
+  }
+
+  preFilledData() {
     let storedData : any = JSON.parse(localStorage.getItem(this.questionId))
     console.log("storedata is ", storedData)
-      // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src) )
-      // this.presentData = storedData
+    // if (storedData) storedData.filter(el=> this.addComponent(el.data_id, el.src))
+    // this.presentData = storedData
     if (storedData) storedData.filter(el=> this.addComponent(this.questionId, el.data_id, el.src) )
   }
 
