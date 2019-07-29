@@ -11,7 +11,7 @@ export class AnymoreimagComponent implements OnInit {
 
   // this needs to be changed based on the backend question_id
   questionId : any = "065af52b6c0c07cc26771f6534b6b5e0"
-  show: any;
+  show: any
 
   request : any
   imageRequest : any
@@ -22,7 +22,10 @@ export class AnymoreimagComponent implements OnInit {
   offlineFormData : any = new Array()
   transaction : any
 
-  @ViewChild('parent', { read: ViewContainerRef }) container: ViewContainerRef;
+  @ViewChild('parent', {
+    read: ViewContainerRef
+  }) container: ViewContainerRef
+
   constructor(private _cfr: ComponentFactoryResolver, ) {}
 
   ngOnInit() {
